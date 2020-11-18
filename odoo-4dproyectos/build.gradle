@@ -1,0 +1,572 @@
+import java.text.SimpleDateFormat
+import java.util.Date
+import org.ajoberstar.grgit.*
+import javax.swing.JFrame
+import javax.swing.JOptionPane
+
+// Plugin para hacer ssh y sftp
+buildscript {
+	repositories {
+		mavenCentral()
+		jcenter()
+	}
+	dependencies {
+		classpath 'org.hidetake:gradle-ssh-plugin:2.1.2'
+		classpath 'org.ajoberstar:gradle-git:1.1.0' 
+	}
+}
+
+// Asignacion de variables
+project.ext.odoo = [
+	integracion : [
+		host : project.property("integracion.host"),
+		port : project.property("integracion.port")
+	],
+	hub : project.property("eticco.hub"),
+	loglines : project.property("log.lines"),
+	version : project.property("odoo.version"),
+	revision : project.property("odoo.revision"),
+	cliente : project.property("odoo.cliente"),
+	port : project.property("odoo.port"),
+	name : 'odoo' + project.property("odoo.version") + '_' + project.property("odoo.cliente"),
+	exists_extra_addons : project.property("exists.extra_addons"),
+	exists_unconfirmed_third_party_addons : project.property("exists.unconfirmed_third_party_addons"),
+	extra_addons_resource_dir : project.property("extra_addons.resource.dir")
+]
+
+// Funcion confirmacion
+def confirmShare (String msg) {
+	JFrame frmOpt = new JFrame()
+	frmOpt.setVisible(true)
+	frmOpt.setLocation(800, 400)
+	frmOpt.setAlwaysOnTop(true)
+	int result = JOptionPane.showConfirmDialog(
+		frmOpt,
+		msg,
+		"Confirmación",
+		JOptionPane.YES_NO_OPTION)
+
+	boolean mustContinue = result == JOptionPane.YES_OPTION
+	frmOpt.dispose()
+	return mustContinue
+}
+
+
+// Tareas Desarrollo Docker
+task dockerMachineStartDev() {
+	group 'eticco-docker-machine-desarrollo'
+	description 'Iniciar maquina virtual de Docker'
+	
+	// Iniciar docker machine
+	doLast {
+		odooCMD('docker-machine start')
+		odooDockerTask('start', null, 'postgres10')
+	}
+}
+
+task dockerMachineStopDev() {
+	group 'eticco-docker-machine-desarrollo'
+	description 'Parar maquina virtual de Docker'
+	
+	// Parar docekr machine
+	doLast {
+		odooDockerTask('update --restart=no %container%', null, 'postgres10')
+		odooDockerTask('exec -it --user=postgres %container% sh -c "pg_ctl -D $PGDATA -w stop"', null, 'postgres10')
+		odooCMD('docker-machine stop');
+	}
+}
+
+task StopAllContainer() {
+	group 'eticco-docker-machine-desarrollo'
+	description 'Parar todos los contenedores y arranca unicamente el de postgres y odoo de este proyecto (Liberar memoria)'
+	
+	doLast {
+		odooDockerTask('update --restart=no %container%', null, 'postgres10')
+		odooDockerTask('exec -it --user=postgres %container% sh -c "pg_ctl -D $PGDATA -w stop"', null, 'postgres10')
+		odooCMD("FOR /F \"tokens=*\" %a in ('docker ps -a -q') do  docker stop %a")
+		odooDockerTask('start', null, 'postgres10')
+		odooDockerTask('start')
+		
+	}
+}
+
+// Tareas Desarrollo Odoo
+task odooStopContainerDev() {
+	group 'eticco-odoo-desarrollo'
+	description 'Parar contenedor de Odoo'
+	
+	// Parar Odoo
+	doLast {
+		odooDockerTask('stop')
+	}
+}
+
+task odooStartContainerDev() {
+	group 'eticco-odoo-desarrollo'
+	description 'Iniciar contenedor de Odoo'
+	
+	// Arrancar Odoo
+	doLast {
+		odooDockerTask('start')
+	}
+}
+
+task odooBuildContainerDev() {
+	group 'eticco-odoo-desarrollo'
+	description 'Construye contenedor de Odoo. NOTA: Revisar que no exista otro contenedor con el mismo cliente y mismo puerto, ambos definidos en el properties'
+
+	doLast {
+		if(confirmShare("¿Has verificado que no tengas otro contenedor de Odoo en el mismo puerto instalado y que Postgres está arrancado?")) {
+			odooDockerTask('exec -it %container% sh -c "PGPASSWORD=pgeticco psql -Upgeticco postgres -c \\\"CREATE USER %name% WITH PASSWORD \'%name%\';\\\""', null, 'postgres10');
+			odooDockerTask('exec -it %container% sh -c "PGPASSWORD=pgeticco psql -Upgeticco postgres -c \\\"CREATE DATABASE %name% OWNER %name% ENCODING \'utf8\';\\\""', null, 'postgres10');
+			odooDockerTask('exec -it %container% sh -c "PGPASSWORD=pgeticco psql -Upgeticco postgres -c \\\"GRANT ALL PRIVILEGES ON DATABASE %name% TO %name%;\\\""', null, 'postgres10');
+			odooDockerTask('exec -it %container% sh -c "PGPASSWORD=pgeticco psql -Upgeticco postgres -c \\\"ALTER USER %name% CREATEDB;\\\""', null, 'postgres10');
+			buildContainerTask();
+		} else {
+			System.out.println "Creación de contenedor de Odoo cancelado por el usuario..." 
+		}
+	}
+
+}
+
+task odooUpgradeContainerDev() {
+	group 'eticco-odoo-desarrollo'
+	description 'Actualiza el contenedor con la ultima imagen'
+
+	doLast {
+		odooDockerTask('stop');
+		odooDockerTask('rm %container%');
+		odooDockerTask('rmi %eticco_hub%/eticco/odoo:%version%.%revision%');
+		buildContainerTask();
+	}
+}
+
+task odooUploadCustomDev() {
+	group 'eticco-odoo-desarrollo'
+	description 'Sube el contenido de extra_addons y unconfirmed_third_party_addons y reinicia el contenedor de Odoo'
+	
+	doLast {
+		// ¿hay que subir extra_addons?
+		if (project.ext.odoo.exists_extra_addons == "true") {
+			odooDockerTask('exec -it --user=root %container% sh -c "rm -rf /opt/odoo/extra_addons/*"')
+			odooDockerTask('cp %extra_addons%/. %container%:/opt/odoo/extra_addons/')
+		}
+		// ¿hay que subir unconfirmed_third_party_addons?
+		if (project.ext.odoo.exists_unconfirmed_third_party_addons == "true") {
+			odooDockerTask('exec -it --user=root %container% sh -c "rm -rf /opt/odoo/unconfirmed_third_party_addons/*"')
+			odooDockerTask('cp unconfirmed_third_party_addons/ %container%:/opt/odoo/')
+		}
+		// Reiniciar Odoo
+		odooDockerTask('stop')
+		odooDockerTask('start')
+	}
+	
+	
+}
+
+task runBrowser() {
+	group 'eticco-odoo-desarrollo'
+	description 'Detecta la IP de la maquina de Docker y abre el navegado, por defecto, con la url http://IPDOCKER:PUERTO-DEFINIDO'
+	
+	// Iniciar el navegador por defecto con la URL
+	doLast {
+		odooCMD("FOR /F \"tokens=*\" %a in ('docker-machine ip') do rundll32 url.dll,FileProtocolHandler http://%a:" + project.ext.odoo.port);
+	}
+}
+
+task odooLogContainerDev() {
+	group 'eticco-odoo-desarrollo'
+	description 'Abre una terminal con el log, en tiempo real, de Odoo'
+	
+	// Abrir Log
+	doLast {
+		odooDockerTask('log')
+	}
+}
+
+// Tareas Desarrollo Postgres
+task postgresBuildContainerDev() {
+	group 'eticco-postgres-desarrollo'
+	description 'Construye contenedor de Postgres. NOTA: Verificar que no exista otro contenedor de Postgres en ejecucion'
+	
+	doLast {
+		if(confirmShare("¿Has verificado que no tengas otro contenedor de Posgres instalado?")) {
+			odooDockerTask('run -d -e POSTGRES_USER=pgeticco -e POSTGRES_PASSWORD=pgeticco -e POSTGRES_DB=postgres -v postgres10_data:/var/lib/postgresql/data -p 5432:5432 --name %container% postgres:10', null, 'postgres10');
+		} else {
+			System.out.println "Creación de contenedor Postgres cancelado por el usuario..." 
+		}
+	}
+  	
+}
+
+task postgresStopContainerDev() {
+	group 'eticco-postgres-desarrollo'
+	description 'Parar contenedor de Postgres'
+	
+	// Parar Postgres
+  	doLast {
+  		odooDockerTask('update --restart=no %container%', null, 'postgres10')
+		odooDockerTask('exec -it --user=postgres %container% sh -c "pg_ctl -D $PGDATA -w stop"', null, 'postgres10')
+		odooDockerTask('stop', null, 'postgres10')
+	}
+}
+
+task postgresStartContainerDev() {
+	group 'eticco-postgres-desarrollo'
+	description 'Iniciar contenedor de Postgres'
+	
+	// Iniciar Postgres
+	doLast {
+		odooDockerTask('start', null, 'postgres10')
+	}
+}
+
+// Tareas Odoo Integracion
+
+task odooStopContainerInt() {
+	group 'eticco-odoo-integracion'
+	description 'Parar contenedor de Odoo'
+	
+	// Parar Odoo
+	doLast {
+		odooDockerTask('stop', 'integracion')
+	}
+}
+
+task odooStartContainerInt() {
+	group 'eticco-odoo-integracion'
+	description 'Iniciar contenedor de Odoo'
+	
+	// Iniciar Odoo
+	doLast {
+		odooDockerTask('start', 'integracion')
+	}
+}
+
+task odooUploadCustomInt() {
+	group 'eticco-odoo-integracion'
+	description 'Sube el contenido de extra_addons y unconfirmed_third_party_addons y reinicia el contenedor de Odoo'
+	
+	doLast {
+		if(confirmShare("Va a desplegar en el entorno compartido de integración, ¿está seguro?")){
+			// ¿hay que subir extra_addons?
+			if (project.ext.odoo.exists_extra_addons == "true") {
+				odooDockerTask('exec -it --user=root %container% sh -c "rm -rf /opt/odoo/extra_addons/*', 'integracion"')
+				odooDockerTask('cp %extra_addons%/. %container%:/opt/odoo/extra_addons/', 'integracion')
+			}
+			// ¿hay que subir unconfirmed_third_party_addons?
+			if (project.ext.odoo.exists_unconfirmed_third_party_addons == "true") {
+				odooDockerTask('exec -it --user=root %container% sh -c "rm -rf /opt/odoo/unconfirmed_third_party_addons/*', 'integracion"')
+				odooDockerTask('cp unconfirmed_third_party_addons/ %container%:/opt/odoo/', 'integracion')
+			}
+			// Reiniciar Odoo
+			odooDockerTask('stop', 'integracion')
+			odooDockerTask('start', 'integracion')			
+		} else {
+			System.out.println "Despliegue en Integración cancelado por el usuario..." 
+		}
+	}
+		
+}
+
+task odooLogContainerInt() {
+	group 'eticco-odoo-integracion'
+	description 'Abre una terminal con el log, en tiempo real, de Odoo'
+	
+	// Abrir Log
+	doLast {
+		odooDockerTask('log', 'integracion')
+	}
+}
+
+// Funcion para desplegar addons en la mÃ¡quina virtual
+def uploadFolderInt(String sourceFolder, String destFolder) {
+	if(confirmShare("Va a desplegar en el entorno compartido de integración, ¿está seguro?")){
+		odooDockerTask('exec --user=root %container% rm -rf /opt/odoo/third_party_addons/*', 'integracion');
+		odooDockerTask('cp ' + sourceFolder + '/. %container%:/opt/odoo/third_party_addons/', 'integracion');
+		odooDockerTask('stop', 'integracion');
+		odooDockerTask('start', 'integracion');
+	} else {
+		System.out.println "Despliegue en Integración cancelado por el usuario..." 
+	}
+	
+}
+def uploadFolderDev(String sourceFolder, String destFolder) {
+	odooDockerTask('exec --user=root %container% rm -rf /opt/odoo/third_party_addons/*');
+	odooDockerTask('cp ' + sourceFolder + '/. %container%:/opt/odoo/third_party_addons/');
+	odooDockerTask('stop');
+	odooDockerTask('start');
+}
+
+// Coloca los repositorios de Addons de terceros en la version que necesitamos para este proyecto - Juan Lopez
+task odooDependenciesThirdParty {
+	group 'eticco-odoo-desarrollo'
+	description 'Descarga dependencias de terceros'
+	
+	def props = project.properties
+	doLast {
+		props.each{  
+			if (it.key.endsWith('.revision') && !it.key.startsWith('odoo.')) {
+				def repo = it.key.substring(0, it.key.indexOf('.revision'))
+				println "Procesando repositorio: " + repo + "..."
+				def folder = new File(projectDir.path + '/../../' + repo)
+				if( !folder.exists() ) {
+					println "Clonando repositorio " + repo + "..."
+					folder.mkdirs()
+					Grgit.clone(dir: folder, uri: project.property(repo + '.url'))
+				}
+				repoDependency(projectDir.path + '/../../' + repo, project.property('odoo.version'), it.value)
+			} 
+		}
+	}
+}
+
+// Funcion para copiar los addons de un repositorio local a este proyecto como paso previo a desplegarlos - Juan Lopez
+def copyAddons(String sourceFolder, String destFolder, String addonsStr) {
+	if (addonsStr != null) {
+		def addons = addonsStr.split(',')
+		for (int i=0; i<addons.length; i++) {
+	 		copy {
+	        	from projectDir.path + '/../../' + sourceFolder + '/' + addons[i]
+	        	into destFolder + '/' + addons[i]
+	    	}   	
+		}
+	} else {
+	 		copy {
+	        	from projectDir.path + '/../../' + sourceFolder 
+	        	into destFolder
+	    	}   	
+	}
+}
+
+task odooUploadThirdPartyAddonsInt(dependsOn:['odooDependenciesThirdParty']) {
+	group 'eticco-odoo-integracion'
+	description 'Subiendo dependencias de terceros'
+	
+	doLast {
+		println "Subiendo addons de terceros en el entorno local del usuario..." 
+		project.file(project.property('third_party.resources.dir')).deleteDir()
+		project.file(project.property('third_party.resources.dir')).mkdirs()
+		def props = project.properties
+		props.each{  
+			if (it.key.endsWith('.addons') && !it.key.startsWith('odoo.')) {
+				def repo = it.key.substring(0, it.key.indexOf('.addons'))
+				println "Desplegando addons del repositorio: " + repo + "..."
+				copyAddons(repo, project.property('third_party.resources.dir'), it.value)
+			} 
+		}
+	
+		uploadFolderInt(project.property('third_party.resources.dir'), project.property('third_party.resources.dir'))
+	}
+}
+
+task odooUploadThirdPartyAddonsDev(dependsOn:['odooDependenciesThirdParty']) {
+	group 'eticco-odoo-desarrollo'
+	description 'Subiendo dependencias de terceros'
+	
+	doLast {
+		println "Subiendo addons de terceros en el entorno local del usuario..." 
+		project.file(project.property('third_party.resources.dir')).deleteDir()
+		project.file(project.property('third_party.resources.dir')).mkdirs()
+		def props = project.properties
+		props.each{  
+			if (it.key.endsWith('.addons') && !it.key.startsWith('odoo.')) {
+				def repo = it.key.substring(0, it.key.indexOf('.addons'))
+				println "Desplegando addons del repositorio: " + repo + "..."
+				copyAddons(repo, project.property('third_party.resources.dir'), it.value)
+			} 
+		}
+	
+		uploadFolderDev(project.property('third_party.resources.dir'), project.property('third_party.resources.dir'))
+	}
+}
+
+// ThirdParty - Tarea Juan Lopez
+// Funcion para actualizar un repositorio local a la revisiÃ³n exacta de un proyecto
+def repoDependency(String project, String version, String revision) {
+	version = version + ".0"
+	def grgit = Grgit.open(dir: project);
+	println "Descargando rama del proyecto " + project + "...";
+	println "Version " + version 
+	grgit.checkout(branch: 'remotes/origin/' + version);
+	grgit.branch.remove(names: [version], force: true);
+	grgit.checkout(branch: version, createBranch:'true', startPoint: 'remotes/origin/' + version);
+	println "Descargando Ãºltimos cambios...";
+	grgit.pull(rebase: false);
+	if (revision != 'last') {
+		println "Moviendo a commit concreto del proyecto...";
+		grgit.checkout(branch: revision);
+	} else {
+		println "Utilizando Ãºltima revisiÃ³n...";
+	}
+}
+
+task odooUploadLastFiles {
+	group 'eticco-odoo-desarrollo'
+	description 'Sube los ultimos cambios (ficheros que no estan en ningun commit) y actualiza los modulos'
+	
+	doLast {
+ 		odooUploadLastFiles_task(true);
+ 	}
+}
+
+task odooUploadLastFilesNoUpdate {
+	group 'eticco-odoo-desarrollo'
+	description 'Sube los ultimos cambios (ficheros que no estan en ningun commit) SIN actualizar los modulos'
+	
+	doLast {
+ 		odooUploadLastFiles_task(false);
+ 	}
+}
+
+def odooUploadLastFiles_task(boolean update) {
+	def grgit = Grgit.open(dir: projectDir.path + '/../');
+	def file_modified = grgit.status();
+	
+	String module_name = ""
+	String update_modules = ""
+	
+	file_modified.staged.added.each {
+		if(it.indexOf(project.ext.odoo.extra_addons_resource_dir) != -1) {
+    		String file_upload = it.substring(it.indexOf("/") + 1, it.length());
+			file_upload = file_upload.substring(file_upload.indexOf("/") + 1, file_upload.length());
+			
+			module_name = file_upload.substring(0, file_upload.indexOf("/"));
+			if (update_modules.indexOf(module_name) == -1) {
+				if (update_modules == "") {
+					update_modules = module_name
+				} else {
+					update_modules = update_modules + "," + module_name
+				}
+			}
+    		
+			odooDockerTask('cp %extra_addons%/' + file_upload + ' %container%:/opt/odoo/extra_addons/' + file_upload)
+		}
+	}
+	
+	file_modified.staged.modified.each {
+		if(it.indexOf(project.ext.odoo.extra_addons_resource_dir) != -1) {
+    		String file_upload = it.substring(it.indexOf("/") + 1, it.length());
+			file_upload = file_upload.substring(file_upload.indexOf("/") + 1, file_upload.length());
+    		
+    		module_name = file_upload.substring(0, file_upload.indexOf("/"));
+			if (update_modules.indexOf(module_name) == -1) {
+				if (update_modules == "") {
+					update_modules = module_name
+				} else {
+					update_modules = update_modules + "," + module_name
+				}
+			}
+			
+			odooDockerTask('cp %extra_addons%/' + file_upload + ' %container%:/opt/odoo/extra_addons/' + file_upload)
+		}
+	}
+	
+	file_modified.unstaged.added.each {
+		if(it.indexOf(project.ext.odoo.extra_addons_resource_dir) != -1) {
+			String file_upload = it.substring(it.indexOf("/") + 1, it.length());
+			file_upload = file_upload.substring(file_upload.indexOf("/") + 1, file_upload.length());
+    		
+    		module_name = file_upload.substring(0, file_upload.indexOf("/"));
+			if (update_modules.indexOf(module_name) == -1) {
+				if (update_modules == "") {
+					update_modules = module_name
+				} else {
+					update_modules = update_modules + "," + module_name
+				}
+			}
+			
+			odooDockerTask('cp %extra_addons%/' + file_upload + ' %container%:/opt/odoo/extra_addons/' + file_upload)
+		}
+	}
+	
+	file_modified.unstaged.modified.each {
+		if(it.indexOf(project.ext.odoo.extra_addons_resource_dir) != -1) {
+			String file_upload = it.substring(it.indexOf("/") + 1, it.length());
+			file_upload = file_upload.substring(file_upload.indexOf("/") + 1, file_upload.length());
+    		
+    		module_name = file_upload.substring(0, file_upload.indexOf("/"));
+			if (update_modules.indexOf(module_name) == -1) {
+				if (update_modules == "") {
+					update_modules = module_name
+				} else {
+					update_modules = update_modules + "," + module_name
+				}
+			}
+			
+			odooDockerTask('cp %extra_addons%/' + file_upload + ' %container%:/opt/odoo/extra_addons/' + file_upload)
+		}
+	}
+	
+	// Parar odoo
+	odooDockerTask('exec -it %container% sh -c "ps aux | grep -ie odoo-bin | awk \'{print \$2}\' | xargs kill -9"')
+	odooDockerTask('exec -it %container% sh -c "ps aux | grep -ie tail | awk \'{if(NR>2)print}\' | awk \'{print \$2}\' | xargs kill -9"')
+	odooDockerTask('exec -it %container% sh -c "ps aux | grep -ie entrypoint | awk \'{if(NR>1)print}\' | awk \'{print \$2}\' | xargs kill -9"')
+	odooDockerTask('exec -it %container% sh -c "echo ERROR ? Server stop >> /opt/odoo/logs/odoo-server.log"')
+	if (update) {
+		odooDockerTask('exec -it %container% sh -c "echo INFO ? Se inicia con: -u ' + update_modules + ' >> /opt/odoo/logs/odoo-server.log"')
+	} else {
+		odooDockerTask('exec -it %container% sh -c "echo INFO ? Se inicia con: >> /opt/odoo/logs/odoo-server.log"')
+	}
+	
+	// Iniciar odoo 
+	if (update) {
+		odooDockerTask('exec -dit %container% sh -c "/opt/odoo/entrypoint.sh odoo -u ' + update_modules + '"')
+	} else {
+		odooDockerTask('exec -dit %container% sh -c "/opt/odoo/entrypoint.sh odoo"')
+	}
+	
+}
+
+// Funciones
+void buildContainerTask() {
+	odooDockerTask('run -p %port%:8069 --name %container% -v %container%_extra_addons:/opt/odoo/extra_addons -v %container%_third_party_addons:/opt/odoo/third_party_addons -v %container%_unconfirmed_third_party_addons:/opt/odoo/unconfirmed_third_party_addons -v %container%_data:/opt/odoo/odoo_data -v %container%_conf:/opt/odoo/conf -v %container%_logs:/opt/odoo/logs -e USER=%container% -e PASSWORD=%container% --link postgres10:db -t %eticco_hub%/eticco/odoo:%version%.%revision%', null, null, true);
+}
+
+void odooDockerTask(String tarea, String entorno = null, String contenedor = null, boolean execBackground = false) {
+	// Asignacion por defecto
+	entorno = (entorno == null) ? 'desarrollo' : 'integracion';
+	contenedor = (contenedor == null) ? project.ext.odoo.name : contenedor;
+		
+	// Composicion Docker
+	String docker = (entorno == 'integracion') ? 'docker --tlsverify=false -H ' + project.ext.odoo.integracion.host + ':' + project.ext.odoo.integracion.port + ' ' : 'docker ';
+
+	switch (tarea) {
+		case 'start':
+			println '[' + entorno + '] Iniciando el contenedor ' + contenedor
+			docker += 'start ' + contenedor;
+            break;
+        case 'stop':
+        	println '[' + entorno + '] Parando el contenedor ' + contenedor
+        	docker += 'stop ' + contenedor;
+            break;
+        case 'log':
+        	println '[' + entorno + '] Obtenemos el log del contenedor ' + contenedor
+        	execBackground = true;
+        	docker += 'logs -f --tail ' + project.ext.odoo.loglines + ' ' + contenedor;
+        	break;
+        default:
+        	tarea = tarea.replace("%container%", contenedor);
+        	tarea = tarea.replace("%name%", project.ext.odoo.name);
+        	tarea = tarea.replace("%port%", project.ext.odoo.port);
+        	tarea = tarea.replace("%eticco_hub%", project.ext.odoo.hub);
+        	tarea = tarea.replace("%version%", project.ext.odoo.version);
+        	tarea = tarea.replace("%revision%", project.ext.odoo.revision);
+        	tarea = tarea.replace("%extra_addons%", project.ext.odoo.extra_addons_resource_dir);
+        	println 'Ejecutando en docker: ' + tarea
+        	docker += tarea;
+            break;
+    }
+
+	odooCMD(docker, execBackground)
+}
+
+void odooCMD(String command, boolean background = false) {
+	if (background) {
+		ext.process = new ProcessBuilder().directory(projectDir).command("cmd", '/c', 'start cmd /k ' + command).start()
+	} else {
+		exec {
+			commandLine 'cmd', '/c', 'start /MIN cmd /c ' + command
+		}
+	}
+}

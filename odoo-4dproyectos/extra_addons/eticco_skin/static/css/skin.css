@@ -1,0 +1,227 @@
+/* NAVEGACIÓN */
+/* Color primario: Sustituir #primario por el código hexadecimal
+   Color secundario: Sustituir #secundario por el código hexadecimal	
+*/
+.o_web_client .nav-pills > li.active > a, .o_web_client a.list-group-item.active > a {
+	background-color:#secundario;
+}
+
+.o_web_client .nav-pills > li.active > a:hover, .o_web_client a.list-group-item.active > a:hover {
+	background-color:#secundario;
+}
+
+.o_web_client .nav-pills > li.active a:hover, .o_web_client .nav-pills > li.active a:focus, .o_web_client a.list-group-item.active a:hover, .o_web_client a.list-group-item.active a:focus {
+	background-color:#secundario;
+}
+
+.o_web_client > .o_main .o_sub_menu .o_sub_menu_content .oe_secondary_menu_section, .o_web_client a, .o_web_client .oe_view_manager table.oe_view_manager_header h2 a {
+	color:#primario;
+}
+
+.o_web_client a.btn-primary {
+	color: #fff;
+}
+
+.o_web_client .oe_application a, .o_web_client .oe_searchview_drawer dt, .o_web_client .oe_about a {
+	color:#primario;
+}
+
+.o_form_view .o_form_field.o_form_field_many2one .o_external_button {
+	color:#primario;
+	background: transparent;	
+}
+
+.o_web_client .o_kanban_view.o_kanban_dashboard.o_kanban_ungrouped .o_kanban_card_header .o_web_client .o_kanban_card_header_title .o_primary, 
+.o_web_client .o_kanban_view.o_kanban_dashboard.o_kanban_grouped .o_kanban_card_header .o_kanban_card_header_title .o_primary, 
+.o_web_client .o_kanban_view.o_kanban_dashboard.o_kanban_ungrouped a, .o_web_client .o_kanban_view.o_kanban_dashboard.o_kanban_grouped a {
+	color:#primario;
+}
+
+.o_kanban_view.o_kanban_dashboard.o_kanban_ungrouped .o_kanban_card_header .o_kanban_card_header_title div.o_primary {
+	color:#primario;
+}
+
+.oe-selection-focus {
+	background-color:#primario;
+}
+
+span.oe_facet_category.oe_i {
+	background-color:#primario;
+}
+
+.o_web_client .oe_about .user-details .user-info-block .navigation li.active a, .o_web_client .oe_about .label {
+	background-color:#primario;
+}
+.oe_logo, .oe_secondary_menus_container {
+	background:#fff;
+}
+
+.o_web_client .oe_horizontal_separator, .oe_button.oe_form_button.oe_link span {
+	color:#primario;
+}
+
+/* BOTONES */
+
+.o_web_client button.oe_highlight, .o_web_client .oe_followers button.oe_follower.oe_following {
+	background:#primario;
+}
+
+
+.o_web_client button.oe_highlight:hover {
+	background:#secundario;
+}
+
+.o_web_client div.oe_form_sheet.oe_form_sheet_width {
+	border-top: 2px solid #primario;
+	border-radius:5px 5px 0px 0px;
+}
+
+.o_web_client .oe_popup_form div.oe_form_sheet.oe_form_sheet_width {
+	border-top:none;
+}
+
+.o_web_client a.button:link, .o_web_client a.button:visited, .o_web_client button, .o_web_client .oe_button, .o_web_client input[type='submit'] {
+	background:#eee;
+}
+
+.o_web_client .btn.btn-primary {
+	background: #primario;
+}
+
+.o_web_client .oe_list_content > tbody > tr > td.oe_list_field_cell {
+	padding:5px 6px;
+}
+
+.o_web_client .oe_searchview .oe-autocomplete ul li.oe-selection-focus {
+	background:#primario;
+}
+.o_web_client .oe_searchview .oe-autocomplete ul li {
+	padding-top:3px;
+	padding-bottom:3px;
+}
+
+.o_web_client .oe_dropdown_menu > li:hover {
+	background: #d7f5c5;
+}
+
+.o_web_client .oe_dropdown_menu > li {
+	padding: 4px 8px;
+}
+
+.o_web_client .oe_form input[type="text"], .o_web_client .oe_form input[type="password"], 
+	.o_web_client .oe_form input[type="file"], .o_web_client .oe_form select {
+	height: 24px;
+}
+
+.o_web_client .oe_list_content td, .o_web_client .oe_list_content th {
+	padding-top: 4px;
+    padding-bottom: 2px;
+}
+
+/* TOOLTIP */
+.o_web_client .o_tooltip {
+	border-color: #primario;
+}
+
+.o_web_client .o_tooltip.bottom::before {
+    border-bottom-color: #primario;
+}
+
+.o_web_client .o_tooltip.left::before {
+	border-left-color: #primario;
+}
+
+.o_web_client .o_tooltip.right::before {
+	border-right-color: #primario;
+}
+
+.o_web_client .o_tooltip.top::before {
+	border-top-color: #primario;
+}
+
+.o_web_client .o_tooltip.bottom::after, .o_web_client .o_tooltip.left::after, .o_web_client .o_tooltip.right::after, .o_web_client .o_tooltip.top::after {
+    background: radial-gradient(#0982e2, #primario);
+}
+
+.navbar {
+	min-height: 36px;
+	border-top:0;
+}
+
+.navbar-nav > li > a {
+	line-height: 36px;
+}
+
+.o_planner_systray > .progress {
+	margin-top: 17px;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+	color: #fff;
+}
+
+.navbar-inverse {
+    background-color: #primario;
+    border-color: #643ea8;
+    color: #fff;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+	background: #secundario;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+	background: #secundario;
+}
+
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+    color: #fff;
+    background-color: #secundario;
+}
+
+.o_web_client > .o_main .o_sub_menu, .o_web_client > .o_main .o_main_content .o_control_panel, .o_control_panel .breadcrumb {
+	background: #fff;
+}
+
+.o_control_panel .breadcrumb > li > a, .o_form_view .oe_button_box .oe_stat_button .o_button_icon {
+	color: #primario;
+}
+
+.o_loading {
+	background: #000;
+}
+
+.o_searchview .o_searchview_autocomplete li.o-selection-focus {
+	background: #primario;
+}
+
+
+.ui-autocomplete .ui-menu-item.ui-state-focus {
+	background: #primario;
+}
+
+.o_web_client .ui-autocomplete .ui-menu-item.o_m2o_dropdown_option.ui-state-focus > a {
+	color: #fff;
+}
+
+
+.o_web_client .ui-autocomplete .ui-menu-item.o_m2o_dropdown_option > a, .o_web_client .o_form_view.o_form_readonly .o_form_uri:first-line, 
+.o_web_client .o_form_view .oe_link, .btn-link, .o_web_client .o_kanban_view.o_kanban_dashboard.o_kanban_ungrouped .o_kanban_card_header 
+.o_web_client .o_kanban_card_header_title .o_primary, .o_web_client .o_kanban_view.o_kanban_dashboard.o_kanban_grouped .o_kanban_card_header 
+.o_web_client .o_kanban_card_header_title .o_primary, .o_web_client .o_form_view .o_horizontal_separator {
+	color: #primario;
+}
+
+.o_form_view .oe_link:hover, .o_form_view .oe_link:focus, .o_form_view.o_form_readonly .o_form_uri:hover:first-line, .btn-link:hover, .btn-link:focus {
+	color: #secundario;
+}
+
+.o_form_view ul.oe_form_status li.oe_active, .o_form_view ul.oe_form_status_clickable li.oe_active, .o_form_view ul.oe_form_status li.oe_active > .arrow span, .o_form_view ul.oe_form_status_clickable li.oe_active > .arrow span {
+	background-color: #primario;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#primario), to(#primario));
+    background-image: -webkit-linear-gradient(top, #primario, #primario);
+    background-image: -moz-linear-gradient(top, #primario, #primario);
+    background-image: -ms-linear-gradient(top, #primario, #primario);
+    background-image: -o-linear-gradient(top, #primario, #primario);
+    background-image: linear-gradient(to bottom, #primario, #primario);
+}

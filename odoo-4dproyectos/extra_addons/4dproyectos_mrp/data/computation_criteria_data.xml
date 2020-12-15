@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo noupdate="1">
+
+	<record model="mrp.computation.criteria" >
+	    <field name="name">Nº de piezas de madera</field>
+	</record>
+	<record model="mrp.computation.criteria" >
+	    <field name="name">Nº metros lineales de madera</field>
+	</record>
+		<record model="mrp.computation.criteria" >
+	    <field name="name">Nº de hojas de ventana</field>
+	</record>
+		<record model="mrp.computation.criteria" >
+	    <field name="name">Nº de piezas de aluminio</field>
+	</record>
+		
+</odoo>

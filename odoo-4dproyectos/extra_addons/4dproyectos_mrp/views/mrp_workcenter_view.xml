@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- Formulario de centro de coste -->
+	<record id="mrp_workcenter_view_inherit"
+		model="ir.ui.view">
+		<field name="name">mrp.workcenter.form</field>
+		<field name="model">mrp.workcenter</field>
+		<field name="inherit_id" ref="mrp.mrp_workcenter_view" />
+		<field name="arch" type="xml">
+			<field name="code" position="before">
+				<field name="computation_criteria_id" />
+			</field>
+		    
+		</field>
+	</record>
+
+
+
+</odoo>

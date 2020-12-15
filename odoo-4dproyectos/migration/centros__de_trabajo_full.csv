@@ -1,0 +1,19 @@
+﻿;PUESTO;CRITERIO DE CÓMPUTO;DESCRIPCIÓN
+1;Tronzadora;Nº de piezas de madera;Cortar madera de largo
+2;Sierra;Nº metros lineales de madera;Seccionar madera
+3;Moldurera;Nº metros lineales de madera;Cepillar madera a 4 caras
+4;Tupi (especiales);Nº metros lineales de madera;Trabajos especiales
+5;CNC;Nº de piezas de madera;Perfilar, moldurar y mecanizar piezas ventana
+6;Calibradora;Nº metros lineales de madera;Lijar ventanas y marcos
+7;Clips;Nº metros lineales de madera;Colocar clips de sujeción aluminio en banco herrajes
+8;Prensa;Nº de piezas de madera;Armar ventanas y marcos
+9;Repasado;Nº de piezas de madera;Repasar final ajunquillado antes de barnizar
+10;Barnizar;;ESTE TRABAJO ESTA EXTERNALIZADO
+11;Fallebas;Nº de hojas de ventana;Colocar fallebas a las ventanas en banco herrajes
+12;Montar hojas;Nº de piezas de madera de hoja;Colocar herrajes, aluminio, gomas y vidrio a las hojas
+13;Montar marcos;Nº de piezas de aluminio de marco;Colocar aluminio a los marcos
+14;Abisagrar C/P;Nº de vidrios fijos + nº de hojas C/P;Montar marcos, colocar cajón y colgar hojas en los marcos
+14;Abisagrar S/P;Nº de vidrios fijos + nº de hojas S/P;Montar marcos, colocar cajón y colgar hojas en los marcos
+15;Corte aluminio;Nº de piezas de aluminio;Cortar perfiles de aluminio
+16;Ensamblar y colocar gomas;Nº de piezas de aluminio;Armar perfiles de aluminio y colocar las gomas
+17;Embalaje, carga y descarga;;Proteger ventanas para transporte + carga/descarga materiales

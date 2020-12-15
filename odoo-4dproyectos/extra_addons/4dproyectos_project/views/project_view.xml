@@ -5,6 +5,7 @@
 		model="ir.actions.act_window">
 		<field name="name">Projects</field>
 		<field name="res_model">project.project</field>
+		<field name="view_mode">tree,kanban,form</field>
         <field name="view_id" ref="project.view_project"/>
 	</record>
 

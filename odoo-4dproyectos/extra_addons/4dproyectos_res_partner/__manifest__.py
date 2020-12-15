@@ -8,7 +8,7 @@
     'category': 'Eticco',
     'version': '14.0.1',
     'depends': [
-        'project',
+        'sale_management',
     ],
     'data': [
             'views/res_partner_view.xml',

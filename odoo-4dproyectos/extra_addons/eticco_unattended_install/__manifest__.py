@@ -11,6 +11,11 @@
     'version': '14.0.1',
     'depends': [
         'base',
+		'hr_timesheet',
+		'maintenance',
+        'mrp',
+        'project',
+        'stock',
         
     ],
     'data': [],

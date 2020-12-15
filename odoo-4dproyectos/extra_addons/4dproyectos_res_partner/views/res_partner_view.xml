@@ -7,14 +7,12 @@
 		<field name="inherit_id" ref="base.view_partner_form" />
 		<field name="arch" type="xml">
 		
-			<field name="property_payment_term_id" position="before" >
+			<xpath expr="//page[@name='sales_purchases']//group[@name='sale']" position="inside">
 				<field name="customer" />
-			</field>
-			
-			<field name="property_supplier_payment_term_id" position="before">
+			</xpath>
+			<xpath expr="//page[@name='sales_purchases']//group[@name='purchase']" position="inside">
 				<field name="supplier" />
-			</field>
-			
+			</xpath>	
 		
 		</field>
 	</record>

@@ -15,6 +15,7 @@
 		'maintenance',
         'mrp',
         'project',
+        'sale_management',
         'stock',
         
     ],

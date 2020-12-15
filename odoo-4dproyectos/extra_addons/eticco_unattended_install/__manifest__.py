@@ -11,13 +11,12 @@
     'version': '14.0.1',
     'depends': [
         'base',
+        'crm',
 		'hr_timesheet',
 		'maintenance',
         'mrp',
         'project',
-        'sale_management',
         'stock',
-        
     ],
     'data': [],
     'demo': [],

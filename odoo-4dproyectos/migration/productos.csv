@@ -1,0 +1,27 @@
+M68;Ventana madera 68
+M78;Ventana madera 78
+M92;Ventana madera 92
+X45;Ventana mixta 45
+X68;Ventana mixta 68
+X78;Ventana mixta 78
+X92;Ventana mixta 92
+E68;Elevadora 68
+E78;Elevadora 78
+E92;Elevadora 92
+EX68;Elevadora mixta 68
+EX78;Elevadora mixta 78
+EX92;Elevadora mixta 92
+PM;Puerta entrada madera
+PX;Puerta entrada mixta
+GU;Guarnición
+TP;Tapa persiana
+PO;Postigo
+CO;Contra
+PR;Premarco
+VA;Varios
+CM;Complemento
+CA;Caja persiana
+PV;Ventana PVC
+A;Ventana aluminio
+PI;Puerta interior
+BI;Bastidor inglés

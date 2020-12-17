@@ -12,6 +12,7 @@
     'depends': [
         'base',
         'crm',
+		'hr_attendance',
 		'hr_timesheet',
 		'maintenance',
         'mrp',

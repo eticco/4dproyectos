@@ -1,0 +1,75 @@
+# -*- coding: utf-8 -*-
+from odoo import models, fields, api
+
+
+class MrpProduction(models.Model):
+    _inherit = 'mrp.production'
+    
+    code = fields.Char('Código', readonly=True)
+    criteria_amount_ids = fields.One2many(comodel_name = 'mrp.production.criteria.amount', inverse_name = 'production_id', string = 'Cantidades de cómputo')
+    partner_id = fields.Many2one(comodel_name="res.partner", string="Cliente", required=True)
+    project_id = fields.Many2one(comodel_name="project.project", string="Proyecto", required=True)
+    price = fields.Float('Precio de venta')
+    notes = fields.Text('Notes')
+    date_start = fields.Datetime('Start Date', readonly=False)
+    date_finished = fields.Datetime('End Date', readonly=False)
+    wood_id = fields.Many2one(comodel_name="mrp.wood", string="Madera") 
+    varnish_id = fields.Many2one(comodel_name="mrp.varnish", string="Barniz")
+    aluminum_color_id = fields.Many2one(comodel_name="mrp.aluminum.color", string="Color aluminio") 
+    glass = fields.Boolean('Vidrio')
+    blind = fields.Boolean('Persiana')
+    boards = fields.Integer("Tableros")
+    type = fields.Selection(string="Tipo", selection=[('sin_colocacion','Sin colocación'), ('colocacion_obra_nueva','Colocación obra nueva'), ('colocacion_obra_reforma','Colocación obra reforma')])
+
+    wood_cost = fields.Float("Coste madera")
+    glass_cost = fields.Float("Coste vidrio")
+    ironwork_cost = fields.Float("Coste herrajes")
+    blind_cost = fields.Float("Coste persianas")
+    aluminum_cost = fields.Float("Coste aluminio")
+    other_cost = fields.Float("Coste varios")
+    raw_material_cost = fields.Float("Coste total", compute='_compute_raw_material_cost')
+    
+    @api.depends('wood_cost','glass_cost','ironwork_cost','blind_cost','aluminum_cost','other_cost')
+    def _compute_raw_material_cost(self):
+        
+        for production in self:
+            production.raw_material_cost = production.wood_cost + production.glass_cost + production.ironwork_cost + production.blind_cost + production.aluminum_cost + production.other_cost
+            
+            
+    @api.model
+    def create(self, values):
+        code = 'Autogenerado'
+        values['code'] = code
+        result = super(MrpProduction, self).create(values)
+
+        computation_criterias = self.env['mrp.computation.criteria'].search([])
+        for cc in computation_criterias:
+            self.env['mrp.production.criteria.amount'].create({
+                'computation_criteria_id': cc.id,
+                'production_id': result.id,
+            })
+        
+        return result
+
+class MrpProductionCriteriaAmount(models.Model):
+    _name = 'mrp.production.criteria.amount'
+
+    computation_criteria_id = fields.Many2one(comodel_name="mrp.computation.criteria", string="Criterio de cómputo", required=True, readonly=True)
+    production_id = fields.Many2one(comodel_name="mrp.production", string="Orden de producción", required=True, readonly=True)
+    amount = fields.Integer(string="Cantidad")
+
+
+class MrpWood(models.Model):
+    _name = 'mrp.wood'
+    
+    name = fields.Char('Nombre')
+
+class MrpVarnish(models.Model):
+    _name = 'mrp.varnish'
+    
+    name = fields.Char('Nombre')
+
+class MrpAluminumColor(models.Model):
+    _name = 'mrp.aluminum.color'
+    
+    name = fields.Char('Nombre')

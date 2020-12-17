@@ -1,3 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_mrp_computation_criteria,mrp.computation.criteria,model_mrp_computation_criteria,base.group_user,1,1,1,1
-
+access_mrp_production_criteria_amount,mrp.production.criteria.amount,model_mrp_production_criteria_amount,base.group_user,1,1,1,1
+access_mrp_wood,mrp.wood,model_mrp_wood,base.group_user,1,1,1,1
+access_mrp_varnish,mrp.varnish,model_mrp_varnish,base.group_user,1,1,1,1
+access_mrp_aluminum_color,mrp.aluminum.color,model_mrp_aluminum_color,base.group_user,1,1,1,1

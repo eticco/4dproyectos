@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- Formulario de orden de producción -->
+	<record id="mrp_production_form_view_inherit"
+		model="ir.ui.view">
+		<field name="name">mrp.production.form</field>
+		<field name="model">mrp.production</field>
+		<field name="inherit_id" ref="mrp.mrp_production_form_view" />
+		<field name="arch" type="xml">
+		    <field name="product_id" position="before">
+		        <field name="code" />
+		        <field name="partner_id" />
+		        <field name="project_id" />
+		    </field>
+		
+		   	<xpath expr="//group[@name='group_extra_info']//div[@class='o_row']" position="after">
+		   	 	<label for="date_start"/>
+                <div class="o_row">
+                	<field name="date_start" />
+                </div>
+		   	 	<label for="date_planned_finished"/>
+                <div class="o_row">
+                	<field name="date_planned_finished" />
+                </div>
+               	<label for="date_finished"/>
+                <div class="o_row">
+                	<field name="date_finished" />
+                </div>
+		    </xpath>
+		    		    
+			<notebook position="inside">
+				<page string="Notas">
+				    <field name="notes" />
+			    </page>
+				<page string="Tipo fabricación">
+				    <group>
+					    <group>
+					        <field name="wood_id" />
+					        <field name="varnish_id" />
+					        <field name="aluminum_color_id" />
+					        <field name="boards" />
+	   				    </group>
+	   				    <group>
+	   				        <field name="glass" />
+	   				        <field name="blind" />
+	   				        <field name="type" />
+	   				    </group>
+   				    </group>
+				</page>
+				<page string="Costes">
+				    <group>
+					    <group>
+					        <field name="raw_material_cost" />
+						</group>
+						<group>
+					        <field name="wood_cost" />
+							<field name="glass_cost" />
+					        <field name="ironwork_cost" />
+							<field name="blind_cost" />
+					        <field name="aluminum_cost" />
+					        <field name="other_cost" />
+						</group>
+					</group>
+				</page>
+				<page string="Cantidades cómputo">
+					<field name="criteria_amount_ids"
+						context="{'production_id' : active_id}">
+						<tree editable="bottom">
+							<field name="computation_criteria_id" />
+							<field name="amount" />
+						</tree>
+					</field>
+				</page>
+			</notebook>
+		    
+		</field>
+	</record>
+
+
+
+</odoo>

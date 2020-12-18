@@ -9,5 +9,5 @@ class HrEmployee(models.Model):
     def write(self, values):
         if values.get('job_id', False):
             values['timesheet_cost'] = self.env['hr.job'].browse(values.get('job_id')).timesheet_cost
-        result = super(HrEmployee, self).create(values)
+        result = super(HrEmployee, self).write(values)
         return result

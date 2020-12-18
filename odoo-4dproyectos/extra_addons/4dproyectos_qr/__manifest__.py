@@ -7,7 +7,10 @@
     'summary': 'Nuevos Qweb de códigos QR',
     'author': 'Eticco Freelosophy',
     'website': 'https://www.eticco.es',
-    'depends': ['mrp'],
+    'depends': [
+        'mrp',
+        'hr',
+    ],
     'data': ['report/reports.xml', 'data/qr_reports.xml'],
     'installable': True,
 }

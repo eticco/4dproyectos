@@ -9,4 +9,22 @@
 	        file="4dproyectos_qr.report_production_qr_document"
 	        menu="True"
 	    />
+		<report
+	        string="Código QR"
+	        id="workcenter_qr"
+	        model="mrp.workcenter"
+	        report_type="qweb-pdf"
+	        name="4dproyectos_qr.report_workcenter_qr_document"
+	        file="4dproyectos_qr.report_workcenter_qr_document"
+	        menu="True"
+	    />
+		<report
+	        string="Código QR"
+	        id="employee_qr"
+	        model="hr.employee"
+	        report_type="qweb-pdf"
+	        name="4dproyectos_qr.report_employee_qr_document"
+	        file="4dproyectos_qr.report_employee_qr_document"
+	        menu="True"
+	    />
 </odoo>

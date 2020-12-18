@@ -4,7 +4,27 @@
 	    <template id="report_production_qr_document">
 			<t t-call="web.html_container">
         		<t t-call="web.internal_layout">	
-        		    <img t-att-src="'/report/barcode/QR/%s' % 'My text in qr code'" style="width:150px; height:150px;"/>		
+					<t t-foreach="docs" t-as="production">
+            		    <img t-att-src="'/report/barcode/QR/%s' % (production.id)" style="width:150px; height:150px;"/>
+            		 </t>		
+            	</t>
+            </t>
+		</template>
+	    <template id="report_workcenter_qr_document">
+			<t t-call="web.html_container">
+        		<t t-call="web.internal_layout">	
+					<t t-foreach="docs" t-as="workcenter">
+            		    <img t-att-src="'/report/barcode/QR/%s' % (workcenter.id)" style="width:150px; height:150px;"/>
+            		 </t>		
+            	</t>
+            </t>
+		</template>
+	    <template id="report_employee_qr_document">
+			<t t-call="web.html_container">
+        		<t t-call="web.internal_layout">	
+					<t t-foreach="docs" t-as="employee">
+            		    <img t-att-src="'/report/barcode/QR/%s' % (employee.id)" style="width:150px; height:150px;"/>
+            		 </t>		
             	</t>
             </t>
 		</template>

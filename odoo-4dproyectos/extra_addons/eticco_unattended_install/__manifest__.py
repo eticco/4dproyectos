@@ -17,6 +17,7 @@
 		'maintenance',
         'mrp',
         'project',
+        'purchase_mrp',
         'stock',
     ],
     'data': [],

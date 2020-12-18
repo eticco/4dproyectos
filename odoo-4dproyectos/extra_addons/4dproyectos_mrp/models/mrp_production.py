@@ -9,7 +9,7 @@ class MrpProduction(models.Model):
     criteria_amount_ids = fields.One2many(comodel_name = 'mrp.production.criteria.amount', inverse_name = 'production_id', string = 'Cantidades de cómputo')
     partner_id = fields.Many2one(comodel_name="res.partner", string="Cliente", required=True)
     project_id = fields.Many2one(comodel_name="project.project", string="Proyecto", required=True)
-    price = fields.Float('Precio de venta')
+    price = fields.Monetary(string='Precio de venta', currency_field='currency_id')
     notes = fields.Text('Notes')
     date_start = fields.Datetime('Start Date', readonly=False)
     date_finished = fields.Datetime('End Date', readonly=False)
@@ -21,13 +21,15 @@ class MrpProduction(models.Model):
     boards = fields.Integer("Tableros")
     type = fields.Selection(string="Tipo", selection=[('sin_colocacion','Sin colocación'), ('colocacion_obra_nueva','Colocación obra nueva'), ('colocacion_obra_reforma','Colocación obra reforma')])
 
-    wood_cost = fields.Float("Coste madera")
-    glass_cost = fields.Float("Coste vidrio")
-    ironwork_cost = fields.Float("Coste herrajes")
-    blind_cost = fields.Float("Coste persianas")
-    aluminum_cost = fields.Float("Coste aluminio")
-    other_cost = fields.Float("Coste varios")
-    raw_material_cost = fields.Float("Coste total", compute='_compute_raw_material_cost')
+    currency_id = fields.Many2one('res.currency', related='company_id.currency_id', readonly=True)
+
+    wood_cost = fields.Monetary(string="Coste madera", currency_field='currency_id')
+    glass_cost = fields.Monetary(string="Coste vidrio", currency_field='currency_id')
+    ironwork_cost = fields.Monetary(string="Coste herrajes", currency_field='currency_id')
+    blind_cost = fields.Monetary(string="Coste persianas")
+    aluminum_cost = fields.Monetary(string="Coste aluminio", currency_field='currency_id')
+    other_cost = fields.Monetary(string="Coste varios", currency_field='currency_id')
+    raw_material_cost = fields.Monetary(string="Coste total", currency_field='currency_id', compute='_compute_raw_material_cost')
     
     @api.depends('wood_cost','glass_cost','ironwork_cost','blind_cost','aluminum_cost','other_cost')
     def _compute_raw_material_cost(self):

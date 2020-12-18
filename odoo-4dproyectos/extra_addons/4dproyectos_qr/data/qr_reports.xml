@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	    <template id="report_production_qr_document">
+			<t t-call="web.html_container">
+        		<t t-call="web.internal_layout">	
+        		    <img t-att-src="'/report/barcode/QR/%s' % 'My text in qr code'" style="width:150px; height:150px;"/>		
+            	</t>
+            </t>
+		</template>
+	</data>
+</odoo>

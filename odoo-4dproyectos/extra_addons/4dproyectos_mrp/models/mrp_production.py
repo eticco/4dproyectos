@@ -6,7 +6,7 @@ class MrpProduction(models.Model):
     _inherit = 'mrp.production'
     
     code = fields.Char('Código', readonly=True)
-    criteria_amount_ids = fields.One2many(comodel_name = 'mrp.production.criteria.amount', inverse_name = 'production_id', string = 'Cantidades de cómputo')
+    criteria_amount_ids = fields.One2many(comodel_name = 'mrp.production.criteria.amount', inverse_name = 'production_id', string = 'Cantidades de cómputo', ondelete="cascade")
     partner_id = fields.Many2one(comodel_name="res.partner", string="Cliente", required=True)
     project_id = fields.Many2one(comodel_name="project.project", string="Proyecto", required=True)
     price = fields.Monetary(string='Precio de venta', currency_field='currency_id')

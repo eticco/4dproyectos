@@ -77,6 +77,20 @@
 		</field>
 	</record>
 
+	<!--Work Order Inherit -->
+	 <record id="mrp_workorder_view_form_4d" model="ir.ui.view">
+	    <field name="name">mrp.workorder.form.mrp_4d_order</field>
+	    <field name="model">mrp.workorder</field>
+	    <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit"/>
+	    <field name="arch" type="xml">
+	        <field name="duration_expected" position="after">
+	            <field name="duration" />
+	            <field name="workcenter_cost" />
+	            <field name="users_cost" />
+	        </field>
+	    </field>
+	</record>
+	
 
 
 </odoo>

@@ -5,12 +5,13 @@ from odoo import models, fields, api
 class MrpWorkorder(models.Model):
     _inherit = 'mrp.workorder'
     
-    workcenter_cost = fields.Float(string='Coste/máquina', compute='_compute_workcenter_cost')
-    users_cost = fields.Float(string='Coste/empleados', compute='_compute_users_cost')
-    
+    currency_id = fields.Many2one('res.currency', related='company_id.currency_id', readonly=True)    
+    workcenter_cost = fields.Monetary(string='Coste/máquina', currency_field='currency_id', compute='_compute_workcenter_cost')
+    users_cost = fields.Monetary(string='Coste/empleados', currency_field='currency_id', compute='_compute_users_cost')
+
     duration_per_unit = fields.Float(string='Duración/unidad', compute='_compute_per_unit')
-    workcenter_cost_per_unit =fields.Float(string='Coste/máquina unitario', compute='_compute_per_unit')
-    users_cost_per_unit = fields.Float(string='Coste/empleados unitario', compute='_compute_per_unit')
+    workcenter_cost_per_unit =fields.Monetary(string='Coste/máquina unitario', currency_field='currency_id', compute='_compute_per_unit')
+    users_cost_per_unit = fields.Monetary(string='Coste/empleados unitario', currency_field='currency_id', compute='_compute_per_unit')
 
     @api.depends('duration', 'workcenter_id')
     def _compute_workcenter_cost(self):

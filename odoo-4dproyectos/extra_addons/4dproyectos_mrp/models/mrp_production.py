@@ -29,13 +29,25 @@ class MrpProduction(models.Model):
     blind_cost = fields.Monetary(string="Coste persianas")
     aluminum_cost = fields.Monetary(string="Coste aluminio", currency_field='currency_id')
     other_cost = fields.Monetary(string="Coste varios", currency_field='currency_id')
-    raw_material_cost = fields.Monetary(string="Coste total", currency_field='currency_id', compute='_compute_raw_material_cost')
+    raw_material_cost = fields.Monetary(string="Coste total materiales", currency_field='currency_id', compute='_compute_raw_material_cost')
+    users_cost = fields.Monetary(string="Coste total mano obra", currency_field='currency_id', compute='_compute_users_cost')
+    workcenters_cost = fields.Monetary(string="Coste total máquinas", currency_field='currency_id', compute='_compute_workcenters_cost')
     
     @api.depends('wood_cost','glass_cost','ironwork_cost','blind_cost','aluminum_cost','other_cost')
     def _compute_raw_material_cost(self):
         
         for production in self:
             production.raw_material_cost = production.wood_cost + production.glass_cost + production.ironwork_cost + production.blind_cost + production.aluminum_cost + production.other_cost
+    
+    def _compute_users_cost(self):
+        
+        for production in self:
+            production.users_cost = sum(production.workorder_ids.mapped('users_cost'))
+    
+    def _compute_workcenters_cost(self):
+        
+        for production in self:
+            production.workcenters_cost = sum(production.workorder_ids.mapped('workcenter_cost'))
             
             
     @api.model

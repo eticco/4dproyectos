@@ -83,11 +83,16 @@
 	    <field name="model">mrp.workorder</field>
 	    <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit"/>
 	    <field name="arch" type="xml">
-	        <field name="duration_expected" position="after">
-	            <field name="duration" />
-	            <field name="workcenter_cost" />
-	            <field name="users_cost" />
-	        </field>
+		   	<xpath expr="//form//group//group" position="after">
+		   	    <group>
+	            	<field name="duration" />
+	            	<field name="workcenter_cost" />
+	            	<field name="users_cost" />
+	            	<field name="duration_per_unit" />
+	            	<field name="workcenter_cost_per_unit" />
+	            	<field name="users_cost_per_unit" />
+	            </group>
+	        </xpath>
 	    </field>
 	</record>
 	

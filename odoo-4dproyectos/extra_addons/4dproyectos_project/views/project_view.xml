@@ -37,6 +37,8 @@
 			<field name="allowed_portal_user_ids" position="replace">
 			    <field name="total_budget" />
     			<field name="raw_material_cost" />
+    			<field name="users_cost" />
+    			<field name="workcenters_cost" />
 			</field>
 		</field>			
 	</record>

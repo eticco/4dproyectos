@@ -9,6 +9,7 @@
     'version': '14.0.1',
     'depends': [
         'project',
+        '4dproyectos_mrp',
         '4dproyectos_res_partner',
     ],
     'data': [

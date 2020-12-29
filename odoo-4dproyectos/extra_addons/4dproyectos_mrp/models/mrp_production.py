@@ -29,9 +29,9 @@ class MrpProduction(models.Model):
     blind_cost = fields.Monetary(string="Coste persianas")
     aluminum_cost = fields.Monetary(string="Coste aluminio", currency_field='currency_id')
     other_cost = fields.Monetary(string="Coste varios", currency_field='currency_id')
-    raw_material_cost = fields.Monetary(string="Coste total materiales", currency_field='currency_id', compute='_compute_raw_material_cost')
-    users_cost = fields.Monetary(string="Coste total mano obra", currency_field='currency_id', compute='_compute_users_cost')
-    workcenters_cost = fields.Monetary(string="Coste total máquinas", currency_field='currency_id', compute='_compute_workcenters_cost')
+    raw_material_cost = fields.Monetary(string="Coste total materiales", currency_field='currency_id', compute='_compute_raw_material_cost', help='Obtenido como la suma de los costes de madera, vidrio, etc.')
+    users_cost = fields.Monetary(string="Coste total mano obra", currency_field='currency_id', compute='_compute_users_cost', help='Obtenido como la suma de los costes de mano de obra de todos los puestos de producción')
+    workcenters_cost = fields.Monetary(string="Coste total maquinaria", currency_field='currency_id', compute='_compute_workcenters_cost', help='Obtenido como la suma de los costes de maquinaria de todos los puestos de producción')
     
     @api.depends('wood_cost','glass_cost','ironwork_cost','blind_cost','aluminum_cost','other_cost')
     def _compute_raw_material_cost(self):

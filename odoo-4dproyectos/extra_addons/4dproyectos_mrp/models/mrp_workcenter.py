@@ -11,7 +11,8 @@ class MrpWorkcenter(models.Model):
 class MrpWorkcenterProductivity(models.Model):
     _inherit = "mrp.workcenter.productivity"
     
-    user_cost = fields.Float(string='Coste/empleado', compute='_compute_user_cost')
+    currency_id = fields.Many2one('res.currency', related='company_id.currency_id', readonly=True)    
+    user_cost = fields.Monetary(string='Coste', currency_field='currency_id', compute='_compute_user_cost')
     
     @api.depends('duration', 'user_id')
     def _compute_user_cost(self):

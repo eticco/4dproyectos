@@ -87,12 +87,20 @@
 	    <field name="arch" type="xml">
 		   	<xpath expr="//form//group//group" position="after">
 		   	    <group>
-	            	<field name="duration" />
-	            	<field name="workcenter_cost" />
+                    <label for="duration"/>
+                    <div class="o_row">
+                        <field name="duration" widget="float_time"/>
+                        <span>minutos</span>
+                    </div>
 	            	<field name="users_cost" />
-	            	<field name="duration_per_unit" />
-	            	<field name="workcenter_cost_per_unit" />
+	            	<field name="workcenter_cost" />
+                    <label for="duration_per_unit"/>
+                    <div class="o_row">
+                        <field name="duration_per_unit" widget="float_time"/>
+                        <span>minutos</span>
+                    </div>
 	            	<field name="users_cost_per_unit" />
+	            	<field name="workcenter_cost_per_unit" />
 	            </group>
 	        </xpath>
 	    </field>

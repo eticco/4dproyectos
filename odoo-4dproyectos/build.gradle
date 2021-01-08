@@ -428,74 +428,32 @@ def odooUploadLastFiles_task(boolean update) {
 	
 	file_modified.staged.added.each {
 		if(it.indexOf(project.ext.odoo.extra_addons_resource_dir) != -1) {
-    		String file_upload = it.substring(it.indexOf("/") + 1, it.length());
-			file_upload = file_upload.substring(file_upload.indexOf("/") + 1, file_upload.length());
-			
-			module_name = file_upload.substring(0, file_upload.indexOf("/"));
-			if (update_modules.indexOf(module_name) == -1) {
-				if (update_modules == "") {
-					update_modules = module_name
-				} else {
-					update_modules = update_modules + "," + module_name
-				}
-			}
-    		
-			odooDockerTask('cp %extra_addons%/' + file_upload + ' %container%:/opt/odoo/extra_addons/' + file_upload)
+    		update_modules = addModuleToUpdate(update_modules, it.split('/')[2])
 		}
 	}
 	
 	file_modified.staged.modified.each {
 		if(it.indexOf(project.ext.odoo.extra_addons_resource_dir) != -1) {
-    		String file_upload = it.substring(it.indexOf("/") + 1, it.length());
-			file_upload = file_upload.substring(file_upload.indexOf("/") + 1, file_upload.length());
-    		
-    		module_name = file_upload.substring(0, file_upload.indexOf("/"));
-			if (update_modules.indexOf(module_name) == -1) {
-				if (update_modules == "") {
-					update_modules = module_name
-				} else {
-					update_modules = update_modules + "," + module_name
-				}
-			}
-			
-			odooDockerTask('cp %extra_addons%/' + file_upload + ' %container%:/opt/odoo/extra_addons/' + file_upload)
+    		update_modules = addModuleToUpdate(update_modules, it.split('/')[2])
 		}
 	}
 	
 	file_modified.unstaged.added.each {
 		if(it.indexOf(project.ext.odoo.extra_addons_resource_dir) != -1) {
-			String file_upload = it.substring(it.indexOf("/") + 1, it.length());
-			file_upload = file_upload.substring(file_upload.indexOf("/") + 1, file_upload.length());
-    		
-    		module_name = file_upload.substring(0, file_upload.indexOf("/"));
-			if (update_modules.indexOf(module_name) == -1) {
-				if (update_modules == "") {
-					update_modules = module_name
-				} else {
-					update_modules = update_modules + "," + module_name
-				}
-			}
-			
-			odooDockerTask('cp %extra_addons%/' + file_upload + ' %container%:/opt/odoo/extra_addons/' + file_upload)
+    		update_modules = addModuleToUpdate(update_modules, it.split('/')[2])
 		}
 	}
 	
 	file_modified.unstaged.modified.each {
 		if(it.indexOf(project.ext.odoo.extra_addons_resource_dir) != -1) {
-			String file_upload = it.substring(it.indexOf("/") + 1, it.length());
-			file_upload = file_upload.substring(file_upload.indexOf("/") + 1, file_upload.length());
-    		
-    		module_name = file_upload.substring(0, file_upload.indexOf("/"));
-			if (update_modules.indexOf(module_name) == -1) {
-				if (update_modules == "") {
-					update_modules = module_name
-				} else {
-					update_modules = update_modules + "," + module_name
-				}
-			}
-			
-			odooDockerTask('cp %extra_addons%/' + file_upload + ' %container%:/opt/odoo/extra_addons/' + file_upload)
+    		update_modules = addModuleToUpdate(update_modules, it.split('/')[2])
 		}
+	}
+	
+	
+	for (int i=0; i<update_modules.split(',').length; i++) {
+		String module = update_modules.split(',')[i]
+	 	odooDockerTask('cp %extra_addons%/' + module + '/. %container%:/opt/odoo/extra_addons/' + module + '/')
 	}
 	
 	// Parar odoo
@@ -516,6 +474,17 @@ def odooUploadLastFiles_task(boolean update) {
 		odooDockerTask('exec -dit %container% sh -c "/opt/odoo/entrypoint.sh odoo"')
 	}
 	
+}
+
+String addModuleToUpdate(update_modules, module_name) {
+	if (update_modules.indexOf(module_name) == -1) {
+		if (update_modules == "") {
+			update_modules = module_name
+		} else {
+			update_modules = update_modules + "," + module_name
+		}
+	}
+	return update_modules
 }
 
 // Funciones

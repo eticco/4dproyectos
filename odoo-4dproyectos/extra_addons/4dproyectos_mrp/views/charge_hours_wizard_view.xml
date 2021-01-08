@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="charge_hours_wizard_form_view" model="ir.ui.view">
+	    <field name="name">charge.hours.wizard.form.view</field>
+	    <field name="model">charge.hours.wizard</field>
+	    <field name="arch" type="xml">
+	        <form string="Cargo de horas">
+				<sheet>
+					<group>
+						<field name="employee_id" />
+					</group>
+					<group>
+						<group>
+							<field name="production_id" required="1" />
+						</group>
+						<group>
+							<field name="workorder_id" required="1" domain="[('production_id', '=', production_id), ('state', '!=', 'done')]" />
+						</group>
+					</group>
+					<group>
+						<field name="productivity_id" invisible="1" />
+						<field name="finish_order" attrs="{'invisible' : [('productivity_id', '=', False)]}" />
+					</group>
+					<group style="text-align: center;">
+						<button name="action_charge_hours" class="btn btn-charge-hours" type="object" string="Cargar!" icon="fa-calendar-check-o" />
+					</group>
+				</sheet>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="action_charge_hours_wizard" model="ir.actions.act_window">
+            <field name="name">Manufacturing Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">charge.hours.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No data yet!
+                </p><p>
+                    Create a new manufacturing order
+                </p>
+            </field>
+        </record>
+
+	
+	<menuitem id="menu_mrp_charge_hours"
+			action="action_charge_hours_wizard"
+			parent="mrp.menu_mrp_root"
+            name="Cargar horas"
+            sequence="10" groups="base.group_user" />
+        
+</odoo>

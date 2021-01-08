@@ -15,7 +15,7 @@
             'security/ir.model.access.csv',
             'views/mrp_production_view.xml',
             'views/mrp_workcenter_view.xml',
-        
+            'views/charge_hours_wizard_view.xml',
     ],
     'demo': [],
     'application': False,

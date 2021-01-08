@@ -6,6 +6,12 @@
 	    </xpath>
 	</template>
 
+	<template id="frontend_assets_view_inherit" inherit_id="web.assets_frontend">
+	    <xpath expr="." position="inside">
+	    <link rel="stylesheet" href="/eticco_skin/static/css/skin_frontend.css"/>
+	    </xpath>
+	</template>
+
 	<!-- <template id="web_favicon_layout" inherit_id="web.layout">
           <xpath expr="//head//link" position="after">
 	        <link rel="shortcut icon" href="/eticco_skin/static/img/favicon.ico" type="image/x-icon"/>

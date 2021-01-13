@@ -4,10 +4,10 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 {
-    "name": "Web Responsive",
+    "name": "Web Responsive for Openworx theme",
     "summary": "Responsive web client, community-supported",
     "version": "14.0.1.0.0",
-    "category": "Website",
+    "category": "Hidden",
     "website": "https://github.com/OCA/web",
     "author": "LasLabs, Tecnativa, " "Odoo Community Association (OCA)",
     "license": "LGPL-3",

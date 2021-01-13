@@ -13,15 +13,15 @@
         <xpath expr=".">
             <link
                 rel="stylesheet"
-                href="/web_responsive/static/src/css/web_responsive.scss"
+                href="/ow_web_responsive/static/src/css/web_responsive.scss"
             />
             <script
                 type="application/javascript"
-                src="/web_responsive/static/src/js/web_responsive.js"
+                src="/ow_web_responsive/static/src/js/web_responsive.js"
             />
             <script
                 type="application/javascript"
-                src="/web_responsive/static/src/js/discuss.js"
+                src="/ow_web_responsive/static/src/js/discuss.js"
             />
         </xpath>
     </template>

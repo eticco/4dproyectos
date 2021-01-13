@@ -5,7 +5,7 @@
 			<t t-call="web.html_container">
         		<t t-call="web.internal_layout">	
 					<t t-foreach="docs" t-as="production">
-            		    <img t-att-src="'/report/barcode/QR/%s' % (production.id)" style="width:150px; height:150px;"/>
+            		    <img t-att-src="'/report/barcode/QR/%s' % (production.name)" style="width:150px; height:150px;"/>
             		 </t>		
             	</t>
             </t>
@@ -14,7 +14,7 @@
 			<t t-call="web.html_container">
         		<t t-call="web.internal_layout">	
 					<t t-foreach="docs" t-as="workcenter">
-            		    <img t-att-src="'/report/barcode/QR/%s' % (workcenter.id)" style="width:150px; height:150px;"/>
+            		    <img t-att-src="'/report/barcode/QR/%s' % (workcenter.name)" style="width:150px; height:150px;"/>
             		 </t>		
             	</t>
             </t>
@@ -23,7 +23,7 @@
 			<t t-call="web.html_container">
         		<t t-call="web.internal_layout">	
 					<t t-foreach="docs" t-as="employee">
-            		    <img t-att-src="'/report/barcode/QR/%s' % (employee.id)" style="width:150px; height:150px;"/>
+            		    <img t-att-src="'/report/barcode/QR/%s' % (employee.name)" style="width:150px; height:150px;"/>
             		 </t>		
             	</t>
             </t>

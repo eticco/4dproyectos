@@ -51,6 +51,7 @@ def confirmShare (String msg) {
 	return mustContinue
 }
 
+wrapper.gradleVersion = '6.8'
 
 // Tareas Desarrollo Docker
 task dockerMachineStartDev() {

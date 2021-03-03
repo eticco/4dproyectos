@@ -74,6 +74,17 @@
 						</tree>
 					</field>
 				</page>
+				<page string="Barnices">
+					<field name="varnish_ids">
+						<tree editable="bottom">
+							<field name="name" />
+							<field name="out_date" />
+							<field name="in_date" />
+							<field name="qty_frame" />
+							<field name="qty_sheet" />
+						</tree>
+					</field>
+				</page>
 			</notebook>
 		    
 		</field>

@@ -32,7 +32,8 @@ class MrpProduction(models.Model):
     raw_material_cost = fields.Monetary(string="Coste total materiales", currency_field='currency_id', compute='_compute_raw_material_cost', help='Obtenido como la suma de los costes de madera, vidrio, etc.')
     users_cost = fields.Monetary(string="Coste total mano obra", currency_field='currency_id', compute='_compute_users_cost', help='Obtenido como la suma de los costes de mano de obra de todos los puestos de producción')
     workcenters_cost = fields.Monetary(string="Coste total maquinaria", currency_field='currency_id', compute='_compute_workcenters_cost', help='Obtenido como la suma de los costes de maquinaria de todos los puestos de producción')
-    
+    varnish_ids = fields.Many2many(comodel_name = 'mrp.varnish', inverse_name = 'production_ids', string = 'Barnices')
+
     @api.depends('wood_cost','glass_cost','ironwork_cost','blind_cost','aluminum_cost','other_cost')
     def _compute_raw_material_cost(self):
         
@@ -93,6 +94,11 @@ class MrpVarnish(models.Model):
     _name = 'mrp.varnish'
     
     name = fields.Char('Nombre')
+    out_date = fields.Datetime(string="Fecha de salida")
+    in_date = fields.Datetime(string="Fecha de entrada")
+    qty_frame = fields.Integer(string="Nº de marcos")
+    qty_sheet = fields.Integer(string="Nº de hojas")
+    production_ids = fields.Many2one(string="Orden de producción", comodel_name="mrp.production", inverse_name="varnish_ids")
 
 class MrpAluminumColor(models.Model):
     _name = 'mrp.aluminum.color'

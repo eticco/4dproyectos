@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="varnish_tree_view" model="ir.ui.view">
+		<field name="name">varnish tree view</field>
+		<field name="model">mrp.varnish</field>
+		<field name="arch" type="xml">
+			<tree string="Barnices">
+				<field name="name" />
+				<field name="out_date" />
+				<field name="in_date" />
+				<field name="qty_frame" />
+				<field name="qty_sheet" />
+			</tree>
+		</field>
+	</record>
+
+	<record id="varnish_form_view" model="ir.ui.view">
+		<field name="name">varnish form view</field>
+		<field name="model">mrp.varnish</field>
+		<field name="arch" type="xml">
+			<form string="Barniz">
+				<sheet>
+					<group>
+						<group>
+							<field name="name" />
+							<field name="out_date" />
+							<field name="in_date" />
+						</group>
+						<group>
+							<field name="qty_frame" />
+							<field name="qty_sheet" />
+						</group>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="varnish_action" model="ir.actions.act_window">
+		<field name="name">Barnices</field>
+		<field name="res_model">mrp.varnish</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem id="varnish_menu" name="Barnices" sequence="11"
+		parent="mrp.menu_mrp_configuration" action="varnish_action" />
+
+</odoo>

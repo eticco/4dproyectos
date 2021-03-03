@@ -65,6 +65,17 @@ class MrpProduction(models.Model):
         
         return result
 
+    @api.onchange('product_id', 'picking_type_id', 'company_id')
+    def onchange_product_id(self):
+        super(MrpProduction, self).onchange_product_id()
+        if self.product_id and not self.bom_id:
+            self.set_default_pricelist()
+    
+    def set_default_pricelist(self):
+        default_bom_id = self.env['mrp.bom'].search([('is_default_pricelist', '=', True)], limit=1)
+        if default_bom_id:
+            self.bom_id = default_bom_id.id
+
 class MrpProductionCriteriaAmount(models.Model):
     _name = 'mrp.production.criteria.amount'
 

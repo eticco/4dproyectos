@@ -16,6 +16,7 @@
             'views/mrp_production_view.xml',
             'views/mrp_workcenter_view.xml',
             'views/charge_hours_wizard_view.xml',
+            'views/mrp_bom_view.xml',
     ],
     'demo': [],
     'application': False,

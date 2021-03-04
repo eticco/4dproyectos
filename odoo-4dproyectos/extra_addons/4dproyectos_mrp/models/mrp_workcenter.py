@@ -19,4 +19,8 @@ class MrpWorkcenterProductivity(models.Model):
         for line in self:
             employee_id = self.env['hr.employee'].search([('user_id', '=', line.user_id.id)], limit=1)
             line.user_cost = line.duration * employee_id.timesheet_cost / 60.0
+
+class MrpRoutingWorkcenter(models.Model):
+    _inherit = "mrp.routing.workcenter"
     
+    default_duration_by_unit = fields.Integer(string="Duración predeterminada/unidad")

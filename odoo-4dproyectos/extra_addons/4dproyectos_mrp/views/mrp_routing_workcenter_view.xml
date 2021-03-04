@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- Formulario de centro de coste -->
+	<record id="mrp_routing_workcenter_view_inherit" model="ir.ui.view">
+		<field name="name">mrp.routingworkcenter.form.inherit</field>
+		<field name="model">mrp.routing.workcenter</field>
+		<field name="inherit_id" ref="mrp.mrp_routing_workcenter_form_view" />
+		<field name="arch" type="xml">
+			<field name="time_mode" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</field>
+
+			<label for="time_mode_batch" position="attributes">
+				<attribute name="attrs">{'invisible': 1}</attribute>
+			</label>
+			<div attrs="{'invisible': [('time_mode', '=', 'manual')]}" position="attributes">
+				<attribute name="style">display: none</attribute>
+			</div>
+
+			<label for="time_cycle_manual" position="attributes">
+				<attribute name="attrs">{'invisible': 1}</attribute>
+			</label>
+			<div attrs="{'invisible':  [('time_mode', '=', 'auto'), ('workorder_count', '!=' , 0)]}" position="attributes">
+				<attribute name="style">display: none</attribute>
+			</div>
+			
+			<field name="time_cycle" position="after">
+				<label for="default_duration_by_unit" string="Duración predeterminada/unidad"/>
+				<div>
+					<field name="default_duration_by_unit" widget="float_time" class="oe_inline"/> minutos
+				</div>
+			</field>
+		</field>
+	</record>
+
+
+
+</odoo>

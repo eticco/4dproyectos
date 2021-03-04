@@ -18,6 +18,7 @@
             'views/charge_hours_wizard_view.xml',
             'views/mrp_bom_view.xml',
             'views/varnish_view.xml',
+            'views/mrp_routing_workcenter_view.xml',
     ],
     'demo': [],
     'application': False,

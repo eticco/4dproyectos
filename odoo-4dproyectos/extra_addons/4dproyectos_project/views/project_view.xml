@@ -39,6 +39,19 @@
     			<field name="raw_material_cost" />
     			<field name="users_cost" />
     			<field name="workcenters_cost" />
+				<field name="total_cost" />
+			</field>
+		</field>			
+	</record>
+
+	<record id="view_project_view_project_inherit" model="ir.ui.view">
+		<field name="name">project.project.tree.4d</field>
+		<field name="model">project.project</field>
+		<field name="inherit_id" ref="project.view_project" />
+		<field name="arch" type="xml">
+			<field name="partner_id" position="after">
+				<field name="total_budget"/>
+				<field name="total_cost"/>
 			</field>
 		</field>			
 	</record>

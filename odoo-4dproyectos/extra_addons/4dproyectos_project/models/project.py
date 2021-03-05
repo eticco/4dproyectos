@@ -13,6 +13,7 @@ class Project(models.Model):
     raw_material_cost = fields.Monetary(string="Coste total materiales", currency_field='currency_id', compute='_compute_raw_material_cost', help='Obtenido como la suma de los costes de materiales de sus órdenes de producción')
     users_cost = fields.Monetary(string="Coste total mano obra", currency_field='currency_id', compute='_compute_users_cost', help='Obtenido como la suma de los costes de mano de obra de sus órdenes de producción')
     workcenters_cost = fields.Monetary(string="Coste total maquinaria", currency_field='currency_id', compute='_compute_workcenters_cost', help='Obtenido como la suma de los costes de maquinaria de sus órdenes de producción')
+    total_cost = fields.Monetary(string="Coste total", currency_field='currency_id', compute='_compute_total_cost', help='Obtenido como la suma de los costes de materiales, mano de obra y maquinaria')
     status = fields.Selection(string="Estado", selection=[('contratada', 'Contratada'), ('en_ejecucion', 'En ejecución'), ('terminada_en_fabrica', 'Terminada en fábrica'), ('entregada', 'Entregada'), ('facturada', 'Facturada'), ('cerrada', 'Cerrada')])
     start_date = fields.Date(string="Fecha de alta")
 
@@ -31,3 +32,8 @@ class Project(models.Model):
         
         for project in self:
             project.workcenters_cost = sum(project.production_ids.mapped('workcenters_cost'))
+
+    def _compute_total_cost(self):
+        
+        for project in self:
+            project.total_cost = project.raw_material_cost + project.users_cost + project.workcenters_cost

@@ -12,7 +12,10 @@
         '4dproyectos_mrp',
     ],
     'data': [
+            'security/ir.model.access.csv',
             'views/hr_job_view.xml',
+            'views/hr_employee_view.xml',
+            'views/hr_day_view.xml',
         
     ],
     'demo': [],

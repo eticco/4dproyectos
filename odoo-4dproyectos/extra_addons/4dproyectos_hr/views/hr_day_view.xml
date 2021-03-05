@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="hr_day_tree_view" model="ir.ui.view">
+		<field name="name">hr day tree view</field>
+		<field name="model">hr.day</field>
+		<field name="arch" type="xml">
+			<tree string="Días por empleado" create="false" edit="false" default_order="date asc">
+				<field name="date" />
+				<field name="total_attendance" widget="float_time" />
+				<field name="total_worked" widget="float_time" />
+				<field name="employee_id" invisible="context.get('employee_hide', False)"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="hr_day_form_view" model="ir.ui.view">
+		<field name="name">hr day form view</field>
+		<field name="model">hr.day</field>
+		<field name="arch" type="xml">
+			<form string="Día por empleado" create="false" edit="false">
+				<sheet>
+					<group>
+						<group>
+							<field name="date" />
+							<field name="total_attendance" />
+							<field name="total_worked" />
+							<field name="employee_id" />
+						</group>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="hr_day_search_view" model="ir.ui.view">
+        <field name="name">hr day search view</field>
+        <field name="model">hr.day</field>
+        <field name="arch" type="xml">
+            <search string="Buscar días por empleado">
+                <field name="date"/>
+				<field name="employee_id" />
+                <filter string="Día" name="date" date="date"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Día" name="date" domain="[]" context="{'group_by':'date'}"/>
+                    <filter string="Empleado" name="employee_id" domain="[]" context="{'group_by':'employee_id'}"/>
+                </group>
+                <filter string="Última semana" invisible="1" name="week" domain="[('date','&gt;', (context_today() - datetime.timedelta(days=7)).strftime('%%Y-%%m-%%d'))]"/>
+                <filter string="Último mes" invisible="1" name="month" domain="[('date','&gt;', (context_today() - datetime.timedelta(days=30)).strftime('%%Y-%%m-%%d'))]"/>
+                <filter string="Último año" invisible="1"  name="year" domain="[('date','&gt;', (context_today() - datetime.timedelta(days=365)).strftime('%%Y-%%m-%%d'))]"/>
+            </search>
+        </field>
+    </record>
+
+	<record id="employee_days_action" model="ir.actions.act_window">
+		<field name="name">Días por empleado</field>
+		<field name="res_model">hr.day</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem id="employee_days_menu" name="Días por empleado" sequence="11"
+		parent="hr.menu_human_resources_configuration" action="employee_days_action" />
+
+</odoo>

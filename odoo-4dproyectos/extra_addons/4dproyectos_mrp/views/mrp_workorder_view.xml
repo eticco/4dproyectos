@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="mrp_workorder_view_editable_tree_4d" model="ir.ui.view">
+		<field name="name">mrp.workorder.editable.tree.mrp_4d_order</field>
+		<field name="model">mrp.workorder</field>
+		<field name="inherit_id" ref="mrp.mrp_production_workorder_tree_editable_view"/>
+		<field name="arch" type="xml">
+			<field name="duration_expected" position="before">
+				<field name="users_cost" />
+				<field name="users_cost_per_unit" />
+				<field name="workcenter_cost" />
+				<field name="workcenter_cost_per_unit" />
+			</field>
+			<field name="duration_expected" position="after">
+				<field name="duration_expected_per_unit"/>
+				<field name="real_total_cost"/>
+				<field name="real_total_cost_per_unit"/>
+			</field>
+		</field>
+	</record>
+
+</odoo>

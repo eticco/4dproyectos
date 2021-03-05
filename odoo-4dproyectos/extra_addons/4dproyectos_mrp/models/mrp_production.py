@@ -32,6 +32,8 @@ class MrpProduction(models.Model):
     raw_material_cost = fields.Monetary(string="Coste total materiales", currency_field='currency_id', compute='_compute_raw_material_cost', help='Obtenido como la suma de los costes de madera, vidrio, etc.')
     users_cost = fields.Monetary(string="Coste total mano obra", currency_field='currency_id', compute='_compute_users_cost', help='Obtenido como la suma de los costes de mano de obra de todos los puestos de producción')
     workcenters_cost = fields.Monetary(string="Coste total maquinaria", currency_field='currency_id', compute='_compute_workcenters_cost', help='Obtenido como la suma de los costes de maquinaria de todos los puestos de producción')
+    real_total_cost_per_unit = fields.Monetary(string="Coste real total por unidad", currency_field='currency_id', compute='_compute_real_total_cost_per_unit', help='Obtenido como la suma de los costes de mano de obra y maquinaria por unidad')
+    real_total_cost = fields.Monetary(string="Coste real total", currency_field='currency_id', compute='_compute_real_total_cost', help='Obtenido como la suma de los costes de mano de obra y maquinaria')
     varnish_ids = fields.Many2many(comodel_name = 'mrp.varnish', inverse_name = 'production_ids', string = 'Barnices')
 
     @api.depends('wood_cost','glass_cost','ironwork_cost','blind_cost','aluminum_cost','other_cost')
@@ -49,7 +51,11 @@ class MrpProduction(models.Model):
         
         for production in self:
             production.workcenters_cost = sum(production.workorder_ids.mapped('workcenter_cost'))
-            
+
+    def _compute_real_total_cost(self):
+        
+        for production in self:
+            production.real_total_cost = sum(production.workorder_ids.mapped('real_total_cost'))
             
     @api.model
     def create(self, values):

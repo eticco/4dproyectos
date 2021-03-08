@@ -42,7 +42,7 @@
                 <filter string="Día" name="date" date="date"/>
                 <separator/>
                 <group expand="0" string="Group By">
-                    <filter string="Día" name="date" domain="[]" context="{'group_by':'date'}"/>
+                    <filter string="Fecha" name="date" domain="[]" context="{'group_by':'date'}"/>
                     <filter string="Empleado" name="employee_id" domain="[]" context="{'group_by':'employee_id'}"/>
                 </group>
                 <filter string="Última semana" invisible="1" name="week" domain="[('date','&gt;', (context_today() - datetime.timedelta(days=7)).strftime('%%Y-%%m-%%d'))]"/>
@@ -58,7 +58,7 @@
 		<field name="view_mode">tree,form</field>
 	</record>
 
-	<menuitem id="employee_days_menu" name="Días por empleado" sequence="11"
+	<menuitem id="employee_days_menu" name="Días por empleado" sequence="11" group="hr.group_hr_manager"
 		parent="hr.menu_human_resources_configuration" action="employee_days_action" />
 
 </odoo>

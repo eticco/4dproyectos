@@ -34,17 +34,24 @@ class HrAttendance(models.Model):
     _inherit = 'hr.attendance'
     
     hr_day_id = fields.Many2one(comodel_name="hr.day", string="Día")
-    
-    @api.model
-    def create(self, values):
+
+    def create_day_record(self, values):
         day_model = self.env['hr.day']
-        check_in_date = datetime.datetime.strptime(values['check_in'], "%Y-%m-%d %H:%M:%S").date()
-        day = day_model.search([('date', '=', str(check_in_date)),('employee_id', '=', values['employee_id'])], limit=1)
+        check_in = values['check_in']
+        if 'search_default_today' in self.env.context:
+            check_in = datetime.datetime.strptime(check_in, "%Y-%m-%d %H:%M:%S").date()
+        day = day_model.search([('date', '=', str(check_in_date)),
+                                ('employee_id', '=', values['employee_id'])], limit=1)
         if day:
             values['hr_day_id'] = day.id
         else:
             values['hr_day_id'] = day_model.create({'date': str(check_in_date),
                                                     'employee_id': values['employee_id']}).id
+        return values
+
+    @api.model
+    def create(self, values):
+        values = self.create_day_record(values)
         return super(HrAttendance, self).create(values)
 
 class AccountAnalyticLine(models.Model):
@@ -52,13 +59,18 @@ class AccountAnalyticLine(models.Model):
     
     hr_day_id = fields.Many2one(comodel_name="hr.day", string="Día")
 
-    @api.model
-    def create(self, values):
+    def create_day_record(self, values):
         day_model = self.env['hr.day']
-        day = day_model.search([('date', '=', values['date']),('employee_id', '=', values['employee_id'])], limit=1)
+        day = day_model.search([('date', '=', values['date']),
+                                ('employee_id', '=', values['employee_id'])], limit=1)
         if day:
             values['hr_day_id'] = day.id
         else:
             values['hr_day_id'] = day_model.create({'date': values['date'],
                                                     'employee_id': values['employee_id']}).id
+        return values
+
+    @api.model
+    def create(self, values):
+        values = self.create_day_record(values)
         return super(AccountAnalyticLine, self).create(values)

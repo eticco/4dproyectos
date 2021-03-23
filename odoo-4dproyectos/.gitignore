@@ -1,3 +1,7 @@
 /.gradle/
 /third_party_addons/
 /.history/
+/native
+/wrapper
+/daemon
+/caches

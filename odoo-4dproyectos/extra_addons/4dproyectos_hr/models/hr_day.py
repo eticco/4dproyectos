@@ -8,7 +8,7 @@ class HrDay(models.Model):
     
     date = fields.Date(string="Fecha", required=True)
     attendance_ids = fields.One2many(comodel_name="hr.attendance", inverse_name="hr_day_id", string="Asistencias")
-    account_analytic_line_ids = fields.One2many(comodel_name="account.analytic.line", inverse_name="hr_day_id", string="Partes de horas")
+    mrp_workcenter_productivity_ids = fields.One2many(comodel_name="mrp.workcenter.productivity", inverse_name="hr_day_id", string="Partes de horas")
     total_attendance = fields.Float(string="Total asistencias (h)", compute="_compute_total_attendance")
     total_worked = fields.Float(string="Total partes de horas (h)", compute="_compute_total_worked")
     employee_id = fields.Many2one(comodel_name="hr.employee", string="Empleado")
@@ -21,12 +21,12 @@ class HrDay(models.Model):
                 attended_hours += attendance.worked_hours
             day.total_attendance = attended_hours
 
-    @api.depends('account_analytic_line_ids', 'account_analytic_line_ids.unit_amount')
+    @api.depends('mrp_workcenter_productivity_ids', 'mrp_workcenter_productivity_ids.duration')
     def _compute_total_worked(self):
         for day in self:
             worked_hours = 0.0
-            for line in day.account_analytic_line_ids:
-                worked_hours += line.unit_amount
+            for productivity in day.mrp_workcenter_productivity_ids:
+                worked_hours += productivity.duration
             day.total_worked = worked_hours
 
 
@@ -40,12 +40,12 @@ class HrAttendance(models.Model):
         check_in = values['check_in']
         if 'search_default_today' in self.env.context:
             check_in = datetime.datetime.strptime(check_in, "%Y-%m-%d %H:%M:%S").date()
-        day = day_model.search([('date', '=', str(check_in_date)),
+        day = day_model.search([('date', '=', str(check_in)),
                                 ('employee_id', '=', values['employee_id'])], limit=1)
         if day:
             values['hr_day_id'] = day.id
         else:
-            values['hr_day_id'] = day_model.create({'date': str(check_in_date),
+            values['hr_day_id'] = day_model.create({'date': str(check_in),
                                                     'employee_id': values['employee_id']}).id
         return values
 
@@ -54,23 +54,24 @@ class HrAttendance(models.Model):
         values = self.create_day_record(values)
         return super(HrAttendance, self).create(values)
 
-class AccountAnalyticLine(models.Model):
-    _inherit = 'account.analytic.line'
+class MrpWorkcenterProductivity(models.Model):
+    _inherit = 'mrp.workcenter.productivity'
     
     hr_day_id = fields.Many2one(comodel_name="hr.day", string="Día")
 
     def create_day_record(self, values):
         day_model = self.env['hr.day']
-        day = day_model.search([('date', '=', values['date']),
-                                ('employee_id', '=', values['employee_id'])], limit=1)
+        employee_id = self.env['res.users'].browse(values['user_id']).employee_id
+        day = day_model.search([('date', '=', values['date_start']),
+                                ('employee_id', '=', employee_id.id)], limit=1)
         if day:
             values['hr_day_id'] = day.id
         else:
-            values['hr_day_id'] = day_model.create({'date': values['date'],
-                                                    'employee_id': values['employee_id']}).id
+            values['hr_day_id'] = day_model.create({'date': values['date_start'],
+                                                    'employee_id': employee_id.id}).id
         return values
 
     @api.model
     def create(self, values):
         values = self.create_day_record(values)
-        return super(AccountAnalyticLine, self).create(values)
+        return super(MrpWorkcenterProductivity, self).create(values)

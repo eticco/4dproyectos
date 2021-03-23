@@ -6,7 +6,7 @@ class MrpWorkcenter(models.Model):
     _inherit = 'mrp.workcenter'
     
     computation_criteria_id = fields.Many2one(string="Criterio de cómputo", comodel_name="mrp.computation.criteria")
-
+    default_duration_by_unit = fields.Float(string="Duración esperada/unidad")
 
 class MrpWorkcenterProductivity(models.Model):
     _inherit = "mrp.workcenter.productivity"
@@ -23,4 +23,4 @@ class MrpWorkcenterProductivity(models.Model):
 class MrpRoutingWorkcenter(models.Model):
     _inherit = "mrp.routing.workcenter"
     
-    default_duration_by_unit = fields.Integer(string="Duración predeterminada/unidad")
+    default_duration_by_unit = fields.Float(string="Duración esperada/unidad", related='workcenter_id.default_duration_by_unit', readonly=True, help="En minutos. Por ejemplo, 52:30 representan 52 minutos y 30 segundos")

@@ -35,12 +35,23 @@
 				<field name="start_date" />
 			</field>
 			<field name="allowed_portal_user_ids" position="replace">
-			    <field name="total_budget" />
-    			<field name="raw_material_cost" />
-    			<field name="users_cost" />
-    			<field name="workcenters_cost" />
-				<field name="total_cost" />
 			</field>
+
+			<notebook position="inside">
+				<page string="Costes">
+					<group>
+						<group>
+							<field name="total_budget" />
+							<field name="total_cost" />
+						</group>
+						<group>
+							<field name="raw_material_cost" />
+							<field name="users_cost" />
+							<field name="workcenters_cost" />
+						</group>
+					</group>
+				</page>
+			</notebook>
 		</field>			
 	</record>
 

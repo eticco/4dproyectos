@@ -47,6 +47,14 @@ class HrAttendance(models.Model):
         else:
             values['hr_day_id'] = day_model.create({'date': str(check_in),
                                                     'employee_id': values['employee_id']}).id
+            check_in_date = datetime.datetime.strptime(check_in, "%Y-%m-%d %H:%M:%S").date()
+            day = day_model.search([('date', '=', str(check_in_date)),
+                                    ('employee_id', '=', values['employee_id'])], limit=1)
+            if day:
+                values['hr_day_id'] = day.id
+            else:
+                values['hr_day_id'] = day_model.create({'date': str(check_in_date),
+                                                        'employee_id': values['employee_id']}).id
         return values
 
     @api.model

@@ -11,7 +11,9 @@
 			<field name="code" position="before">
 				<field name="computation_criteria_id" />
 			</field>
-		    
+			<field name="costs_hour" position="after">
+				<field name="default_duration_by_unit" widget="float_time" />
+			</field>
 		</field>
 	</record>
 

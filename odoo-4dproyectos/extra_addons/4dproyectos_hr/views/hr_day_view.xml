@@ -58,7 +58,7 @@
 		<field name="view_mode">tree,form</field>
 	</record>
 
-	<menuitem id="employee_days_menu" name="Días por empleado" sequence="11" group="hr.group_hr_manager"
+	<menuitem id="employee_days_menu" name="Días por empleado" sequence="11" groups="hr.group_hr_manager"
 		parent="hr.menu_human_resources_configuration" action="employee_days_action" />
 
 </odoo>

@@ -6,7 +6,7 @@
 		<field name="inherit_id" ref="mrp.mrp_bom_form_view" />
 		<field name="arch" type="xml">
 			<field name="code" position="before">
-				<field name="is_default_pricelist" group="base.group_no_one" />
+				<field name="is_default_pricelist" groups="base.group_no_one" />
 			</field>
 		</field>
 	</record>

@@ -6,18 +6,88 @@
 		<field name="model">mrp.workorder</field>
 		<field name="inherit_id" ref="mrp.mrp_production_workorder_tree_editable_view"/>
 		<field name="arch" type="xml">
-			<field name="duration_expected" position="before">
-				<field name="users_cost" />
-				<field name="users_cost_per_unit" />
-				<field name="workcenter_cost" />
-				<field name="workcenter_cost_per_unit" />
+			<field name="name" position="attributes" >
+				<attribute name="string">Centro</attribute>
 			</field>
-			<field name="duration_expected" position="after">
-				<field name="duration_expected_per_unit"/>
-				<field name="real_total_cost"/>
-				<field name="real_total_cost_per_unit"/>
+			<field name="workcenter_id"  position="attributes">
+				<attribute name="invisible">1</attribute>
 			</field>
+			<field name="date_planned_start" position="attributes" >
+				<attribute name="invisible">1</attribute>
+			</field>
+			<field name="duration" position="before">
+				<field name="criteria_name" string="Criterio"/>
+				<field name="criteria_amount" string="UD"/>
+				<field name="duration_expected_per_unit" string="T EST./UD" widget="float_time"/>
+				<field name="duration_per_unit" string="T REAL/UD" widget="float_time"/>
+				<field name="duration_expected_4d" string="T EST." widget="float_time"/>
+			</field>
+			<field name="duration" position="after">
+				<field name="estimated_total_cost_per_unit" string="CT EST./UD" />
+				<field name="real_total_cost_per_unit" string="CT REAL/UD"/>
+				<field name="estimated_total_cost" string="CT EST." />
+				<field name="real_total_cost" string="CT REAL"/>
+			</field>
+			<field name="duration" position="attributes">
+				<attribute name="string">T REAL</attribute>
+			</field>
+			<field name="duration_expected" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</field>
+			<field name="state" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</field>
+
 		</field>
+	</record>
+
+
+	<!--Work Order Inherit -->
+	 <record id="mrp_workorder_view_form_4d" model="ir.ui.view">
+	    <field name="name">mrp.workorder.form.mrp_4d_order</field>
+	    <field name="model">mrp.workorder</field>
+	    <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit"/>
+	    <field name="arch" type="xml">
+
+		   	<xpath expr="//form//group//group" position="replace">
+				<group>
+					<field name="criteria_name" />
+					<label for="duration_expected_per_unit"/>
+					<div class="o_row">
+						<field name="duration_expected_per_unit" widget="float_time"/>
+						<span>minutos</span>
+					</div>
+					<label for="duration_expected_4d"/>
+					<div class="o_row">
+						<field name="duration_expected_4d" widget="float_time"/>
+						<span>minutos</span>
+					</div>
+					<field name="estimated_total_cost_per_unit" />
+					<field name="estimated_total_cost" />
+					<field name="estimated_users_cost" />
+					<field name="estimated_workcenter_cost" />
+				</group>
+		   	    <group>
+				   	<field name="criteria_amount" />
+                    <label for="duration_per_unit"/>
+                    <div class="o_row">
+                        <field name="duration_per_unit" widget="float_time"/>
+                        <span>minutos</span>
+					</div>
+                    <label for="duration"/>
+                    <div class="o_row">
+                        <field name="duration" widget="float_time"/>
+                        <span>minutos</span>
+                    </div>
+					<field name="real_total_cost_per_unit" />
+					<field name="real_total_cost" />
+	            	<field name="users_cost" />
+	            	<field name="workcenter_cost" />
+	            	<field name="users_cost_per_unit" />
+	            	<field name="workcenter_cost_per_unit" />
+	            </group>
+	        </xpath>
+	    </field>
 	</record>
 
 </odoo>

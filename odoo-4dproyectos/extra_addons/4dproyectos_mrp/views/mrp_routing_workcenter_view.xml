@@ -26,9 +26,9 @@
 			</div>
 			
 			<field name="time_cycle" position="after">
-				<label for="default_duration_by_unit" string="Duración predeterminada/unidad"/>
+				<label for="duration_expected_per_unit" string="Duración estimada/unidad"/>
 				<div>
-					<field name="default_duration_by_unit" widget="float_time" class="oe_inline"/> minutos
+					<field name="duration_expected_per_unit" widget="float_time" class="oe_inline"/> minutos
 				</div>
 			</field>
 		</field>

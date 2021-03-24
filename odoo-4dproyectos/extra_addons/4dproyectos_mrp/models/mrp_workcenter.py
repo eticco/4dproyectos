@@ -5,8 +5,10 @@ from odoo import models, fields, api
 class MrpWorkcenter(models.Model):
     _inherit = 'mrp.workcenter'
     
+    currency_id = fields.Many2one('res.currency', related='company_id.currency_id', readonly=True)    
     computation_criteria_id = fields.Many2one(string="Criterio de cómputo", comodel_name="mrp.computation.criteria")
-    default_duration_by_unit = fields.Float(string="Duración esperada/unidad")
+    duration_expected_per_unit = fields.Float(string="Duración esperada/unidad", help="En minutos. Por ejemplo, 52:30 representan 52 minutos y 30 segundos")
+    costs_hour_users = fields.Monetary(string='Coste estimado mano obra por hora', currency_field='currency_id', help="Se utiliza para calcular el coste estimado de mano obra en este puesto")
 
 class MrpWorkcenterProductivity(models.Model):
     _inherit = "mrp.workcenter.productivity"
@@ -23,4 +25,4 @@ class MrpWorkcenterProductivity(models.Model):
 class MrpRoutingWorkcenter(models.Model):
     _inherit = "mrp.routing.workcenter"
     
-    default_duration_by_unit = fields.Float(string="Duración esperada/unidad", related='workcenter_id.default_duration_by_unit', readonly=True, help="En minutos. Por ejemplo, 52:30 representan 52 minutos y 30 segundos")
+    duration_expected_per_unit = fields.Float(string="Duración esperada/unidad", related='workcenter_id.duration_expected_per_unit', readonly=True, help="En minutos. Por ejemplo, 52:30 representan 52 minutos y 30 segundos")

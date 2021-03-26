@@ -6,7 +6,7 @@ class HrEmployee(models.Model):
     _inherit = 'hr.employee'
 
     hr_day_ids = fields.One2many(comodel_name="hr.day", inverse_name="employee_id", string="Listado de días")
-    day_count = fields.Integer(string="Días", compute="_compute_day_count")
+    day_count = fields.Integer(string="Comparativa (h)", compute="_compute_day_count")
     
     def write(self, values):
         result = super(HrEmployee, self).write(values)

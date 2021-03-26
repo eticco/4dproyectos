@@ -42,8 +42,8 @@
                 <filter string="Día" name="date" date="date"/>
                 <separator/>
                 <group expand="0" string="Group By">
-                    <filter string="Fecha" name="date" domain="[]" context="{'group_by':'date'}"/>
-                    <filter string="Empleado" name="employee_id" domain="[]" context="{'group_by':'employee_id'}"/>
+                    <filter string="Fecha" name="date_group" domain="[]" context="{'group_by':'date'}"/>
+                    <filter string="Empleado" name="employee_id_group" domain="[]" context="{'group_by':'employee_id'}"/>
                 </group>
                 <filter string="Última semana" invisible="1" name="week" domain="[('date','&gt;', (context_today() - datetime.timedelta(days=7)).strftime('%%Y-%%m-%%d'))]"/>
                 <filter string="Último mes" invisible="1" name="month" domain="[('date','&gt;', (context_today() - datetime.timedelta(days=30)).strftime('%%Y-%%m-%%d'))]"/>
@@ -56,6 +56,7 @@
 		<field name="name">Días por empleado</field>
 		<field name="res_model">hr.day</field>
 		<field name="view_mode">tree,form</field>
+		<field name="context">{'search_default_employee_id_group': 1}</field>
 	</record>
 
 	<menuitem id="employee_days_menu" name="Días por empleado" sequence="11" groups="hr.group_hr_manager"

@@ -69,7 +69,9 @@ class MrpWorkcenterProductivity(models.Model):
 
     def create_day_record(self, values):
         day_model = self.env['hr.day']
-        employee_id = self.env['res.users'].browse(values['user_id']).employee_id
+        employee_id = self.search_employee_from_user(values['user_id'])
+        if not employee_id:
+            return values
         day = day_model.search([('date', '=', values['date_start']),
                                 ('employee_id', '=', employee_id.id)], limit=1)
         if day:
@@ -83,3 +85,6 @@ class MrpWorkcenterProductivity(models.Model):
     def create(self, values):
         values = self.create_day_record(values)
         return super(MrpWorkcenterProductivity, self).create(values)
+
+    def search_employee_from_user(self, user):
+        return self.env['hr.employee'].search([('user_id', '=', user)]) or False

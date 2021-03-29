@@ -16,6 +16,8 @@
 				<attribute name="invisible">1</attribute>
 			</field>
 			<field name="duration" position="before">
+				<field name="product_id" invisible="1"/>
+				<field name="product_tmpl_id" invisible="1"/>
 				<field name="criteria_name" string="Criterio"/>
 				<field name="criteria_amount" string="UD"/>
 				<field name="duration_expected_per_unit" string="T EST./UD" widget="float_time"/>

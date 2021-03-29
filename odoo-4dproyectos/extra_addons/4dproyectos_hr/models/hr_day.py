@@ -27,7 +27,7 @@ class HrDay(models.Model):
             worked_hours = 0.0
             for productivity in day.mrp_workcenter_productivity_ids:
                 worked_hours += productivity.duration
-            day.total_worked = worked_hours
+            day.total_worked = worked_hours / 60.0
 
 
 class HrAttendance(models.Model):
@@ -38,16 +38,17 @@ class HrAttendance(models.Model):
     def create_day_record(self, values):
         day_model = self.env['hr.day']
         check_in = values['check_in']
+        day = False
         if 'search_default_today' in self.env.context:
-            check_in = datetime.datetime.strptime(check_in, "%Y-%m-%d %H:%M:%S").date()
-        day = day_model.search([('date', '=', str(check_in)),
+            check_in_date = datetime.datetime.strptime(check_in, "%Y-%m-%d %H:%M:%S").date()
+            day = day_model.search([('date', '=', str(check_in_date)),
                                 ('employee_id', '=', values['employee_id'])], limit=1)
         if day:
             values['hr_day_id'] = day.id
         else:
             values['hr_day_id'] = day_model.create({'date': str(check_in),
                                                     'employee_id': values['employee_id']}).id
-            check_in_date = datetime.datetime.strptime(check_in, "%Y-%m-%d %H:%M:%S").date()
+            check_in_date = check_in #datetime.datetime.strptime(check_in, "%Y-%m-%d %H:%M:%S").date()
             day = day_model.search([('date', '=', str(check_in_date)),
                                     ('employee_id', '=', values['employee_id'])], limit=1)
             if day:

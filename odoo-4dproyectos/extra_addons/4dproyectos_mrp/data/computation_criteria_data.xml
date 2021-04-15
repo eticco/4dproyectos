@@ -11,7 +11,7 @@
 		<record model="mrp.computation.criteria" >
 	    <field name="name">Nº de hojas de ventana</field>
 	</record>
-		<record model="mrp.computation.criteria" >
+	<record model="mrp.computation.criteria" >
 	    <field name="name">Nº de piezas de aluminio</field>
 	</record>
 		

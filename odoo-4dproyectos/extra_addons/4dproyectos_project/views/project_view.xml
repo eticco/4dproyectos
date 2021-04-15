@@ -8,6 +8,13 @@
         <field name="view_id" ref="project.view_project"/>
 	</record>
 
+	<record id="action_view_production" model="ir.actions.act_window">
+		<field name="name">Órdenes de producción</field>
+		<field name="res_model">mrp.production</field>
+		<field name="view_mode">tree,form</field>
+		<field name="search_view_id" ref="mrp.mrp_production_tree_view"/>
+	</record>
+
 	<!-- Formulario de proyecto -->
 	<record id="view_project_edit_project_inherit"
 		model="ir.ui.view">
@@ -15,6 +22,15 @@
 		<field name="model">project.project</field>
 		<field name="inherit_id" ref="project.edit_project" />
 		<field name="arch" type="xml">
+
+	        <div name="button_box" position="inside">
+				<button class="oe_stat_button" type="action" name="%(action_view_production)d" 
+					context="{'search_default_project_id': active_id, 'default_project_id': active_id}" 
+					icon="fa-server">
+					<field  string="Órdenes de producción" name="production_count" widget="statinfo"/>
+				</button>
+	        </div>
+
 	        <xpath expr="//header" position="inside">
 	          <field name="status"
 	                 widget="statusbar"

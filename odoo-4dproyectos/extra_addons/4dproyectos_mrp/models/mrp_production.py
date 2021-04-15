@@ -6,6 +6,8 @@ class MrpProduction(models.Model):
     _inherit = 'mrp.production'
     
     code = fields.Char('Código', readonly=True)
+    product_qty = fields.Float(string='Nº unidades')
+    sheet_qty = fields.Integer(string='Nº hojas', compute='_compute_sheet_qty')
     criteria_amount_ids = fields.One2many(comodel_name = 'mrp.production.criteria.amount', inverse_name = 'production_id', string = 'Cantidades de cómputo', ondelete="cascade")
     partner_id = fields.Many2one(comodel_name="res.partner", string="Cliente", required=True)
     project_id = fields.Many2one(comodel_name="project.project", string="Proyecto", required=True)
@@ -36,6 +38,16 @@ class MrpProduction(models.Model):
     real_total_cost_per_unit = fields.Monetary(string="Coste real total por unidad", currency_field='currency_id', compute='_compute_real_total_cost_per_unit', help='Obtenido como la suma de los costes de mano de obra y maquinaria por unidad')
     real_total_cost = fields.Monetary(string="Coste real total mano obra y maquinaria", currency_field='currency_id', compute='_compute_real_total_cost', help='Obtenido como la suma de los costes de mano de obra y maquinaria')
     varnish_ids = fields.Many2many(comodel_name = 'mrp.varnish', inverse_name = 'production_ids', string = 'Barnices')
+
+    def _compute_sheet_qty(self):
+        
+        for production in self:
+            production.sheet_qty = 0
+            for criteria_amount_id in production.criteria_amount_ids:
+                if "Nº de hojas de ventana" == criteria_amount_id.computation_criteria_id.name:
+                    production.sheet_qty = criteria_amount_id.amount
+                    break
+
 
     @api.depends('wood_cost','glass_cost','ironwork_cost','blind_cost','aluminum_cost','other_cost')
     def _compute_raw_material_cost(self):
@@ -103,7 +115,7 @@ class MrpVarnish(models.Model):
     name = fields.Char('Nombre')
     out_date = fields.Datetime(string="Fecha de salida")
     in_date = fields.Datetime(string="Fecha de entrada")
-    qty_frame = fields.Integer(string="Nº de marcos")
+    qty_frame = fields.Integer(string="Nº de unidades")
     qty_sheet = fields.Integer(string="Nº de hojas")
     production_ids = fields.Many2one(string="Orden de producción", comodel_name="mrp.production", inverse_name="varnish_ids")
 

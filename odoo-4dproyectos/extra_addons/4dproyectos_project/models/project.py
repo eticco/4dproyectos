@@ -18,6 +18,7 @@ class Project(models.Model):
     status = fields.Selection(string="Estado", selection=[('contratada', 'Contratada'), ('en_ejecucion', 'En ejecución'), ('terminada_en_fabrica', 'Terminada en fábrica'), ('entregada', 'Entregada'), ('facturada', 'Facturada'), ('cerrada', 'Cerrada')])
     start_date = fields.Date(string="Fecha de alta")
 
+    production_count = fields.Integer(compute='_compute_production_count', string='Órdenes de producción')
     
     def _compute_raw_material_cost(self):
         
@@ -43,3 +44,8 @@ class Project(models.Model):
         
         for project in self:
             project.total_cost = project.raw_material_cost + project.varnish_cost + project.users_cost + project.workcenters_cost
+
+    def _compute_production_count(self):
+        for project in self:
+            production_model = self.env['mrp.production']
+            project.production_count = production_model.search_count([('project_id.id', '=', project.id)])

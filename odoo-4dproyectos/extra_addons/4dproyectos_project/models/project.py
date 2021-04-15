@@ -11,6 +11,7 @@ class Project(models.Model):
     production_ids = fields.One2many(comodel_name = 'mrp.production', inverse_name = 'project_id', string = 'Órdenes de producción')
     total_budget = fields.Float(string="Presupuesto total", currency_field='currency_id')
     raw_material_cost = fields.Monetary(string="Coste total materiales", currency_field='currency_id', compute='_compute_raw_material_cost', help='Obtenido como la suma de los costes de materiales de sus órdenes de producción')
+    varnish_cost = fields.Monetary(string="Coste barniz", currency_field='currency_id', compute='_compute_varnish_cost', help='Obtenido como la suma de los costes de barniz de sus órdenes de producción')
     users_cost = fields.Monetary(string="Coste total mano obra", currency_field='currency_id', compute='_compute_users_cost', help='Obtenido como la suma de los costes de mano de obra de sus órdenes de producción')
     workcenters_cost = fields.Monetary(string="Coste total maquinaria", currency_field='currency_id', compute='_compute_workcenters_cost', help='Obtenido como la suma de los costes de maquinaria de sus órdenes de producción')
     total_cost = fields.Monetary(string="Coste total", currency_field='currency_id', compute='_compute_total_cost', help='Obtenido como la suma de los costes de materiales, mano de obra y maquinaria')
@@ -22,6 +23,11 @@ class Project(models.Model):
         
         for project in self:
             project.raw_material_cost = sum(project.production_ids.mapped('raw_material_cost'))
+    
+    def _compute_varnish_cost(self):
+        
+        for project in self:
+            project.varnish_cost = sum(project.production_ids.mapped('varnish_cost'))
     
     def _compute_users_cost(self):
         
@@ -36,4 +42,4 @@ class Project(models.Model):
     def _compute_total_cost(self):
         
         for project in self:
-            project.total_cost = project.raw_material_cost + project.users_cost + project.workcenters_cost
+            project.total_cost = project.raw_material_cost + project.varnish_cost + project.users_cost + project.workcenters_cost

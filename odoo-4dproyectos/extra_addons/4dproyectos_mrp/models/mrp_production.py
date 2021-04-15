@@ -30,10 +30,11 @@ class MrpProduction(models.Model):
     aluminum_cost = fields.Monetary(string="Coste aluminio", currency_field='currency_id')
     other_cost = fields.Monetary(string="Coste varios", currency_field='currency_id')
     raw_material_cost = fields.Monetary(string="Coste total materiales", currency_field='currency_id', compute='_compute_raw_material_cost', help='Obtenido como la suma de los costes de madera, vidrio, etc.')
+    varnish_cost = fields.Monetary(string="Coste barniz", currency_field='currency_id')
     users_cost = fields.Monetary(string="Coste total mano obra", currency_field='currency_id', compute='_compute_users_cost', help='Obtenido como la suma de los costes de mano de obra de todos los puestos de producción')
     workcenters_cost = fields.Monetary(string="Coste total maquinaria", currency_field='currency_id', compute='_compute_workcenters_cost', help='Obtenido como la suma de los costes de maquinaria de todos los puestos de producción')
     real_total_cost_per_unit = fields.Monetary(string="Coste real total por unidad", currency_field='currency_id', compute='_compute_real_total_cost_per_unit', help='Obtenido como la suma de los costes de mano de obra y maquinaria por unidad')
-    real_total_cost = fields.Monetary(string="Coste real total", currency_field='currency_id', compute='_compute_real_total_cost', help='Obtenido como la suma de los costes de mano de obra y maquinaria')
+    real_total_cost = fields.Monetary(string="Coste real total mano obra y maquinaria", currency_field='currency_id', compute='_compute_real_total_cost', help='Obtenido como la suma de los costes de mano de obra y maquinaria')
     varnish_ids = fields.Many2many(comodel_name = 'mrp.varnish', inverse_name = 'production_ids', string = 'Barnices')
 
     @api.depends('wood_cost','glass_cost','ironwork_cost','blind_cost','aluminum_cost','other_cost')

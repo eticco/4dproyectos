@@ -46,6 +46,7 @@
 						</group>
 						<group>
 							<field name="raw_material_cost" />
+							<field name="varnish_cost" />
 							<field name="users_cost" />
 							<field name="workcenters_cost" />
 						</group>

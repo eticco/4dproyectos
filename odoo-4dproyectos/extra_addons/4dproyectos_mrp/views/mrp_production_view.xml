@@ -14,6 +14,7 @@
 				<field name="code"/>
 			</field>
 			<field name="product_qty" position="before">
+				<field name="date_planned_start"/>
 				<field name="wood_id" />
 				<field name="aluminum_color_id" />
 				<field name="varnish_id" />

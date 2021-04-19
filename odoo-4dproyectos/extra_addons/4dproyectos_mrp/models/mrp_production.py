@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
-
+from datetime import datetime
 
 class MrpProduction(models.Model):
     _inherit = 'mrp.production'
@@ -13,8 +13,7 @@ class MrpProduction(models.Model):
     project_id = fields.Many2one(comodel_name="project.project", string="Proyecto", required=True)
     price = fields.Monetary(string='Precio de venta', currency_field='currency_id')
     notes = fields.Text('Notes')
-    date_start = fields.Datetime('Start Date', readonly=False)
-    date_finished = fields.Datetime('End Date', readonly=False)
+    date_start = fields.Datetime('Start Date', related='create_date')
     wood_id = fields.Many2one(comodel_name="mrp.wood", string="Madera") 
     varnish_id = fields.Many2one(comodel_name="mrp.varnish", string="Barniz")
     aluminum_color_id = fields.Many2one(comodel_name="mrp.aluminum.color", string="Color aluminio") 
@@ -86,6 +85,11 @@ class MrpProduction(models.Model):
             })
         
         return result
+
+    def write(self, values):
+        if 'custom_state' in values and values['custom_state'] == 'done':
+            values['date_finished'] = datetime.now()
+        return super(MrpProduction, self).write(values)
 
     @api.onchange('product_id', 'picking_type_id', 'company_id')
     def onchange_product_id(self):

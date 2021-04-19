@@ -37,7 +37,7 @@ class MrpProduction(models.Model):
     workcenters_cost = fields.Monetary(string="Coste total maquinaria", currency_field='currency_id', compute='_compute_workcenters_cost', help='Obtenido como la suma de los costes de maquinaria de todos los puestos de producción')
     real_total_cost_per_unit = fields.Monetary(string="Coste real total por unidad", currency_field='currency_id', compute='_compute_real_total_cost_per_unit', help='Obtenido como la suma de los costes de mano de obra y maquinaria por unidad')
     real_total_cost = fields.Monetary(string="Coste real total mano obra y maquinaria", currency_field='currency_id', compute='_compute_real_total_cost', help='Obtenido como la suma de los costes de mano de obra y maquinaria')
-    varnish_ids = fields.Many2many(comodel_name = 'mrp.varnish', inverse_name = 'production_ids', string = 'Barnices')
+    varnish_ids = fields.One2many(comodel_name = 'mrp.varnish', inverse_name = 'production_id', string = 'Barnices')
 
     def _compute_sheet_qty(self):
         
@@ -117,7 +117,8 @@ class MrpVarnish(models.Model):
     in_date = fields.Datetime(string="Fecha de entrada")
     qty_frame = fields.Integer(string="Nº de unidades")
     qty_sheet = fields.Integer(string="Nº de hojas")
-    production_ids = fields.Many2one(string="Orden de producción", comodel_name="mrp.production", inverse_name="varnish_ids")
+    notes = fields.Text('Notes')
+    production_id = fields.Many2one(string="Orden de producción", comodel_name="mrp.production", inverse_name="varnish_ids")
 
 class MrpAluminumColor(models.Model):
     _name = 'mrp.aluminum.color'

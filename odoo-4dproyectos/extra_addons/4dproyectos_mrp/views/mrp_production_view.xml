@@ -131,13 +131,15 @@
 					</field>
 				</page>
 				<page string="Barnices">
-					<field name="varnish_ids">
+					<field name="varnish_ids"
+						context="{'production_id' : active_id}">
 						<tree editable="bottom">
 							<field name="name" />
 							<field name="out_date" />
 							<field name="in_date" />
 							<field name="qty_frame" />
 							<field name="qty_sheet" />
+							<field name="notes" />
 						</tree>
 					</field>
 				</page>

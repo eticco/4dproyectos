@@ -20,6 +20,9 @@
     <record model="ir.ui.menu" id="base.menu_management">
         <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
     </record>
+    <record model="ir.ui.menu" id="hr.menu_hr_root">
+        <field name="groups_id" eval="[(6, 0, [ref('hr.group_hr_manager'),ref('hr.group_hr_user'),ref('base.group_user')])]"/>
+    </record>
 
     <menuitem id="project.menu_main_pm" name="Obras" sequence="32" />
 

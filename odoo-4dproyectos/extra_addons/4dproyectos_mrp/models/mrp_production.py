@@ -22,7 +22,9 @@ class MrpProduction(models.Model):
     blind = fields.Boolean('Persiana')
     boards = fields.Integer("Tableros")
     type = fields.Selection(string="Tipo", selection=[('sin_colocacion','Sin colocación'), ('colocacion_obra_nueva','Colocación obra nueva'), ('colocacion_obra_reforma','Colocación obra reforma')])
-
+    custom_state = fields.Selection(selection=[('draft','Borrador'), ('progress','En progreso'), ('done','Hecho'), ('loaded','Cargado '), ('cancel','Cancelado')], readonly=False, string='Estado',
+        copy=False, index=True,
+        store=True, tracking=True)
     currency_id = fields.Many2one('res.currency', related='company_id.currency_id', readonly=True)
 
     wood_cost = fields.Monetary(string="Coste madera", currency_field='currency_id')

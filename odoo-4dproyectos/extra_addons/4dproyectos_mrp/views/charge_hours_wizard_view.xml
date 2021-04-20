@@ -23,7 +23,7 @@
 						<field name="finish_order" attrs="{'invisible' : [('productivity_id', '=', False)]}" />
 					</group>
 					<group style="text-align: center;">
-						<button name="action_charge_hours" class="btn btn-charge-hours" type="object" string="Cargar!" icon="fa-calendar-check-o" />
+						<button name="action_charge_hours" class="btn btn-charge-hours fa-6x" type="object" string="Cargar" icon="fa-calendar-check-o" />
 					</group>
 				</sheet>
 	        </form>

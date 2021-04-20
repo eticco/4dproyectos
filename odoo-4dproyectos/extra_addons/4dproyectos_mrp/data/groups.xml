@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo noupdate="0">
+
+	<record model="res.groups" id="group_4d_technician">
+		<field name="name">Técnico</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+	</record>
+</odoo>

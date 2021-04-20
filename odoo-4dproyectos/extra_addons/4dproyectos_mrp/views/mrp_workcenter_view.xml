@@ -15,8 +15,9 @@
 				<attribute name="string">Coste maquinaria por hora</attribute>
 			</field>
 			<field name="costs_hour" position="after">
-				<field name="costs_hour_users" />
 				<field name="duration_expected_per_unit" widget="float_time" />
+				<field name="costs_per_unit_users" />
+				<field name="costs_hour_users" />
 			</field>
 		</field>
 	</record>

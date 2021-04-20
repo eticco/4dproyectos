@@ -12,7 +12,7 @@ class MrpProduction(models.Model):
     sheet_qty = fields.Integer(string='Nº hojas', compute='_compute_sheet_qty')
     criteria_amount_ids = fields.One2many(comodel_name = 'mrp.production.criteria.amount', inverse_name = 'production_id', string = 'Cantidades de cómputo', ondelete="cascade")
     partner_id = fields.Many2one(comodel_name="res.partner", string="Cliente", required=True)
-    project_id = fields.Many2one(comodel_name="project.project", string="Proyecto", required=True)
+    project_id = fields.Many2one(comodel_name="project.project", string="Obra", required=True)
     internal_by_project_id = fields.Integer(string="Numeración de OF dentro de la misma obra")
     price = fields.Monetary(string='Precio de venta', currency_field='currency_id')
     notes = fields.Text('Notes')

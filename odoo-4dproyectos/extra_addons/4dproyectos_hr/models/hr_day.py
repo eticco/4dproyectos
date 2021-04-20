@@ -10,6 +10,7 @@ class HrDay(models.Model):
     attendance_ids = fields.One2many(comodel_name="hr.attendance", inverse_name="hr_day_id", string="Asistencias")
     mrp_workcenter_productivity_ids = fields.One2many(comodel_name="mrp.workcenter.productivity", inverse_name="hr_day_id", string="Partes de horas")
     total_attendance = fields.Float(string="Total asistencias (h)", compute="_compute_total_attendance")
+    total_extra_attendance = fields.Float(string="Total extra (h)", compute="_compute_total_extra_attendance")
     total_worked = fields.Float(string="Total partes de horas (h)", compute="_compute_total_worked")
     employee_id = fields.Many2one(comodel_name="hr.employee", string="Empleado")
 
@@ -20,6 +21,15 @@ class HrDay(models.Model):
             for attendance in day.attendance_ids:
                 attended_hours += attendance.worked_hours
             day.total_attendance = attended_hours
+
+    @api.depends('total_attendance')
+    def _compute_total_extra_attendance(self):
+        for day in self:
+            if day.total_attendance and day.total_attendance > 8.0:
+                day.total_extra_attendance = day.total_attendance - 8.0
+            else:
+                day.total_extra_attendance = 0.0 
+
 
     @api.depends('mrp_workcenter_productivity_ids', 'mrp_workcenter_productivity_ids.duration')
     def _compute_total_worked(self):

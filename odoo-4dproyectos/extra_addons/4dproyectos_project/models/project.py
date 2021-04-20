@@ -14,6 +14,7 @@ class Project(models.Model):
     varnish_cost = fields.Monetary(string="Coste barniz", currency_field='currency_id', compute='_compute_varnish_cost', help='Obtenido como la suma de los costes de barniz de sus órdenes de producción')
     users_cost = fields.Monetary(string="Coste total mano obra", currency_field='currency_id', compute='_compute_users_cost', help='Obtenido como la suma de los costes de mano de obra de sus órdenes de producción')
     workcenters_cost = fields.Monetary(string="Coste total maquinaria", currency_field='currency_id', compute='_compute_workcenters_cost', help='Obtenido como la suma de los costes de maquinaria de sus órdenes de producción')
+    packaging_cost = fields.Monetary(string="Coste embalaje, carga y descarga", currency_field='currency_id', compute='_compute_packaging_cost', help='Obtenido como la suma de los costes de embalaje, carga y descarga de sus órdenes de producción')
     total_cost = fields.Monetary(string="Coste total", currency_field='currency_id', compute='_compute_total_cost', help='Obtenido como la suma de los costes de materiales, mano de obra y maquinaria')
     status = fields.Selection(string="Estado", selection=[('contratada', 'Contratada'), ('en_ejecucion', 'En ejecución'), ('terminada_en_fabrica', 'Terminada en fábrica'), ('entregada', 'Entregada'), ('facturada', 'Facturada'), ('cerrada', 'Cerrada')])
     start_date = fields.Date(string="Fecha de alta")
@@ -30,6 +31,11 @@ class Project(models.Model):
         for project in self:
             project.varnish_cost = sum(project.production_ids.mapped('varnish_cost'))
     
+    def _compute_packaging_cost(self):
+        
+        for project in self:
+            project.packaging_cost = sum(project.production_ids.mapped('packaging_cost'))
+    
     def _compute_users_cost(self):
         
         for project in self:
@@ -43,7 +49,7 @@ class Project(models.Model):
     def _compute_total_cost(self):
         
         for project in self:
-            project.total_cost = project.raw_material_cost + project.varnish_cost + project.users_cost + project.workcenters_cost
+            project.total_cost = project.raw_material_cost + project.varnish_cost + project.users_cost + project.workcenters_cost + project.packaging_cost
 
     def _compute_production_count(self):
         for project in self:

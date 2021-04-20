@@ -38,6 +38,7 @@ class MrpProduction(models.Model):
     workcenters_cost = fields.Monetary(string="Coste total maquinaria", currency_field='currency_id', compute='_compute_workcenters_cost', help='Obtenido como la suma de los costes de maquinaria de todos los puestos de producción')
     real_total_cost_per_unit = fields.Monetary(string="Coste real total por unidad", currency_field='currency_id', compute='_compute_real_total_cost_per_unit', help='Obtenido como la suma de los costes de mano de obra y maquinaria por unidad')
     real_total_cost = fields.Monetary(string="Coste real total mano obra y maquinaria", currency_field='currency_id', compute='_compute_real_total_cost', help='Obtenido como la suma de los costes de mano de obra y maquinaria')
+    packaging_cost = fields.Monetary(string="Coste embalaje, carga y descarga", currency_field='currency_id', help="Sólo rellenar este campo en la órdenes de fabricación de ventanas, multiplicando el coste medio anual por el número de ventanas")
     varnish_ids = fields.One2many(comodel_name = 'mrp.varnish', inverse_name = 'production_id', string = 'Barnices')
 
     def _compute_sheet_qty(self):

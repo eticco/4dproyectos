@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
 from datetime import datetime
+import logging
+_logger = logging.getLogger(__name__)
 
 class MrpProduction(models.Model):
     _inherit = 'mrp.production'
@@ -76,13 +78,18 @@ class MrpProduction(models.Model):
     @api.model
     def create(self, values):
         product_code = self.env['product.product'].browse(values['product_id']).product_tmpl_id.default_code
-        project_id = self.env['project.project'].browse(values['project_id'])
         max_internal_by_project_id = 1
-        max_production_id = self.env['mrp.production'].search([('project_id', '=', project_id.id)], order='internal_by_project_id desc', limit=1) 
-        if max_production_id and max_production_id.internal_by_project_id:
-            max_internal_by_project_id = max_production_id.internal_by_project_id + 1
+        max_production_id = self.env['mrp.production'].search([('project_id', '=', values['project_id']), ('internal_by_project_id', '!=', False)], order='internal_by_project_id desc', limit=1) 
 
-        project_code = project_id.id
+        if max_production_id:
+            if max_production_id.internal_by_project_id > 0:
+                max_internal_by_project_id = max_production_id.internal_by_project_id + 1
+            else:
+                _logger.error('Esta vacio el id')
+        else:
+            _logger.error('Esta vacio el resultado')
+
+        project_code = values['project_id']
         year_week = datetime.now().strftime("%V").zfill(2) + '/' + datetime.now().strftime("%y").zfill(2)
 
         code = product_code + '/' + str(project_code).zfill(4) + '/' + str(max_internal_by_project_id).zfill(2) + '/' + year_week

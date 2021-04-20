@@ -11,6 +11,7 @@ class MrpProduction(models.Model):
     criteria_amount_ids = fields.One2many(comodel_name = 'mrp.production.criteria.amount', inverse_name = 'production_id', string = 'Cantidades de cómputo', ondelete="cascade")
     partner_id = fields.Many2one(comodel_name="res.partner", string="Cliente", required=True)
     project_id = fields.Many2one(comodel_name="project.project", string="Proyecto", required=True)
+    internal_by_project_id = fields.Integer(string="Numeración de OF dentro de la misma obra")
     price = fields.Monetary(string='Precio de venta', currency_field='currency_id')
     notes = fields.Text('Notes')
     date_start = fields.Datetime('Start Date', related='create_date')
@@ -74,7 +75,18 @@ class MrpProduction(models.Model):
             
     @api.model
     def create(self, values):
-        code = 'Autogenerado'
+        product_code = self.env['product.product'].browse(values['product_id']).product_tmpl_id.default_code
+        project_id = self.env['project.project'].browse(values['project_id'])
+        max_internal_by_project_id = 1
+        max_production_id = self.env['mrp.production'].search([('project_id', '=', project_id.id)], order='internal_by_project_id desc', limit=1) 
+        if max_production_id and max_production_id.internal_by_project_id:
+            max_internal_by_project_id = max_production_id.internal_by_project_id + 1
+
+        project_code = project_id.id
+        year_week = datetime.now().strftime("%V").zfill(2) + '/' + datetime.now().strftime("%y").zfill(2)
+
+        code = product_code + '/' + str(project_code).zfill(4) + '/' + str(max_internal_by_project_id).zfill(2) + '/' + year_week
+        values['internal_by_project_id'] = max_internal_by_project_id
         values['code'] = code
         result = super(MrpProduction, self).create(values)
 

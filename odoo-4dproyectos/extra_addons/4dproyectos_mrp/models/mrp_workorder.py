@@ -6,6 +6,7 @@ class MrpWorkorder(models.Model):
     _inherit = 'mrp.workorder'
     
     currency_id = fields.Many2one('res.currency', related='company_id.currency_id', readonly=True)
+    project_id = fields.Many2one('project.project', related='production_id.project_id', readonly=True)
     product_id = fields.Many2one('product.product', related='production_id.product_id', readonly=True) 
     product_tmpl_id = fields.Many2one('product.template', related='production_id.product_id.product_tmpl_id', readonly=True) 
     workcenter_cost = fields.Monetary(string='Coste maquinaria', currency_field='currency_id', compute='_compute_workcenter_cost')

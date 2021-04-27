@@ -9,6 +9,7 @@ class Project(models.Model):
 
     partner_shipping_id = fields.Many2one('res.partner', string='Dirección')
     production_ids = fields.One2many(comodel_name = 'mrp.production', inverse_name = 'project_id', string = 'Órdenes de producción')
+    code = fields.Char(string="Código", help="Código interno de cuatro dígitos")
     total_budget = fields.Float(string="Presupuesto total", currency_field='currency_id')
     raw_material_cost = fields.Monetary(string="Coste total materiales", currency_field='currency_id', compute='_compute_raw_material_cost', help='Obtenido como la suma de los costes de materiales de sus órdenes de producción')
     varnish_cost = fields.Monetary(string="Coste barniz", currency_field='currency_id', compute='_compute_varnish_cost', help='Obtenido como la suma de los costes de barniz de sus órdenes de producción')
@@ -20,7 +21,8 @@ class Project(models.Model):
     start_date = fields.Date(string="Fecha de alta")
 
     production_count = fields.Integer(compute='_compute_production_count', string='Órdenes de producción')
-    
+    workorder_count = fields.Integer(compute='_compute_workorder_count', string='# Órdenes de trabajo')
+
     def _compute_raw_material_cost(self):
         
         for project in self:
@@ -55,3 +57,8 @@ class Project(models.Model):
         for project in self:
             production_model = self.env['mrp.production']
             project.production_count = production_model.search_count([('project_id.id', '=', project.id)])
+            
+    def _compute_workorder_count(self):
+        for project in self:
+            workorder_model = self.env['mrp.workorder']
+            project.workorder_count = workorder_model.search_count([('project_id.id', '=', project.id)])

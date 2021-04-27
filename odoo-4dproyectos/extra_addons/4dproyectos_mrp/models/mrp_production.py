@@ -17,6 +17,7 @@ class MrpProduction(models.Model):
     price = fields.Monetary(string='Precio de venta', currency_field='currency_id')
     notes = fields.Text('Notes')
     date_start = fields.Datetime('Start Date', related='create_date')
+    date_loaded = fields.Datetime('Fecha carga', readonly=True)
     wood_id = fields.Many2one(comodel_name="mrp.wood", string="Madera") 
     varnish_id = fields.Many2one(comodel_name="mrp.varnish", string="Barniz")
     aluminum_color_id = fields.Many2one(comodel_name="mrp.aluminum.color", string="Color aluminio") 
@@ -43,6 +44,12 @@ class MrpProduction(models.Model):
     real_total_cost = fields.Monetary(string="Coste real total mano obra y maquinaria", currency_field='currency_id', compute='_compute_real_total_cost', help='Obtenido como la suma de los costes de mano de obra y maquinaria')
     packaging_cost = fields.Monetary(string="Coste embalaje, carga y descarga", currency_field='currency_id', help="Sólo rellenar este campo en la órdenes de fabricación de ventanas, multiplicando el coste medio anual por el número de ventanas")
     varnish_ids = fields.One2many(comodel_name = 'mrp.varnish', inverse_name = 'production_id', string = 'Barnices')
+
+    def name_get(self):
+        result = []
+        for rec in self:
+            result.append((rec.id, rec.code))
+        return result            
 
     def _compute_sheet_qty(self):
         
@@ -78,6 +85,7 @@ class MrpProduction(models.Model):
     @api.model
     def create(self, values):
         product_code = self.env['product.product'].browse(values['product_id']).product_tmpl_id.default_code
+        project_code = self.env['project.project'].browse(values['project_id']).code
         max_internal_by_project_id = 1
         max_production_id = self.env['mrp.production'].search([('project_id', '=', values['project_id']), ('internal_by_project_id', '!=', False)], order='internal_by_project_id desc', limit=1) 
 
@@ -89,7 +97,6 @@ class MrpProduction(models.Model):
         else:
             _logger.error('Esta vacio el resultado')
 
-        project_code = values['project_id']
         year_week = datetime.now().strftime("%V").zfill(2) + '/' + datetime.now().strftime("%y").zfill(2)
 
         code = product_code + '/' + str(project_code).zfill(4) + '/' + str(max_internal_by_project_id).zfill(2) + '/' + year_week
@@ -109,6 +116,8 @@ class MrpProduction(models.Model):
     def write(self, values):
         if 'custom_state' in values and values['custom_state'] == 'done':
             values['date_finished'] = datetime.now()
+        if 'custom_state' in values and values['custom_state'] == 'loaded':
+            values['date_loaded'] = datetime.now()
         return super(MrpProduction, self).write(values)
 
     @api.onchange('product_id', 'picking_type_id', 'company_id')

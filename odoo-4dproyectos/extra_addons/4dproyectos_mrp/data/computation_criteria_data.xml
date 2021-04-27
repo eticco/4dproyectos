@@ -14,5 +14,14 @@
 	<record model="mrp.computation.criteria" >
 	    <field name="name">Nº de piezas de aluminio</field>
 	</record>
+	<record model="mrp.computation.criteria" >
+	    <field name="name">Nº de piezas de madera de hoja</field>
+	</record>
+	<record model="mrp.computation.criteria" >
+	    <field name="name">Nº de piezas de aluminio de marco</field>
+	</record>
+	<record model="mrp.computation.criteria" >
+	    <field name="name">Nº de vidrios fijos + nº de hojas + Nº cajones persiana</field>
+	</record>
 		
 </odoo>

@@ -6,6 +6,7 @@
 		<field name="arch" type="xml">
 			<tree string="Barnices">
 				<field name="name" />
+				<field name="production_id" />
 				<field name="out_date" />
 				<field name="in_date" />
 				<field name="qty_frame" />

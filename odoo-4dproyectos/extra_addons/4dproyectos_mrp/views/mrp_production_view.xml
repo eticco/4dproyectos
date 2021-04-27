@@ -92,6 +92,10 @@
                 <div class="o_row">
                 	<field name="date_finished" readonly="1" />
                 </div>
+               	<label for="date_loaded"/>
+                <div class="o_row">
+                	<field name="date_loaded" readonly="1" />
+                </div>
 		    </xpath>
 		    		    
 			<notebook position="inside">

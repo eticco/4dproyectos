@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
+from odoo.osv import expression
 from datetime import datetime
 import logging
 _logger = logging.getLogger(__name__)
@@ -49,7 +50,15 @@ class MrpProduction(models.Model):
         result = []
         for rec in self:
             result.append((rec.id, rec.code))
-        return result            
+        return result
+
+    def _name_search(self, name, args=None, operator='ilike', limit=100, name_get_uid=None):
+        args = args or []
+        domain = []
+        if name:
+            replaced_name = name.replace("-", "/")
+            domain = [('code', operator, replaced_name)]
+        return self._search(expression.AND([domain, args]), limit=limit, access_rights_uid=name_get_uid)
 
     def _compute_sheet_qty(self):
         

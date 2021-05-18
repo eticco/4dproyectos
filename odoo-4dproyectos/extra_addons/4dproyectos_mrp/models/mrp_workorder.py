@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
+from odoo.osv import expression
 
 
 class MrpWorkorder(models.Model):
     _inherit = 'mrp.workorder'
     
+    workcenter_name = fields.Char(string='Nombre centro producción', related='workcenter_id.name', store=True)
+
     currency_id = fields.Many2one('res.currency', related='company_id.currency_id', readonly=True)
     project_id = fields.Many2one('project.project', related='production_id.project_id', readonly=True)
     product_id = fields.Many2one('product.product', related='production_id.product_id', readonly=True) 
@@ -36,6 +39,20 @@ class MrpWorkorder(models.Model):
     criteria_amount_id = fields.Many2one(comodel_name = 'mrp.production.criteria.amount', string = 'Criterio de cómputo', compute='_compute_criteria_amount_id')
     criteria_name = fields.Char(string='Criterio de cómputo', related='criteria_amount_id.computation_criteria_id.name')
     criteria_amount = fields.Integer(string='Cantidad', related='criteria_amount_id.amount')
+
+
+    def name_get(self):
+        result = []
+        for rec in self:
+            result.append((rec.id, rec.workcenter_id.name))
+        return result            
+
+    def _name_search(self, name, args=None, operator='ilike', limit=100, name_get_uid=None):
+        args = args or []
+        domain = []
+        if name:
+            domain = [('workcenter_name', operator, name)]
+        return self._search(expression.AND([domain, args]), limit=limit, access_rights_uid=name_get_uid)
 
     @api.depends('production_id', 'workcenter_id')
     def _compute_criteria_amount_id(self):

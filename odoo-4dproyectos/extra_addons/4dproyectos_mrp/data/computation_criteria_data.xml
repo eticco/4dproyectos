@@ -23,5 +23,8 @@
 	<record model="mrp.computation.criteria" >
 	    <field name="name">Nº de vidrios fijos + nº de hojas + Nº cajones persiana</field>
 	</record>
+	<record model="mrp.computation.criteria" >
+	    <field name="name">Nº de unidades</field>
+	</record>
 		
 </odoo>

@@ -140,8 +140,8 @@
 				<page string="Cantidades cómputo">
 					<field name="criteria_amount_ids"
 						context="{'production_id' : active_id}">
-						<tree editable="bottom">
-							<field name="computation_criteria_id" />
+						<tree editable="bottom" create="false" delete="false">
+							<field name="computation_criteria_id" readonly="True"/>
 							<field name="amount" />
 						</tree>
 					</field>

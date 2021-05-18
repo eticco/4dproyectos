@@ -8,11 +8,11 @@
 	        <form string="Cargo de horas">
 				<sheet>
 					<group>
-						<field name="employee_id" />
-					</group>
-					<group>
 						<group>
-							<field name="production_id" required="1" />
+							<field name="employee_id"  />
+						</group>
+						<group>
+							<field name="production_id" required="1"  />
 						</group>
 						<group>
 							<field name="workorder_id" required="1" domain="[('production_id', '=', production_id), ('state', '!=', 'done')]" />

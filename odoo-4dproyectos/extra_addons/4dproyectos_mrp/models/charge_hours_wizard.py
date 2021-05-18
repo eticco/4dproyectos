@@ -15,7 +15,7 @@ class ChargeHoursWizard(models.TransientModel):
 
     production_id   = fields.Many2one(comodel_name="mrp.production", string="Orden de producción", required=False)
     workorder_id    = fields.Many2one(comodel_name="mrp.workorder", string="Orden de trabajo", required=False)
-    employee_id     = fields.Many2one(comodel_name="hr.employee", string="Empleado", default=default_employee_id, required=True)
+    employee_id     = fields.Many2one(comodel_name="hr.employee", string="Empleado", required=True)
     user_id         = fields.Many2one(comodel_name="res.users", related="employee_id.user_id", string="Usuario")
     productivity_id = fields.Many2one(comodel_name="mrp.workcenter.productivity", string="Seguimiento de tiempo")
     finish_order    = fields.Boolean(string="Finalizar la orden", default=False)

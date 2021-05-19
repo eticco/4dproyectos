@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="production_arder_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <style type="text/css">
+                                .all{
+                                    margin: 0px;
+                                    padding 15px;
+                                    border: 5px solid blue;
+                                    text-align: center;
+                                    wild: 200 px;
+                                    height: 200 px;
+                                }
+                                .top {                        
+                                }
+                                .top_left {
+                                }
+                                .top_right {
+                                }
+                                .log_botom{
+
+                                }
+                                .rotate{
+                                    transform: rotate(-90deg);
+                                    -webkit-transform: rotate(-90deg);
+                                    -moz-transform: rotate(-90deg);
+                                    -ms-transform: rotate(-90deg);
+                                    -o-transform: rotate(-90deg);
+                                    font-size: small;
+                                    position: absolute;
+                                    align: center;
+                                    left: -220px;
+                                    top: 500px;
+                                    width: 500px;
+
+                                }
+                                .text_bottom{
+                                    font-size: medium;
+                                    text-align: left;
+                                }
+                                .body{
+                                    margin: 35px;
+                                    border: 5px solid yellow;
+                                    padding: 20px;
+                                }
+                                .big{
+                                    font-size: large;
+                                }
+                                .medium{
+                                    font-size: medium;
+                                }
+                                .small{
+                                    font-size: small;
+                                }
+                                .title{
+                                    font-size: x-large;
+                                    text-decoration: underline;
+                                    font-weight: bold;
+                                    text-align: center
+                                }
+                            </style>
+                            <div class="header"></div>
+                            <div class="all">
+                                <div class="top">
+                                    <div class="top_left">
+                                        <div>
+                                            <div>
+                                                <a>placeholder1</a>
+                                            </div>
+                                            <div>
+                                                <a>placeholder 2</a>
+                                            </div>
+                                        </div>
+                                        <div class="medium">
+                                            <a>placeholder 3</a>
+                                        </div>
+                                    </div>
+                                    <div style="top_right">
+                                        <a>placeholder 4</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="body">
+                                    <div>
+                                        <a>placeholder 6</a>
+                                    </div>
+                                    <div class="text">
+                                        <div class="text_top">
+                                            <a>placeholder 7</a>
+                                        </div>
+                                        <div class="text_bottom">
+                                            <a>placeholder 5</a>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>    
+</odoo>

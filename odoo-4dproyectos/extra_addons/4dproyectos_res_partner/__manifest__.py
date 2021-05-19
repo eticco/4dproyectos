@@ -9,6 +9,7 @@
     'version': '14.0.1',
     'depends': [
         'crm',
+        'stock'
     ],
     'data': [
             'views/res_partner_view.xml',

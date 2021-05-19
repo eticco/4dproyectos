@@ -1,0 +1,43 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* resource
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-05-13 15:39+0000\n"
+"PO-Revision-Date: 2021-05-13 15:39+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: resource
+#: model:ir.model.fields,field_description:resource.field_resource_calendar__hours_per_day
+msgid "Average Hour per Day"
+msgstr "Horas al día"
+
+#. module: resource
+#: model_terms:ir.ui.view,arch_db:resource.resource_calendar_form
+msgid "Switch to 2 weeks calendar"
+msgstr "Cambiar a calendario de 2 semanas"
+
+#. module: resource
+#: model:ir.model.fields,field_description:resource.field_resource_calendar__global_leave_ids
+#: model_terms:ir.ui.view,arch_db:resource.resource_calendar_form
+msgid "Global Time Off"
+msgstr "Tiempo descanso global"
+
+#. module: resource
+#: model:ir.model.fields,field_description:resource.field_resource_calendar_attendance__day_period
+msgid "Day Period"
+msgstr "Período"
+
+#. module: resource
+#: model:ir.model.fields,field_description:resource.field_resource_calendar_attendance__week_type
+msgid "Week Even/Odd"
+msgstr "Semana par/impar"
+

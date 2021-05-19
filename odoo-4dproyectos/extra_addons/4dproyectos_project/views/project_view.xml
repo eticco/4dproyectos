@@ -65,6 +65,10 @@
 			</field>
 			<field name="allowed_portal_user_ids" position="replace">
 			</field>
+			<xpath expr="//div[@name='options_active']" position="replace">
+				
+			</xpath>
+			
 
 			<notebook position="inside">
 				<page string="Costes">

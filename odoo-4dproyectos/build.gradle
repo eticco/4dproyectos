@@ -165,6 +165,17 @@ task odooUploadCustomDev() {
 	
 }
 
+task odooInstallRequirementsDev() {
+    group 'eticco-odoo-desarrollo'
+    description 'Instala las dependencias de python con los custom-requirements'
+    doLast {
+        odooDockerTask('cp custom-requirements.txt %container%:/opt/odoo/')
+        odooDockerTask('exec --user=root %container% sh -c "pip3 install -r /opt/odoo/custom-requirements.txt > /opt/odoo/custom-requirements.log"');
+        odooDockerTask('stop');
+        odooDockerTask('start');
+    }
+
+}
 task runBrowser() {
 	group 'eticco-odoo-desarrollo'
 	description 'Detecta la IP de la maquina de Docker y abre el navegado, por defecto, con la url http://IPDOCKER:PUERTO-DEFINIDO'

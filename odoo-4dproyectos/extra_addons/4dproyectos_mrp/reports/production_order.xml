@@ -65,37 +65,85 @@
                             </style>
                             <div class="header"></div>
                             <div class="all">
-                                <div class="top">
-                                    <div class="top_left">
-                                        <div>
-                                            <div>
-                                                <a>placeholder1</a>
-                                            </div>
-                                            <div>
-                                                <a>placeholder 2</a>
-                                            </div>
-                                        </div>
-                                        <div class="medium">
-                                            <a>placeholder 3</a>
-                                        </div>
+                                <div class="block1">
+                                    <a>placeholder imagen1</a><!-- img t-att-src="static/link/logo"/ -->
+                                </div>
+                                <div class="block2">
+                                    <p>Fecha: <span t-field=""></span></p>
+                                </div>
+                                <div class="block3">
+                                    <div class="left">
+                                    <table>
+                                        <tr>
+                                            <td><strong>CÓDIGO:</strong></td>
+                                            <td><span t-field=""></span></td>
+                                        </tr>
+                                    </table>
+                                    
                                     </div>
-                                    <div style="top_right">
-                                        <a>placeholder 4</a>
+                                    <div class="right">
+                                    <a>placeholder codigo de barras</a><!-- img t-att-src="static/link/logo"/ -->
                                     </div>
                                 </div>
-                                
-                                <div class="body">
+                                <div class="block4">
+                                    <table>
+                                        <tr>
+                                            <td><strong>Cliente:</strong></td>
+                                            <td><t t-field=""></t></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>OBRA:</strong></td>
+                                            <td><t t-field=""></t></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="block5">
+                                    <div class="dots">
+                                    
+                                    </div>
                                     <div>
-                                        <a>placeholder 6</a>
+                                        <table>
+                                            <tr>
+                                                <td>><strong>PRODUCTO:</strong></td>
+                                                <td><t t-field=""></t></td>
+                                            </tr>
+                                            <tr>
+                                                <td>><strong>MADERA:</strong></td>
+                                                <td><t t-field=""></t></td>
+                                            </tr>
+                                            <tr>
+                                                <td>><strong>BARNIZ:</strong></td>
+                                                <td><t t-field=""></t></td>
+                                            </tr>
+                                            <tr>
+                                                <td>><strong>COLOR ALUMINIO:</strong></td>
+                                                <td><t t-field=""></t></td>
+                                            </tr>
+                                            <tr>
+                                                <td>><strong>VIDRIO:</strong></td>
+                                                <td><t t-field=""></t></td>
+                                            </tr>
+                                            <tr>
+                                                <td>><strong>PERSIANA:</strong></td>
+                                                <td><t t-field=""></t></td>
+                                            </tr>
+                                            <tr>
+                                                <td>><strong>Nº UNIDADES:</strong></td>
+                                                <td><t t-field=""></t></td>
+                                            </tr>
+                                            <tr>
+                                                <td>><strong>Nº HOJAS:</strong></td>
+                                                <td><t t-field=""></t></td>
+                                            </tr>
+                                        </table>
                                     </div>
-                                    <div class="text">
-                                        <div class="text_top">
-                                            <a>placeholder 7</a>
-                                        </div>
-                                        <div class="text_bottom">
-                                            <a>placeholder 5</a>
-                                        </div>
+                                    <div class="dots">
+                                    
                                     </div>
+                                </div>
+                                <div class="block6">
+                                    <p><strong><u>NOTAS:</u></strong> <t t-field=""></t></p>
+                                </div>
                             </div>
                         </div>
                     </t>

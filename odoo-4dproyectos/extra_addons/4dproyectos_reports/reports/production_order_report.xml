@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="production_order_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <style type="text/css">
+                                .all{
+                                    margin: 0px;
+                                    padding 15px;
+                                    border: 5px solid blue;
+                                    text-align: center;
+                                    wild: 200 px;
+                                    height: 200 px;
+                                }
+                                .top {                        
+                                }
+                                .top_left {
+                                }
+                                .top_right {
+                                }
+                                .log_botom{
+
+                                }
+                                .rotate{
+                                    transform: rotate(-90deg);
+                                    -webkit-transform: rotate(-90deg);
+                                    -moz-transform: rotate(-90deg);
+                                    -ms-transform: rotate(-90deg);
+                                    -o-transform: rotate(-90deg);
+                                    font-size: small;
+                                    position: absolute;
+                                    align: center;
+                                    left: -220px;
+                                    top: 500px;
+                                    width: 500px;
+
+                                }
+                                .text_bottom{
+                                    font-size: medium;
+                                    text-align: left;
+                                }
+                                .body{
+                                    margin: 35px;
+                                    border: 5px solid yellow;
+                                    padding: 20px;
+                                }
+                                .big{
+                                    font-size: large;
+                                }
+                                .medium{
+                                    font-size: medium;
+                                }
+                                .small{
+                                    font-size: small;
+                                }
+                                .title{
+                                    font-size: x-large;
+                                    text-decoration: underline;
+                                    font-weight: bold;
+                                    text-align: center
+                                }
+                            </style>
+                            <div class="header"></div>
+                            <div class="all">
+                                <div class="block1">
+                                    <a>placeholder imagen1</a><!-- img t-att-src="static/link/logo"/ -->
+                                </div>
+                                <div class="block2">
+                                    <p>Fecha: <span t-field="o.code"></span></p>
+                                </div>
+                                <div class="block3">
+                                    <div class="left">
+                                    <table>
+                                        <tr>
+                                            <td><strong>CÓDIGO:</strong></td>
+                                            <td><span t-field="o.code"></span></td>
+                                        </tr>
+                                    </table>
+                                    
+                                    </div>
+                                    <div class="right">
+                                    <a>placeholder codigo de barras</a><!-- img t-att-src="static/link/logo"/ -->
+                                    </div>
+                                </div>
+                                <div class="block4">
+                                    <table>
+                                        <tr>
+                                            <td><strong>Cliente:</strong></td>
+                                            <td><span t-field="o.code"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>OBRA:</strong></td>
+                                            <td><span t-field="o.code"></span></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="block5">
+                                    <div class="dots">
+                                    
+                                    </div>
+                                    <div>
+                                        <table>
+                                            <tr>
+                                                <td>><strong>PRODUCTO:</strong></td>
+                                                <td><span t-field="o.code"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>><strong>MADERA:</strong></td>
+                                                <td><span t-field="o.code"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>><strong>BARNIZ:</strong></td>
+                                                <td><span t-field="o.code"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>><strong>COLOR ALUMINIO:</strong></td>
+                                                <td><span t-field="o.code"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>><strong>VIDRIO:</strong></td>
+                                                <td><span t-field="o.code"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>><strong>PERSIANA:</strong></td>
+                                                <td><span t-field="o.code"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>><strong>Nº UNIDADES:</strong></td>
+                                                <td><span t-field="o.code"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>><strong>Nº HOJAS:</strong></td>
+                                                <td><span t-field="o.code"></span></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="dots">
+                                    
+                                    </div>
+                                </div>
+                                <div class="block6">
+                                    <p><strong><u>NOTAS:</u></strong> <span t-field="o.code"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>    
+</odoo>

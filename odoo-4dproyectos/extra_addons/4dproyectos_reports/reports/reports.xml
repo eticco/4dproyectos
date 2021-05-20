@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+		<report
+	        string="OP 4D"
+	        id="production4D"
+	        model="mrp.production"
+	        report_type="qweb-pdf"
+	        name="4dproyectos_reports.production_order_report"
+	        file="4dproyectos_reports.production_order_report"
+	        menu="True"
+	    />
+</odoo>

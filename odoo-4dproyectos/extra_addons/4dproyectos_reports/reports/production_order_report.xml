@@ -8,68 +8,48 @@
                         <div class="page">
                             <style type="text/css">
                                 .all{
-                                    margin: 0px;
-                                    padding 15px;
-                                    border: 5px solid blue;
+                                    margin: 50px;
+                                }
+                                .block1{
+                                    
+                                }
+                                .block2{
+                                    text-align: right;
+                                    
+                                }
+                                .block3{
+                                    
+                                }
+                                .block4{
+                                    
+                                }
+                                .block5{
                                     text-align: center;
-                                    wild: 200 px;
-                                    height: 200 px;
-                                }
-                                .top {                        
-                                }
-                                .top_left {
-                                }
-                                .top_right {
-                                }
-                                .log_botom{
-
-                                }
-                                .rotate{
-                                    transform: rotate(-90deg);
-                                    -webkit-transform: rotate(-90deg);
-                                    -moz-transform: rotate(-90deg);
-                                    -ms-transform: rotate(-90deg);
-                                    -o-transform: rotate(-90deg);
-                                    font-size: small;
-                                    position: absolute;
+                                    margin: 20px, 50px;
                                     align: center;
-                                    left: -220px;
-                                    top: 500px;
-                                    width: 500px;
-
                                 }
-                                .text_bottom{
-                                    font-size: medium;
-                                    text-align: left;
+                                .block6{
+                                    
                                 }
-                                .body{
-                                    margin: 35px;
-                                    border: 5px solid yellow;
-                                    padding: 20px;
+                                table{
+                                      border: 1px solid grey;
+                                      border-collapse: collapse;
+                                      text-align: center;
                                 }
-                                .big{
-                                    font-size: large;
-                                }
-                                .medium{
-                                    font-size: medium;
-                                }
-                                .small{
-                                    font-size: small;
-                                }
-                                .title{
-                                    font-size: x-large;
+                                .text{
                                     text-decoration: underline;
-                                    font-weight: bold;
-                                    text-align: center
+                                }
+                                tr{
+                                    text-align: center;
                                 }
                             </style>
                             <div class="header"></div>
                             <div class="all">
                                 <div class="block1">
-                                    <a>placeholder imagen1</a><!-- img t-att-src="static/link/logo"/ -->
+                                    <a>placeholder imagen</a> <!-- img t-att-src="'data:image/png;base64,/static/img/img1.png'" / -->
                                 </div>
                                 <div class="block2">
-                                    <p>Fecha: <span t-field="o.code"></span></p>
+                                    <p>Fecha: <span t-field="o.date_planned_start"></span></p>
                                 </div>
                                 <div class="block3">
                                     <div class="left">
@@ -89,61 +69,72 @@
                                     <table>
                                         <tr>
                                             <td><strong>Cliente:</strong></td>
-                                            <td><span t-field="o.code"></span></td>
+                                            <td><span t-field="o.partner_id"></span></td>
                                         </tr>
                                         <tr>
                                             <td><strong>OBRA:</strong></td>
-                                            <td><span t-field="o.code"></span></td>
+                                            <td><span t-field="o.project_id"></span></td>
                                         </tr>
                                     </table>
                                 </div>
                                 <div class="block5">
                                     <div class="dots">
-                                    
+                                        <p> *************************************************** </p>
                                     </div>
                                     <div>
                                         <table>
                                             <tr>
-                                                <td>><strong>PRODUCTO:</strong></td>
-                                                <td><span t-field="o.code"></span></td>
+                                                <td><strong>PRODUCTO:</strong></td>
+                                                <td><span t-field="o.product_id"></span></td>
                                             </tr>
                                             <tr>
-                                                <td>><strong>MADERA:</strong></td>
-                                                <td><span t-field="o.code"></span></td>
+                                                <td><strong>MADERA:</strong></td>
+                                                <td><span t-field="o.wood_id"></span></td>
                                             </tr>
                                             <tr>
-                                                <td>><strong>BARNIZ:</strong></td>
-                                                <td><span t-field="o.code"></span></td>
+                                                <td><strong>BARNIZ:</strong></td>
+                                                <td><span t-field="o.varnish_id"></span></td>
                                             </tr>
                                             <tr>
-                                                <td>><strong>COLOR ALUMINIO:</strong></td>
-                                                <td><span t-field="o.code"></span></td>
+                                                <td><strong>COLOR ALUMINIO:</strong></td>
+                                                <td><span t-field="o.aluminum_color_id"></span></td>
                                             </tr>
                                             <tr>
-                                                <td>><strong>VIDRIO:</strong></td>
-                                                <td><span t-field="o.code"></span></td>
+                                                <td><strong> VIDRIO:</strong></td>
+                                                <td>
+                                                    <t t-if="o.glass">Si</t> 
+                                                    <t t-else="">No</t> 
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td>><strong>PERSIANA:</strong></td>
-                                                <td><span t-field="o.code"></span></td>
+                                                <td><strong> PERSIANA:</strong></td>
+                                                <td> 
+                                                    <t t-if="o.blind">Si</t> 
+                                                    <t t-else="">No</t> 
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td>><strong>Nº UNIDADES:</strong></td>
-                                                <td><span t-field="o.code"></span></td>
+                                                <td><strong> Nº UNIDADES:</strong></td>
+                                                <td><span t-field="o.product_qty"></span></td>
                                             </tr>
                                             <tr>
-                                                <td>><strong>Nº HOJAS:</strong></td>
-                                                <td><span t-field="o.code"></span></td>
+                                                <td><strong> Nº HOJAS:</strong></td>
+                                                <td><span t-field="o.sheet_qty"></span></td>
                                             </tr>
                                         </table>
                                     </div>
                                     <div class="dots">
-                                    
+                                        <p> *************************************************** </p>
                                     </div>
                                 </div>
                                 <div class="block6">
-                                    <p><strong><u>NOTAS:</u></strong> <span t-field="o.code"></span></p>
+                                    <p><strong><u>NOTAS:</u></strong> <span t-field="o.notes"></span> 
+                                        <t t-foreach="['','','','']" t-as="i">
+                                            <p t-esc="i" class="text"><u>    ----------------------- ------------------------------------</u></p>
+                                        </t>
+                                    </p>
                                 </div>
+                                <div class="footer"></div>
                             </div>
                         </div>
                     </t>

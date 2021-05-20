@@ -62,7 +62,8 @@ class ChargeHoursWizard(models.TransientModel):
             other_productivity_ids = productivity_ids.filtered(lambda r: r.workorder_id != self.workorder_id)
             if other_productivity_ids:
                 _logger.error('doy excepcion')
-                raise Warning('El empleado ya tiene un parte para la orden de trabajo %s' %(other_productivity_ids[0].workorder_id.display_name))
+                other_workorder_id = other_productivity_ids[0].workorder_id
+                raise Warning('El empleado ya tiene un parte para la orden de trabajo %s de la orden de produccion %s' %(other_workorder_id.display_name, other_workorder_id.production_id.name))
             elif len(productivity_ids):
                 _logger.error('tiene productivity_ids')
                 self.productivity_id = productivity_ids[0].id
@@ -75,7 +76,7 @@ class ChargeHoursWizard(models.TransientModel):
         _logger.warn("En el usuario %s", self.user_id)
 
         if not self.productivity_id:
-            self.workorder_id.button_start()
+            self.workorder_id.with_context(charge_user=self.user_id.id).button_start()
         else:
             if self.finish_order:
                 self.workorder_id.button_finish()

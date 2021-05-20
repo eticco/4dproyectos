@@ -40,6 +40,12 @@ class MrpWorkorder(models.Model):
     criteria_name = fields.Char(string='Criterio de cómputo', related='criteria_amount_id.computation_criteria_id.name')
     criteria_amount = fields.Integer(string='Cantidad', related='criteria_amount_id.amount')
 
+    def _prepare_timeline_vals(self, duration, date_start, date_end=False):
+        result = super(MrpWorkorder, self)._prepare_timeline_vals(duration, date_start, date_end)
+        if 'charge_user' in self.env.context:
+            result['user_id'] = self.env.context.get('charge_user')
+        return result
+        
 
     def name_get(self):
         result = []

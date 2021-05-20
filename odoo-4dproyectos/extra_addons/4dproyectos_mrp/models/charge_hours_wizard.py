@@ -48,40 +48,33 @@ class ChargeHoursWizard(models.TransientModel):
 
     def calculate_productivity_id(self):
         self.productivity_id = False
-        _logger.error('calculate_productivity_id')
 
         if self.workorder_id and self.user_id:
-            _logger.error('tiene datos')
             domain = [
                 ('user_id', '=', self.user_id.id),
                 ('date_end', '=', False),
             ]
             productivity_ids = self.env['mrp.workcenter.productivity'].search(domain)
-            if len(productivity_ids) <= 0:
-                _logger.error('no tiene productivity_ids para %s', self.user_id.id)
             other_productivity_ids = productivity_ids.filtered(lambda r: r.workorder_id != self.workorder_id)
             if other_productivity_ids:
-                _logger.error('doy excepcion')
                 other_workorder_id = other_productivity_ids[0].workorder_id
                 raise Warning('El empleado ya tiene un parte para la orden de trabajo %s de la orden de produccion %s' %(other_workorder_id.display_name, other_workorder_id.production_id.name))
             elif len(productivity_ids):
-                _logger.error('tiene productivity_ids')
                 self.productivity_id = productivity_ids[0].id
     
     def action_charge_hours(self):
-        _logger.error('Estoy cargando horas...')
-        _logger.error("En la orden %s", self.production_id)
-        _logger.warn("En la workorder %s", self.workorder_id)
-        _logger.warn("En el empleado %s", self.employee_id)
-        _logger.warn("En el usuario %s", self.user_id)
+        _logger.info('Estoy cargando horas...')
 
         if not self.productivity_id:
-            self.workorder_id.with_context(charge_user=self.user_id.id).button_start()
+            try:
+                self.workorder_id.with_context(charge_user=self.user_id.id).button_start()
+            except ValueError:
+                raise Warning('No se han podido cargar horas, ¿es posible que la orden ya esté cerrada?')
         else:
             if self.finish_order:
                 self.workorder_id.button_finish()
             else:
-                self.workorder_id.button_pending()
+                self.workorder_id.with_context(charge_user=self.user_id.id).button_pending()
         self.employee_text = False
         self.production_text = False
         self.workorder_text = False

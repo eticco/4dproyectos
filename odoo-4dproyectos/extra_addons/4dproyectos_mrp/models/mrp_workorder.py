@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
 from odoo.osv import expression
+from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
+from odoo.exceptions import UserError
 
 
 class MrpWorkorder(models.Model):
@@ -45,7 +48,44 @@ class MrpWorkorder(models.Model):
         if 'charge_user' in self.env.context:
             result['user_id'] = self.env.context.get('charge_user')
         return result
-        
+
+
+    def end_previous(self, doall=False):
+        """
+        @param: doall:  This will close all open time lines on the open work orders when doall = True, otherwise
+        only the one of the current user
+        """
+        # TDE CLEANME
+        timeline_obj = self.env['mrp.workcenter.productivity']
+        domain = [('workorder_id', 'in', self.ids), ('date_end', '=', False)]
+        if 'charge_user' in self.env.context:
+            domain.append(('user_id', '=', self.env.context.get('charge_user')))
+        else:
+            if not doall:
+                domain.append(('user_id', '=', self.env.user.id))
+        not_productive_timelines = timeline_obj.browse()
+        for timeline in timeline_obj.search(domain, limit=None if doall else 1):
+            wo = timeline.workorder_id
+            if wo.duration_expected <= wo.duration:
+                if timeline.loss_type == 'productive':
+                    not_productive_timelines += timeline
+                timeline.write({'date_end': fields.Datetime.now()})
+            else:
+                maxdate = fields.Datetime.from_string(timeline.date_start) + relativedelta(minutes=wo.duration_expected - wo.duration)
+                enddate = datetime.now()
+                if maxdate > enddate:
+                    timeline.write({'date_end': enddate})
+                else:
+                    timeline.write({'date_end': maxdate})
+                    not_productive_timelines += timeline.copy({'date_start': maxdate, 'date_end': enddate})
+        if not_productive_timelines:
+            loss_id = self.env['mrp.workcenter.productivity.loss'].search([('loss_type', '=', 'performance')], limit=1)
+            if not len(loss_id):
+                raise UserError(_("You need to define at least one unactive productivity loss in the category 'Performance'. Create one from the Manufacturing app, menu: Configuration / Productivity Losses."))
+            not_productive_timelines.write({'loss_id': loss_id.id})
+        return True
+
+
 
     def name_get(self):
         result = []

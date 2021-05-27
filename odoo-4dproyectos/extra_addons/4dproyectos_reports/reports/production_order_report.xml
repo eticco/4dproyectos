@@ -1,145 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <template id="production_order_report">
-            <t t-call="web.html_container">
-                <t t-foreach="docs" t-as="o">
-                    <t t-call="web.external_layout">
-                        <div class="page">
-                            <style type="text/css">
-                                .all{
-                                    margin: 50px;
-                                }
-                                .block1{
-                                    
-                                }
-                                .block2{
-                                    text-align: right;
-                                    
-                                }
-                                .block3{
-                                    
-                                }
-                                .block4{
-                                    
-                                }
-                                .block5{
-                                    text-align: center;
-                                    margin: 20px, 50px;
-                                    align: center;
-                                }
-                                .block6{
-                                    
-                                }
-                                table{
-                                      border: 1px solid grey;
-                                      border-collapse: collapse;
-                                      text-align: center;
-                                }
-                                .text{
-                                    text-decoration: underline;
-                                }
-                                tr{
-                                    text-align: center;
-                                }
-                            </style>
-                            <div class="header"></div>
-                            <div class="all">
-                                <div class="block1">
-                                    <a>placeholder imagen</a> <!-- img t-att-src="'data:image/png;base64,/static/img/img1.png'" / -->
+    <template id="production_order_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="all">
+                            <div class="block1 row">
+                                <div class="col-6">
+                                    <img class="img-fluid" t-att-src="'/4dproyectos_reports/static/src/img/img1.png'" />
                                 </div>
-                                <div class="block2">
-                                    <p>Fecha: <span t-field="o.date_planned_start"></span></p>
+                                <div class="col-6">
                                 </div>
-                                <div class="block3">
-                                    <div class="left">
+                            </div>
+                            <div class="block2 right">
+                                <p>Fecha: <span t-field="o.date_planned_start"></span></p>
+                            </div>
+                            <div class="block3 row">
+                                <div class="col-6">
                                     <table>
                                         <tr>
-                                            <td><strong>CÓDIGO:</strong></td>
+                                            <td style="width:100px;" class="right"><strong>CÓDIGO:</strong></td>
                                             <td><span t-field="o.code"></span></td>
                                         </tr>
                                     </table>
-                                    
-                                    </div>
-                                    <div class="right">
-                                    <a>placeholder codigo de barras</a><!-- img t-att-src="static/link/logo"/ -->
-                                    </div>
                                 </div>
-                                <div class="block4">
-                                    <table>
-                                        <tr>
-                                            <td><strong>Cliente:</strong></td>
-                                            <td><span t-field="o.partner_id"></span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>OBRA:</strong></td>
-                                            <td><span t-field="o.project_id"></span></td>
-                                        </tr>
-                                    </table>
+                                <div class="col-6">
+                                    <img class="img-fluid" t-att-src="'/4dproyectos_reports/static/src/img/img2.jpg'" />
                                 </div>
-                                <div class="block5">
+                            </div>
+                            <div class="block4">
+                                <table>
+                                    <tr>
+                                        <td style="width:100px;" class="right"><strong>Cliente:</strong></td>
+                                        <td><span t-field="o.partner_id"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:100px;" class="right"><strong>OBRA:</strong></td>
+                                        <td><span t-field="o.project_id"></span></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="block5 row">
+                                <div class="col-1"></div>
+                                <div class="col-10">
                                     <div class="dots">
-                                        <p> *************************************************** </p>
+                                        <p> ****************************************************************************************** </p>
                                     </div>
                                     <div>
                                         <table>
                                             <tr>
-                                                <td><strong>PRODUCTO:</strong></td>
-                                                <td><span t-field="o.product_id"></span></td>
+                                                <td style="width:35%" class="right"><strong>PRODUCTO:</strong></td>
+                                                <td style="width:65%" ><span t-field="o.product_id"></span></td>
                                             </tr>
+                                        </table>
+                                        <table>
                                             <tr>
-                                                <td><strong>MADERA:</strong></td>
-                                                <td><span t-field="o.wood_id"></span></td>
+                                                <td style="width:35%" class="right"><strong>MADERA:</strong></td>
+                                                <td style="width:65%"><span t-field="o.wood_id"></span></td>
                                             </tr>
+                                        </table>
+                                        <table>
                                             <tr>
-                                                <td><strong>BARNIZ:</strong></td>
-                                                <td><span t-field="o.varnish_id"></span></td>
+                                                <td style="width:35%" class="right"><strong>BARNIZ:</strong></td>
+                                                <td style="width:65%"><span t-field="o.varnish_id"></span></td>
                                             </tr>
+                                        </table>
+                                        <table>
                                             <tr>
-                                                <td><strong>COLOR ALUMINIO:</strong></td>
-                                                <td><span t-field="o.aluminum_color_id"></span></td>
+                                                <td style="width:35%" class="right"><strong>COLOR ALUMINIO:</strong></td>
+                                                <td style="width:65%"><span t-field="o.aluminum_color_id"></span></td>
                                             </tr>
+                                        </table>
+                                        <table>
                                             <tr>
-                                                <td><strong> VIDRIO:</strong></td>
-                                                <td>
+                                                <td style="width:35%" class="right"><strong> VIDRIO:</strong></td>
+                                                <td style="width:65%">
                                                     <t t-if="o.glass">Si</t> 
                                                     <t t-else="">No</t> 
                                                 </td>
                                             </tr>
+                                        </table>
+                                        <table>
                                             <tr>
-                                                <td><strong> PERSIANA:</strong></td>
-                                                <td> 
+                                                <td style="width:35%" class="right"><strong> PERSIANA:</strong></td>
+                                                <td style="width:65%"> 
                                                     <t t-if="o.blind">Si</t> 
                                                     <t t-else="">No</t> 
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td><strong> Nº UNIDADES:</strong></td>
-                                                <td><span t-field="o.product_qty"></span></td>
+                                        </table>
+                                        <table>
+                                            <tr >
+                                                <td style="width:35%" class="right"><strong> Nº UNIDADES:</strong></td>
+                                                <td style="width:65%"><span t-field="o.product_qty"></span></td>
                                             </tr>
+                                        </table>
+                                        <table>
                                             <tr>
-                                                <td><strong> Nº HOJAS:</strong></td>
-                                                <td><span t-field="o.sheet_qty"></span></td>
+                                                <td style="width:35%" class="right"><strong> Nº HOJAS:</strong></td>
+                                                <td style="width:65%"><span t-field="o.sheet_qty"></span></td>
                                             </tr>
                                         </table>
                                     </div>
                                     <div class="dots">
-                                        <p> *************************************************** </p>
+                                        <p> ****************************************************************************************** </p>
                                     </div>
                                 </div>
-                                <div class="block6">
-                                    <p><strong><u>NOTAS:</u></strong> <span t-field="o.notes"></span> 
-                                        <t t-foreach="['','','','']" t-as="i">
-                                            <p t-esc="i" class="text"><u>    ----------------------- ------------------------------------</u></p>
-                                        </t>
-                                    </p>
-                                </div>
-                                <div class="footer"></div>
+                                <div class="col-1"></div>
                             </div>
+                            <div class="block6">
+                                <p><strong><u>NOTAS:</u></strong></p>
+                                <table class="t1">
+                                    <tr class="t2">
+                                        <td class="t3"><br/> </td>
+                                    </tr>
+                                    <tr class="t2">
+                                        <td class="t3"><br/></td>
+                                    </tr>
+                                    <tr class="t2">
+                                        <td class="t3"><br/></td>
+                                    </tr>
+                                    <tr class="t2">
+                                        <td class="t3"><br/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="footer"></div>
                         </div>
-                    </t>
+                    </div>
                 </t>
             </t>
-        </template>
-    </data>    
+        </t>
+    </template>
 </odoo>

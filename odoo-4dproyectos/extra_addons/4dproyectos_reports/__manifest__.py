@@ -1,4 +1,4 @@
- # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 {
     'name': 'Informes 4D',
     'version': '1.0',
@@ -10,6 +10,12 @@
     'depends': [
         'mrp',
     ],
-    'data': ['reports/production_order_report.xml', 'reports/reports.xml'],
+    'data': [   'reports/production_order_report.xml', 
+                'reports/reports.xml', 
+                'reports/report_templates.xml', 
+                'reports/header.xml', 
+                'reports/paperformat_production_order.xml'
+            
+            ],
     'installable': True,
 }

@@ -14,7 +14,7 @@
                                 </div>
                             </div>
                             <div class="block2 right">
-                                <p>Fecha: <span t-field="o.date_planned_start"></span></p>
+                                <p>Fecha: <span t-field="o.date_planned_start" t-options="{'format': 'dd/MM/yyyy'}"></span></p>
                             </div>
                             <div class="block3 row">
                                 <div class="col-6">

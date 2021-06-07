@@ -113,16 +113,7 @@
                                 <p><strong><u>NOTAS:</u></strong></p>
                                 <table class="t1">
                                     <tr class="t2">
-                                        <td class="t3"><br/> </td>
-                                    </tr>
-                                    <tr class="t2">
-                                        <td class="t3"><br/></td>
-                                    </tr>
-                                    <tr class="t2">
-                                        <td class="t3"><br/></td>
-                                    </tr>
-                                    <tr class="t2">
-                                        <td class="t3"><br/></td>
+                                        <td class="t3"><span t-field="o.notes"></span></td>
                                     </tr>
                                 </table>
                             </div>

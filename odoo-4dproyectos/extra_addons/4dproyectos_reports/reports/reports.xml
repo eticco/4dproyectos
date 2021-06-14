@@ -9,4 +9,14 @@
 	        file="4dproyectos_reports.production_order_report"
 	        menu="True"
 	    />
+		<report
+	        string="Imprimir Identificación"
+	        id="workcenter_qr"
+	        model="mrp.workcenter"
+	        report_type="qweb-pdf"
+	        name="4dproyectos_reports.report_workcenter_qr_document"
+	        file="4dproyectos_reports.report_workcenter_qr_document"
+	        menu="True"
+	    />
+
 </odoo>

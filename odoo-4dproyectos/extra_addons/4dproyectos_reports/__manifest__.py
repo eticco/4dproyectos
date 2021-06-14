@@ -16,7 +16,8 @@
             'reports/reports.xml', 
             'reports/report_templates.xml', 
             'reports/header.xml', 
-            'reports/paperformat_production_order.xml'
+            'reports/paperformat_production_order.xml',
+            'reports/workcenter_report.xml'
             
             ],
     'installable': True,

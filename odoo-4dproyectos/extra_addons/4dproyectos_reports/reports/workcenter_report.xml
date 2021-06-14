@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_workcenter_qr_document">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-foreach="docs" t-as="workcenter">
+                    <table style="width:155pt; height:85pt">
+                        <tr><th><div style="font-size:15pt; margin-bottom:0pt;margin-top:0pt;" align="center"><t t-esc="workcenter.name"/></div></th></tr>
+                        <tr><td align="center"><img t-att-src="'/report/barcode/QR/%s' % (workcenter.name)" style="width:135px; height:135px;margin-bottom:10pt;margin-top:10pt;"/></td></tr>
+                    </table>
+                </t>		
+            </div>
+        </t>
+    </template>
+
+</odoo>

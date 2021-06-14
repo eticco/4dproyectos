@@ -10,11 +10,13 @@
     'depends': [
         'mrp',
     ],
-    'data': [   'reports/production_order_report.xml', 
-                'reports/reports.xml', 
-                'reports/report_templates.xml', 
-                'reports/header.xml', 
-                'reports/paperformat_production_order.xml'
+    'data': [   
+            'reports/employee_id_report.xml',
+            'reports/production_order_report.xml', 
+            'reports/reports.xml', 
+            'reports/report_templates.xml', 
+            'reports/header.xml', 
+            'reports/paperformat_production_order.xml'
             
             ],
     'installable': True,

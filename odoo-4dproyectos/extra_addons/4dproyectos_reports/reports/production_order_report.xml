@@ -17,7 +17,7 @@
                                 <p>Fecha: <span t-field="o.date_planned_start" t-options="{'format': 'dd/MM/yyyy'}"></span></p>
                             </div>
                             <div class="block3 row">
-                                <div class="col-6">
+                                <div class="col-9">
                                     <table>
                                         <tr>
                                             <td style="width:100px;" class="right"><strong>CÓDIGO:</strong></td>
@@ -25,8 +25,8 @@
                                         </tr>
                                     </table>
                                 </div>
-                                <div class="col-6">
-                                    <img class="img-fluid" t-att-src="'/4dproyectos_reports/static/src/img/img2.jpg'" />
+                                <div class="col-3">
+                        		    <img t-att-src="'/report/barcode/QR/%s' % (o.code)" style="width:150px; height:150px;"/>
                                 </div>
                             </div>
                             <div class="block4">

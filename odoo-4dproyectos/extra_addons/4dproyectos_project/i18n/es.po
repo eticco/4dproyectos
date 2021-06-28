@@ -27,21 +27,21 @@ msgstr ""
 #: code:addons/project/static/src/js/project_task_kanban_examples.js:0
 #, python-format
 msgid "\"This Month\""
-msgstr ""
+msgstr "\"Este Mes\""
 
 #. module: project
 #. openerp-web
 #: code:addons/project/static/src/js/project_task_kanban_examples.js:0
 #, python-format
 msgid "\"This Week\""
-msgstr ""
+msgstr "\"Esta Semana\""
 
 #. module: project
 #. openerp-web
 #: code:addons/project/static/src/js/project_task_kanban_examples.js:0
 #, python-format
 msgid "\"Today\""
-msgstr ""
+msgstr "\"Hoy\""
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_report_project_task_user__delay_endings_days
@@ -79,14 +79,14 @@ msgstr "${object.project_id.company_id.name}: Encuesta de satisfacción"
 #: code:addons/project/models/project.py:0
 #, python-format
 msgid "%s (copy)"
-msgstr ""
+msgstr "%s (copiar)"
 
 #. module: project
 #. openerp-web
 #: code:addons/project/static/src/js/project_task_kanban_examples.js:0
 #, python-format
 msgid "%s Use the %s icon to organize your daily activities."
-msgstr ""
+msgstr "%s Usa el icono %s para organizar tus actividades diarias."
 
 #. module: project
 #: model:ir.model.fields.selection,name:project.selection__project_task__repeat_day__10
@@ -225,7 +225,7 @@ msgstr ""
 #: code:addons/project/static/src/js/tours/project.js:0
 #, python-format
 msgid "<b>Drag &amp; drop</b> the card to change your task from stage."
-msgstr ""
+msgstr "<b>Arrastra &amp; suelta</b> la tarjeta para cambiar de etapa la tarea."
 
 #. module: project
 #. openerp-web
@@ -353,7 +353,7 @@ msgstr ""
 #: code:addons/project/models/project.py:0
 #, python-format
 msgid "<p><em>Number of tasks: %(tasks_count)s</em></p>"
-msgstr ""
+msgstr "<p><em>Número de tareas: %(tasks_count)s</em></p>"
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.portal_my_task
@@ -576,37 +576,37 @@ msgstr "Modelo con seudónimo"
 #: code:addons/project/controllers/portal.py:0
 #, python-format
 msgid "All"
-msgstr ""
+msgstr "Todos"
 
 #. module: project
 #: model:ir.model.fields.selection,name:project.selection__project_project__privacy_visibility__employees
 msgid "All internal users"
-msgstr ""
+msgstr "Todos los usuarios internos"
 
 #. module: project
 #: model:ir.model.fields.selection,name:project.selection__project_task__recurrence_update__all
 msgid "All tasks"
-msgstr ""
+msgstr "Todas las tareas"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_task__allow_subtasks
 msgid "Allow Sub-tasks"
-msgstr ""
+msgstr "Permitir Subtareas"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project__allowed_internal_user_ids
 msgid "Allowed Internal Users"
-msgstr ""
+msgstr "Usuarios Internos Permitidos"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project__allowed_portal_user_ids
 msgid "Allowed Portal Users"
-msgstr ""
+msgstr "Usuarios de Portal Permitidos"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project__allowed_user_ids
 msgid "Allowed User"
-msgstr ""
+msgstr "Usuario Permitido"
 
 #. module: project
 #: model:ir.model,name:project.model_account_analytic_account
@@ -1165,6 +1165,11 @@ msgid ""
 "- Invited portal and all internal users: employees may see everything.   Portal users may see project and tasks followed by\n"
 "   them or by someone of their company."
 msgstr ""
+"Define la visibilidad de las tareas del proyecto:\n"
+"- Usuarios internos invitados: los empleados sólo ven los proyectos y tareas que siguen.\n"
+"- Todos los usuarios internos: los empleados ven todos los proyectos y tareas.\n"
+"- Todos los usuarios internos y los de portal invitados: los empleados lo ven todo. Los usuarios de portal ven los proyectos y tareas\n"
+"   que siguen ellos o alguien de su empresa."
 
 #. module: project
 #: model:ir.actions.server,name:project.unlink_project_action
@@ -2111,7 +2116,7 @@ msgstr "Cara neutral"
 #: code:addons/project/static/src/js/project_task_kanban_examples.js:0
 #, python-format
 msgid "New"
-msgstr ""
+msgstr "Nuevo"
 
 #. module: project
 #. openerp-web
@@ -2126,7 +2131,7 @@ msgstr "Nuevos pedidos"
 #: code:addons/project/static/src/js/project_task_kanban_examples.js:0
 #, python-format
 msgid "New Projects"
-msgstr "Obras nuevos"
+msgstr "Obras nuevas"
 
 #. module: project
 #. openerp-web
@@ -2140,7 +2145,7 @@ msgstr "Nueva solicitud"
 #: code:addons/project/controllers/portal.py:0
 #, python-format
 msgid "Newest"
-msgstr ""
+msgstr "Más nuevo"
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.project_task_view_tree_activity
@@ -2594,7 +2599,7 @@ msgstr "Tareas del obra"
 #: model:ir.cron,cron_name:project.ir_cron_recurring_tasks
 #: model:ir.cron,name:project.ir_cron_recurring_tasks
 msgid "Project: Create Recurring Tasks"
-msgstr ""
+msgstr "Proyecto: Crear Tareas Recurrentes"
 
 #. module: project
 #: model:ir.actions.server,name:project.ir_cron_rating_project_ir_actions_server
@@ -2790,7 +2795,7 @@ msgstr "Recurrente"
 #: model:ir.model.fields,field_description:project.field_project_task__allow_recurring_tasks
 #: model:ir.model.fields,field_description:project.field_res_config_settings__group_project_recurring_tasks
 msgid "Recurring Tasks"
-msgstr ""
+msgstr "Tareas Recurrentes"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_task_type__legend_blocked
@@ -3396,7 +3401,7 @@ msgstr "Análisis tareas"
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.edit_project
 msgid "Tasks In Progress"
-msgstr ""
+msgstr "Tareas en Progreso"
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.res_config_settings_view_form
@@ -3722,7 +3727,7 @@ msgstr "Use la Calificación en el Obra"
 #. module: project
 #: model:res.groups,name:project.group_project_recurring_tasks
 msgid "Use Recurring Tasks"
-msgstr ""
+msgstr "Usar Tareas Recurrentes"
 
 #. module: project
 #: model:res.groups,name:project.group_subtask_project

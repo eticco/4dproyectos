@@ -1,0 +1,32 @@
+
+#. module: base
+#: model_terms:ir.ui.view,arch_db:base.view_partner_form
+msgid ""
+"<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
+"                                <b attrs=\"{'invisible': [('type', '!=', 'contact')]}\">Company Address</b>\n"
+"                                <b attrs=\"{'invisible': [('type', '!=', 'invoice')]}\">Invoice Address</b>\n"
+"                                <b attrs=\"{'invisible': [('type', '!=', 'delivery')]}\">Delivery Address</b>\n"
+"                                <b attrs=\"{'invisible': [('type', '!=', 'other')]}\">Other Address</b>\n"
+"                                <b attrs=\"{'invisible': [('type', '!=', 'private')]}\">Private Address</b>\n"
+"                                <b attrs=\"{'invisible': [('type', '!=', False)]}\">Address</b>\n"
+"                            </span>"
+msgstr ""
+"<span class=\"o_form_label o_td_label\" name=\"address_name\">\n"
+"                                <b attrs=\"{'invisible': [('type', '!=', 'contact')]}\">Dirección de Empresa</b>\n"
+"                                <b attrs=\"{'invisible': [('type', '!=', 'invoice')]}\">Dirección de Facturación</b>\n"
+"                                <b attrs=\"{'invisible': [('type', '!=', 'delivery')]}\">Dirección de Entrega</b>\n"
+"                                <b attrs=\"{'invisible': [('type', '!=', 'other')]}\">Otra Dirección</b>\n"
+"                                <b attrs=\"{'invisible': [('type', '!=', 'private')]}\">Dirección Privada</b>\n"
+"                                <b attrs=\"{'invisible': [('type', '!=', False)]}\">Dirección</b>\n"
+"                            </span>"
+
+#. module: base
+#: model:ir.model.fields,field_description:base.field_res_country__zip_required
+msgid "Zip Required"
+msgstr "Requiere Código Postal"
+
+#. module: base
+#: model:ir.model.fields,field_description:base.field_res_country__state_required
+msgid "State Required"
+msgstr "Requiere Provincia"
+

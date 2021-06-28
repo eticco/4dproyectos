@@ -41,3 +41,15 @@ msgstr "Período"
 msgid "Week Even/Odd"
 msgstr "Semana par/impar"
 
+#. module: hr_timesheet
+#: model_terms:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_line_graph
+#: model_terms:ir.ui.view,arch_db:hr_timesheet.view_hr_timesheet_line_pivot
+msgid "Timesheet Costs"
+msgstr "Costes del parte de horas"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_hr_employee__timesheet_cost
+msgid "Timesheet Cost"
+msgstr "Coste del parte de horas"
+
+

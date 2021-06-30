@@ -25,7 +25,7 @@
 				</button>
 			</div>
 			<field name="code" position="before">
-				<field name="computation_criteria_id" options="{'no_open': True, 'no_create_edit': True}" />
+				<field name="computation_criteria_id" options="{'no_open': True, 'no_create': True, 'no_create_edit': True}" />
 			</field>
 			<field name="costs_hour" position="attributes">
 				<attribute name="string">Coste maquinaria por hora</attribute>
@@ -37,6 +37,35 @@
 			</field>
 		</field>
 	</record>
+
+	
+    <record id="mrp_workcenter_productivity_tree_view" model="ir.ui.view">
+        <field name="name">mrp.workcenter.productivity.tree</field>
+        <field name="model">mrp.workcenter.productivity</field>
+        <field name="arch" type="xml">
+            <tree editable="top" string="Partes de trabajo">
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="workcenter_id"/>
+                <field name="user_id"/>
+                <field name="duration" string="Duration (minutes)" sum="Duration"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+	<record id="mrp_workcenter_productivity_action_view" model="ir.actions.act_window">
+		<field name="name">Partes de trabajo</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">mrp.workcenter.productivity</field>
+		<field name="view_mode">tree</field>
+		<field name="view_id" ref="mrp_workcenter_productivity_tree_view"/>
+	</record>
+
+    <menuitem id="mrp_workcenter_productivity_action_menu"
+        name="Partes de trabajo"
+        action="mrp_workcenter_productivity_action_view"
+        parent="mrp.menu_mrp_manufacturing"/>
 
 
 

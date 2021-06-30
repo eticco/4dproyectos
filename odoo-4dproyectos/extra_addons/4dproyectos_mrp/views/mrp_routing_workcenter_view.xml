@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-	<!-- Formulario de centro de coste -->
+	<!-- Formulario de operación -->
 	<record id="mrp_routing_workcenter_view_inherit" model="ir.ui.view">
 		<field name="name">mrp.routingworkcenter.form.inherit</field>
 		<field name="model">mrp.routing.workcenter</field>
@@ -31,6 +31,10 @@
 					<field name="duration_expected_per_unit" widget="float_time" class="oe_inline"/> minutos
 				</div>
 			</field>
+
+			<xpath expr="//page[@name='worksheet']" position="replace">
+			</xpath>
+
 		</field>
 	</record>
 

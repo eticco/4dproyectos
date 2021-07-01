@@ -13,13 +13,13 @@ class ChargeHoursWizard(models.TransientModel):
         employee_id = self.env['hr.employee'].search([('user_id', '=', self.env.user.id)], limit=1)
         return employee_id
 
-    employee_text     = fields.Char(string="Empleado", required=True)
-    production_text   = fields.Char(string="Orden de producción", required=True)
-    workorder_text    = fields.Char(string="Orden de trabajo", required=True)
+    employee_text     = fields.Char(string="Empleado", required=False)
+    production_text   = fields.Char(string="Orden de producción", required=False)
+    workorder_text    = fields.Char(string="Orden de trabajo", required=False)
 
-    employee_id     = fields.Many2one(comodel_name="hr.employee", string="Empleado", required=True)
-    production_id   = fields.Many2one(comodel_name="mrp.production", string="Orden de producción", required=True)
-    workorder_id    = fields.Many2one(comodel_name="mrp.workorder", string="Orden de trabajo", required=True)
+    employee_id     = fields.Many2one(comodel_name="hr.employee", string="Empleado", required=False)
+    production_id   = fields.Many2one(comodel_name="mrp.production", string="Orden de producción", required=False)
+    workorder_id    = fields.Many2one(comodel_name="mrp.workorder", string="Orden de trabajo", required=False)
     user_id         = fields.Many2one(comodel_name="res.users", related="employee_id.user_id", string="Usuario")
     productivity_id = fields.Many2one(comodel_name="mrp.workcenter.productivity", string="Seguimiento de tiempo")
     finish_order    = fields.Boolean(string="Finalizar la orden", default=False)
@@ -75,9 +75,11 @@ class ChargeHoursWizard(models.TransientModel):
                 self.workorder_id.button_finish()
             else:
                 self.workorder_id.with_context(charge_user=self.user_id.id).button_pending()
+
         self.employee_text = False
         self.production_text = False
         self.workorder_text = False
+        self.employee_id = False
         self.production_id = False
         self.workorder_id = False
 

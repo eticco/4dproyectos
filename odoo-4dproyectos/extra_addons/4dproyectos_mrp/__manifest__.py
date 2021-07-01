@@ -8,6 +8,7 @@
     'category': 'Eticco',
     'version': '14.0.1',
     'depends': [
+        '4dproyectos_hr',
         'mrp',
     ],
     'data': [

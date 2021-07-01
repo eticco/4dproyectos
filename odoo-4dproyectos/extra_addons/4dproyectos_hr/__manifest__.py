@@ -9,8 +9,7 @@
     'version': '14.0.1',
     'depends': [
 		'hr_attendance',
-        'hr_timesheet',
-        '4dproyectos_mrp',
+        'mrp',
     ],
     'data': [
             'security/ir.model.access.csv',

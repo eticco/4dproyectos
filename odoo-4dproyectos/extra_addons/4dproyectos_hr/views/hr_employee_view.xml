@@ -17,6 +17,17 @@
                     <field name="day_count" widget="statinfo"/>
                 </button>
 			</xpath>
+            <xpath expr="//page[@name='hr_settings']" position="inside">
+                <group>
+                    <group string="Costes" name="timesheet" >
+                        <label for="timesheet_cost"/>
+                        <div>
+                            <field name="timesheet_cost" class="oe_inline"/> por hora
+                            <field name="currency_id" invisible="1"/>
+                        </div>
+                    </group>
+                </group>
+            </xpath>
 		</field>
 	</record>
 </odoo>

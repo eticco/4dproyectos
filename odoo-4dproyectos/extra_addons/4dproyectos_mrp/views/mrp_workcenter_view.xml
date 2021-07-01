@@ -46,6 +46,7 @@
             <tree editable="top" string="Partes de trabajo">
                 <field name="date_start"/>
                 <field name="date_end"/>
+                <field name="production_id"/>
                 <field name="workcenter_id"/>
                 <field name="user_id"/>
                 <field name="duration" string="Duration (minutes)" sum="Duration"/>

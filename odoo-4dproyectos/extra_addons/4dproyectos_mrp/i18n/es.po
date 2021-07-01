@@ -3,3 +3,8 @@
 #, python-format
 msgid "Time Tracking: %(user)s"
 msgstr "Seguimiento de tiempo: %(user)s "
+
+#. module: 4dproyectos_mrp
+#: model_terms:ir.ui.view,arch_db:4dproyectos_mrp.mrp_workcenter_productivity_tree_view
+msgid "Duration (minutes)"
+msgstr "Duración (minutos)"

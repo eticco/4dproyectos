@@ -9,6 +9,7 @@
     'version': '14.0.1',
     'depends': [
         'base',
+        'eticco_unattended_install'
     ],
     'data': [
             'views/main_menu_view.xml',

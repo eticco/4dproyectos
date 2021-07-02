@@ -1,0 +1,4 @@
+Tras instalar eticco_unattended_install, he tenido que:
+
+Ajustes > Traducciones > Idiomas > Español > Activar > Sobrescribir términos existentes
+Fabricación > Configuración > Ajustes > Marcar Órdenes de trabajo

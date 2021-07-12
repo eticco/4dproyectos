@@ -51,8 +51,7 @@
 	
 	<menuitem id="menu_mrp_charge_hours"
 			action="action_charge_hours_wizard"
-			parent="mrp.menu_mrp_root"
             name="Cargar horas"
-            sequence="10" groups="base.group_user" />
+            sequence="10" groups="4dproyectos_mrp.group_4d_technician" />
         
 </odoo>

@@ -2,23 +2,52 @@
 <odoo>
 
     <!-- Oculto todos menos CONTACTOS/OBRAS/FABRICACION/EMPLEADOS/ASISTENCIA -->
+    <!-- Conversaciones: Sólo modo desarrollador -->
     <record model="ir.ui.menu" id="mail.menu_root_discuss">
         <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
     </record>
+    <!-- Calendario: Sólo modo desarrollador -->
     <record model="ir.ui.menu" id="calendar.mail_menu_calendar">
         <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
     </record>
+    <!-- Contactos: Sólo administradores, en cualquier modo-->
+    <record model="ir.ui.menu" id="contacts.menu_contacts">
+        <field name="groups_id" eval="[(6, 0, [ref('hr.group_hr_manager')])]"/>
+    </record>
+    <!-- CRM: Sólo modo desarrollador -->
     <record model="ir.ui.menu" id="crm.crm_menu_root">
         <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
     </record>
+    <!-- Cargar horas: Lo ven todos. Definido en 4dproyectos_mrp -->
+    <!-- Inventario: Sólo administradores, en cualquier modo -->
+    <record model="ir.ui.menu" id="stock.menu_stock_root">
+        <field name="groups_id" eval="[(6, 0, [ref('hr.group_hr_manager')])]"/>
+    </record>
+    <!-- Rastr. enlaces: Por defecto, sólo en modo desarrollador -->
+    <!-- Obra: Sólo administradores, en cualquier modo -->
+    <record model="ir.ui.menu" id="project.menu_main_pm">
+        <field name="groups_id" eval="[(6, 0, [ref('hr.group_hr_manager')])]"/>
+    </record>
+    <!-- Fabricación: Sólo administradores, en cualquier modo -->
+    <record model="ir.ui.menu" id="mrp.menu_mrp_root">
+        <field name="groups_id" eval="[(6, 0, [ref('hr.group_hr_manager')])]"/>
+    </record>
+    <!-- Empleados: Sólo administradores, en cualquier modo -->
+    <record model="ir.ui.menu" id="hr.menu_hr_root">
+        <field name="groups_id" eval="[(6, 0, [ref('hr.group_hr_manager')])]"/>
+    </record>
+    <!-- Asistencias: Lo ven todos -->
+    <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_root">
+        <field name="groups_id" eval="[(6, 0, [ref('hr.group_hr_manager'),ref('hr.group_hr_user'),ref('base.group_user')])]"/>
+    </record>
+    <!-- Mantenimiento: Sólo modo desarrollador -->
     <record model="ir.ui.menu" id="maintenance.menu_maintenance_title">
         <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
     </record>
+    <!-- Aplicaciones: Por defecto, sólo en modo desarrollador -->
+    <!-- Ajustes: Sólo modo desarrollador -->
     <record model="ir.ui.menu" id="base.menu_management">
         <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
-    </record>
-    <record model="ir.ui.menu" id="hr.menu_hr_root">
-        <field name="groups_id" eval="[(6, 0, [ref('hr.group_hr_manager'),ref('hr.group_hr_user'),ref('base.group_user')])]"/>
     </record>
 
     <menuitem id="project.menu_main_pm" name="Obras" sequence="32" />

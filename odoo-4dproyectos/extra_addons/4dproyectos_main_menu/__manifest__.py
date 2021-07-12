@@ -9,7 +9,16 @@
     'version': '14.0.1',
     'depends': [
         'base',
-        'eticco_unattended_install'
+        'mail',
+        'calendar',
+        'contacts',
+        'crm',
+        'stock',
+        'project',
+        'mrp',
+        'hr',
+        'hr_attendance',
+        'maintenance',
     ],
     'data': [
             'views/main_menu_view.xml',

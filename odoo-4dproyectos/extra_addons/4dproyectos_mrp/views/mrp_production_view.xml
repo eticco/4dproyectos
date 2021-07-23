@@ -70,6 +70,12 @@
 				<field name="product_uom_category_id" invisible="1"/>
 		    </field>
 
+			<xpath expr="//button[@name='action_confirm']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//button[@name='action_cancel']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
 			<xpath expr='//sheet/group/group/label[1]' position="replace">
 			</xpath>
 			<xpath expr="//div[@class='o_row no-gutters d-flex']" position="replace">

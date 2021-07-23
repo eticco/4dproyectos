@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+		<report id="mrp.action_report_production_order"
+			string="Production Order"
+			model="mrp.production"
+			report_type="qweb-pdf"
+			name="mrp.report_mrporder"
+			file="mrp.report.mrp_production_templates"
+			print_report_name="'Production Order - %s' % object.name"
+			menu="False" />
+		<report id="mrp.label_manufacture_template"
+			string="Finished Product Label (ZPL)"
+			model="mrp.production"
+			report_type="qweb-text"
+			name="mrp.label_production_view"
+			file="mrp.label_production_view"
+			menu="False" />
+		<report id="mrp.action_report_finished_product"
+			string="Finished Product Label (PDF)"
+			model="mrp.production"
+			report_type="qweb-pdf"
+			name="mrp.label_production_view_pdf"
+			file="mrp.label_production_view_pdf"
+			print_report_name="'Finished products - %s' % object.name"
+			menu="False" />
+
+
 		<report
 	        string="Orden de producción 4D"
 	        id="production4D"

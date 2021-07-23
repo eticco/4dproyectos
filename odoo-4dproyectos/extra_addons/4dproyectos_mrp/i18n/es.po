@@ -8,3 +8,10 @@ msgstr "Seguimiento de tiempo: %(user)s "
 #: model_terms:ir.ui.view,arch_db:4dproyectos_mrp.mrp_workcenter_productivity_tree_view
 msgid "Duration (minutes)"
 msgstr "Duración (minutos)"
+
+#. module: mrp
+#: model:ir.model.fields,help:mrp.field_mrp_production__date_planned_start
+#: model:ir.model.fields,help:mrp.field_mrp_workorder__production_date
+msgid "Date at which you plan to start the production."
+msgstr "Fecha en la que planea entregar la producción."
+

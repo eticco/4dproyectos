@@ -23,7 +23,11 @@
 					</group>
 					<group>
 						<field name="productivity_id" invisible="1" />
-						<field name="finish_order" attrs="{'invisible' : [('productivity_id', '=', False)]}" />
+						<label for="dummy_start" attrs="{'invisible' : ['|',('workorder_id', '=', False),('productivity_id', '=', True) ]}"/>
+						<label for="dummy_stop" attrs="{'invisible' : [('productivity_id', '=', False)]}"/>
+						<field name="dummy_start" invisible="1" />
+						<field name="dummy_stop" invisible="1" />
+						<!-- <field name="finish_order" attrs="{'invisible' : [('productivity_id', '=', False)]}" /> -->
 					</group>
 					<group style="text-align: center;">
 						<button name="action_charge_hours" class="btn btn-charge-hours fa-6x" type="object" string="Cargar" icon="fa-calendar-check-o" />

@@ -24,6 +24,10 @@ class ChargeHoursWizard(models.TransientModel):
     productivity_id = fields.Many2one(comodel_name="mrp.workcenter.productivity", string="Seguimiento de tiempo")
     finish_order    = fields.Boolean(string="Finalizar la orden", default=False)
 
+    # Estos campos sólo los uso para mostrar etiquetas
+    dummy_start= fields.Char(string="Se va a iniciar la carga de tiempo", required=False)
+    dummy_stop= fields.Char(string="Se va a terminar la carga de tiempo", required=False)
+
     @api.onchange('employee_text')
     def onchange_calculate_employee_id(self):
         if self.employee_text:

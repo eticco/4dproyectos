@@ -1,19 +1,16 @@
-﻿;PUESTO;CRITERIO DE CÓMPUTO;DESCRIPCIÓN
-1;Tronzadora;Nº de piezas de madera;Cortar madera de largo
-2;Sierra;Nº metros lineales de madera;Seccionar madera
-3;Moldurera;Nº metros lineales de madera;Cepillar madera a 4 caras
-4;Tupi (especiales);Nº metros lineales de madera;Trabajos especiales
-5;CNC;Nº de piezas de madera;Perfilar, moldurar y mecanizar piezas ventana
-6;Calibradora;Nº metros lineales de madera;Lijar ventanas y marcos
-7;Clips;Nº metros lineales de madera;Colocar clips de sujeción aluminio en banco herrajes
-8;Prensa;Nº de piezas de madera;Armar ventanas y marcos
-9;Repasado;Nº de piezas de madera;Repasar final ajunquillado antes de barnizar
-10;Barnizar;;ESTE TRABAJO ESTA EXTERNALIZADO
-11;Fallebas;Nº de hojas de ventana;Colocar fallebas a las ventanas en banco herrajes
-12;Montar hojas;;Colocar herrajes, aluminio, gomas y vidrio a las hojas
-13;Montar marcos;;Colocar aluminio a los marcos
-14;Abisagrar C/P;;Montar marcos, colocar cajón y colgar hojas en los marcos
-14;Abisagrar S/P;;Montar marcos, colocar cajón y colgar hojas en los marcos
-15;Corte aluminio;Nº de piezas de aluminio;Cortar perfiles de aluminio
-16;Ensamblar y colocar gomas;Nº de piezas de aluminio;Armar perfiles de aluminio y colocar las gomas
-17;Embalaje, carga y descarga;;Proteger ventanas para transporte + carga/descarga materiales
+﻿;PUESTO;OPERACION;DESCRIPCIÓN
+1;Tronzadora;Tronzadora;Cortar madera de largo
+2;Sierra;Sierra;Seccionar madera
+3;Moldurera;Moldurera;Cepillar madera a 4 caras
+4;Tupi (especiales);Tupi (especiales);Trabajos especiales
+5;CNC;CNC;Perfilar, moldurar y mecanizar piezas ventana
+6;Calibradora;Calibradora;Lijar ventanas y marcos
+7;Clips;Clips;Colocar clips de sujeción aluminio en banco herrajes
+8;Prensa;Prensa;Armar ventanas y marcos
+9;Repasado;Repasado;Repasar final ajunquillado antes de barnizar
+10;Fallebas;Fallebas;Colocar fallebas a las ventanas en banco herrajes
+11;Montar hojas;Montar hojas;Colocar herrajes, aluminio, gomas y vidrio a las hojas
+12;Montar marcos;Montar marcos;Colocar aluminio a los marcos
+13;Abisagrar;Abisagrar;Montar marcos, colocar cajón y colgar hojas en los marcos
+14;Corte aluminio;Corte aluminio;Cortar perfiles de aluminio
+15;Ensamblar y colocar gomas;Ensamblar y colocar gomas;Armar perfiles de aluminio y colocar las gomas

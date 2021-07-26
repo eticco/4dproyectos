@@ -22,12 +22,20 @@
 						</group>
 					</group>
 					<group style="text-align: center;">
-						<field name="productivity_id" invisible="1" />
-						<label for="dummy_start" style="font-size: 3em;" attrs="{'invisible' : ['|',('workorder_id', '=', False),('productivity_id', '!=', False) ]}"/>
-						<label for="dummy_stop"  style="font-size: 3em;" attrs="{'invisible' : [('productivity_id', '=', False)]}"/>
-						<field name="dummy_start" invisible="1" />
-						<field name="dummy_stop" invisible="1" />
-						<!-- <field name="finish_order" attrs="{'invisible' : [('productivity_id', '=', False)]}" /> -->
+						<group></group>
+						<group>
+							<field name="productivity_id" invisible="1" />
+							<label for="dummy_start" style="font-size: 3em;" attrs="{'invisible' : ['|',('workorder_id', '=', False),('productivity_id', '!=', False) ]}"/>
+							<field name="dummy_start" invisible="1" />
+						</group>
+					</group>
+					<group style="text-align: center;">
+						<group></group>
+						<group>
+							<label for="dummy_stop"  style="font-size: 3em;" attrs="{'invisible' : [('productivity_id', '=', False)]}"/>
+							<field name="dummy_stop" invisible="1" />
+							<!-- <field name="finish_order" attrs="{'invisible' : [('productivity_id', '=', False)]}" /> -->
+						</group>
 					</group>
 					<group style="text-align: center;">
 						<button name="action_charge_hours" class="btn btn-charge-hours fa-6x" type="object" string="Cargar" icon="fa-calendar-check-o" />
@@ -56,6 +64,7 @@
 	<menuitem id="menu_mrp_charge_hours"
 			action="action_charge_hours_wizard"
             name="Cargar horas"
-            sequence="10" groups="4dproyectos_mrp.group_4d_technician" />
+            sequence="10" groups="4dproyectos_charge_hours.group_4d_technician"
+			web_icon="4dproyectos_charge_hours,static/description/icon.png" />
         
 </odoo>

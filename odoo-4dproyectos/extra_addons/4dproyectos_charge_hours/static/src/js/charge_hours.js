@@ -1,5 +1,5 @@
 /* Global jscolor */
-odoo.define('4dproyectos_mrp.charge_hours', function(require) {
+odoo.define('4dproyectos_charge_hours.charge_hours', function(require) {
     "use strict";
 
     var basic_controller = require('web.BasicController');

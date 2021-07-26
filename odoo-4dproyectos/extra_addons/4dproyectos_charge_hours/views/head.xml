@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="4dproyectos_charge_hours_assets_backend" name="4dproyectos_charge_hours assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/4dproyectos_charge_hours/static/src/js/charge_hours.js"></script>
+        </xpath>
+    </template>
+</odoo>

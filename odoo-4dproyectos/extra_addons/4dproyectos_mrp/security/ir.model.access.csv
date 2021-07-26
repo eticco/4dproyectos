@@ -4,4 +4,3 @@ access_mrp_production_criteria_amount,mrp.production.criteria.amount,model_mrp_p
 access_mrp_wood,mrp.wood,model_mrp_wood,base.group_user,1,1,1,1
 access_mrp_varnish,mrp.varnish,model_mrp_varnish,base.group_user,1,1,1,1
 access_mrp_aluminum_color,mrp.aluminum.color,model_mrp_aluminum_color,base.group_user,1,1,1,1
-access_charge_hours_wizard,charge.hours.wizard,model_charge_hours_wizard,base.group_user,1,1,1,1

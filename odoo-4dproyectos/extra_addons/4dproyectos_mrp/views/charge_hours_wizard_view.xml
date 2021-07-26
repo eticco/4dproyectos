@@ -21,10 +21,10 @@
 							<field name="workorder_id" domain="[('production_id', '=', production_id), ('state', '!=', 'done')]" invisible="1"/>
 						</group>
 					</group>
-					<group>
+					<group style="text-align: center;">
 						<field name="productivity_id" invisible="1" />
-						<label for="dummy_start" attrs="{'invisible' : ['|',('workorder_id', '=', False),('productivity_id', '=', True) ]}"/>
-						<label for="dummy_stop" attrs="{'invisible' : [('productivity_id', '=', False)]}"/>
+						<label for="dummy_start" style="font-size: 3em;" attrs="{'invisible' : ['|',('workorder_id', '=', False),('productivity_id', '!=', False) ]}"/>
+						<label for="dummy_stop"  style="font-size: 3em;" attrs="{'invisible' : [('productivity_id', '=', False)]}"/>
 						<field name="dummy_start" invisible="1" />
 						<field name="dummy_stop" invisible="1" />
 						<!-- <field name="finish_order" attrs="{'invisible' : [('productivity_id', '=', False)]}" /> -->

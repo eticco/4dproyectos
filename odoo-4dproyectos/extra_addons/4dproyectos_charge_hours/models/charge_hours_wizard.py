@@ -87,4 +87,7 @@ class ChargeHoursWizard(models.TransientModel):
         self.production_id = False
         self.workorder_id = False
 
-        return True
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }

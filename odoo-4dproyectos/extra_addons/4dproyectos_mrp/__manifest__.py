@@ -10,10 +10,12 @@
     'depends': [
         '4dproyectos_hr',
         'mrp',
+        'web',
     ],
     'data': [
             'data/computation_criteria_data.xml',
             'data/groups.xml',
+            'data/ir_config_parameter.xml',
             'security/ir.model.access.csv',
             'views/mrp_production_view.xml',
             'views/mrp_workorder_view.xml',
@@ -22,6 +24,7 @@
             'views/mrp_bom_view.xml',
             'views/varnish_view.xml',
             'views/mrp_routing_workcenter_view.xml',
+            'views/head.xml',
     ],
     'demo': [],
     'application': False,

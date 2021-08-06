@@ -41,7 +41,7 @@ class MrpWorkorder(models.Model):
     # Guarda la fila de las cantidades de cómputo de la orden de producción que aplica a esta orden de trabajo
     criteria_amount_id = fields.Many2one(comodel_name = 'mrp.production.criteria.amount', string = 'Criterio de cómputo', compute='_compute_criteria_amount_id')
     criteria_name = fields.Char(string='Criterio de cómputo', related='criteria_amount_id.computation_criteria_id.name')
-    criteria_amount = fields.Integer(string='Cantidad', related='criteria_amount_id.amount')
+    criteria_amount = fields.Float(string='Cantidad', related='criteria_amount_id.amount')
 
     def _prepare_timeline_vals(self, duration, date_start, date_end=False):
         result = super(MrpWorkorder, self)._prepare_timeline_vals(duration, date_start, date_end)

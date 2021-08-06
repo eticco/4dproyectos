@@ -10,7 +10,7 @@ class MrpProduction(models.Model):
     
     code = fields.Char('Código', readonly=True)
     product_qty = fields.Float(string='Nº unidades')
-    sheet_qty = fields.Integer(string='Nº hojas', compute='_compute_sheet_qty')
+    sheet_qty = fields.Float(string='Nº hojas', compute='_compute_sheet_qty')
     criteria_amount_ids = fields.One2many(comodel_name = 'mrp.production.criteria.amount', inverse_name = 'production_id', string = 'Cantidades de cómputo', ondelete="cascade")
     partner_id = fields.Many2one(comodel_name="res.partner", string="Cliente", required=True)
     project_id = fields.Many2one(comodel_name="project.project", string="Obra", required=True)
@@ -145,7 +145,7 @@ class MrpProductionCriteriaAmount(models.Model):
 
     computation_criteria_id = fields.Many2one(comodel_name="mrp.computation.criteria", string="Criterio de cómputo", required=True, readonly=True)
     production_id = fields.Many2one(comodel_name="mrp.production", string="Orden de producción", required=True, readonly=True)
-    amount = fields.Integer(string="Cantidad")
+    amount = fields.Float(string="Cantidad")
 
 
 class MrpWood(models.Model):

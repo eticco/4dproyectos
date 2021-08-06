@@ -1,2 +1,3 @@
+06/08/2021 - Poner las cantidades de los criterios de cómputo como Float
 26/07/2021 - Mejoras tras formación, sobre todo en la carga de horas y en las asistencias
 02/07/2021 - Versión inicial
